@@ -83,5 +83,3 @@ apt-get update
 apt-get install -y openslide-tools
 apt-get install -y python-openslide
 
-# Run the custom Python script
-python data/megapixel_mnist/make_mnist.py --width 1500 --height 1500 data/megapixel_mnist/dsets/megapixel_mnist_1500
