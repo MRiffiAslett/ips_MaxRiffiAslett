@@ -82,4 +82,5 @@ pip install progress
 apt-get update
 apt-get install -y openslide-tools
 apt-get install -y python-openslide
+sudo apt-get install expect
 
