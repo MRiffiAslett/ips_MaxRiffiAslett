@@ -276,8 +276,36 @@ class IPSNet(nn.Module):
         if torch.is_tensor(mem_pos):
             mem_emb = mem_emb + mem_pos
 
-        image_emb = self.transf(mem_emb)
+        # Seperate main embeddings and image embeddings
+        image_emb = self.transf(mem_emb)[0]
+
+        branch_embeddings = self.transf(mem_emb)[1]
 
         preds = self.get_preds(image_emb)
+
+        branch_preds = []
+
+        for i in range(branch_embeddings.shape[1]):
+          branch_preds.append(self.get_preds(branch_embeddings[:,i]))
+
+        if isinstance(preds, dict):
+            for key, value in preds.items():
+                print(f'Prediction key: {key}, value shape: {value.shape if hasattr(value, "shape") else "Not a tensor"}')
+        else:
+            print(f'Prediction shape main: {preds.shape}')
+
+        # Similarly for branch_preds[0] if it might be a dictionary
+        if isinstance(branch_preds[0], dict):
+            for key, value in branch_preds[0].items():
+                print(f'Branch prediction key: {key}, value shape: {value.shape if hasattr(value, "shape") else "Not a tensor"}')
+        else:
+            print(f'Prediction shape main: {branch_preds[0].shape}')
+
+            
+        return preds, branch_preds
         
-        return preds
+    def compute_diversity_loss(self):
+        """
+        Compute the diversity loss using the attention maps from the transformer.
+        """
+        return self.transf.compute_diversity_loss()

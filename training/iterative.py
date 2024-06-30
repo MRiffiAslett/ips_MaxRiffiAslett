@@ -1,6 +1,7 @@
 import sys
 import numpy as np
 import torch
+import torch.nn.functional as F
 
 from utils.utils import adjust_learning_rate
 
@@ -29,11 +30,10 @@ def init_batch(device, conf):
     return mem_patch, mem_pos_enc, labels
 
 def fill_batch(mem_patch, mem_pos_enc, labels, data, n_prep, n_prep_batch,
-            mem_patch_iter, mem_pos_enc_iter, conf):
+               mem_patch_iter, mem_pos_enc_iter, conf):
     """
     Fill the patch, pos enc and label buffers and update helper variables
     """
-
     n_seq, len_seq = mem_patch_iter.shape[:2]
     mem_patch[n_prep:n_prep+n_seq, :len_seq] = mem_patch_iter
     if conf.use_pos:
@@ -62,13 +62,61 @@ def shrink_batch(mem_patch, mem_pos_enc, labels, n_prep, conf):
     
     return mem_patch, mem_pos_enc, labels
 
+def compute_diversity_loss(attn_maps):
+    if attn_maps is None:
+        raise ValueError("Attention maps not computed. Ensure forward pass is run before computing diversity loss.")
+    
+    # Assuming attn_maps has shape [batch_size, num_heads, seq_length, seq_length]
+    batch_size, num_heads, tokens, sequence_length = attn_maps.shape
+    diversity_loss = 0
+    
+    for i in range(num_heads):
+        for j in range(i + 1, num_heads):
+            # Compute cosine similarity between different heads
+            # Reshape the tensor to be 3D: [batch_size, seq_length * seq_length]
+            attn_map_i = attn_maps[:, i, :, :].view(batch_size, -1)
+            attn_map_j = attn_maps[:, j, :, :].view(batch_size, -1)
+            
+            # Compute cosine similarity along the last dimension and then mean over the batch
+            diversity_loss += F.cosine_similarity(attn_map_i, attn_map_j, dim=-1).mean()
+    
+    diversity_loss = (2 / (num_heads * (num_heads - 1))) * diversity_loss
+    print(f'diversity_loss: {diversity_loss}')
+    return diversity_loss
+
+def compute_semantic_loss(branch_outputs, labels, criterions, conf):
+    """
+    Compute the semantic loss for each task using the branch outputs.
+    """
+    semantic_loss = 0
+    for task in conf.tasks.values():
+        t_name, t_act = task['name'], task['act_fn']
+        criterion = criterions[t_name]
+        label = labels[t_name]
+
+        for branch_preds in branch_outputs:
+            branch_pred = branch_preds[t_name].squeeze(-1)
+            if t_act == 'softmax':
+                pred_loss = torch.log(branch_pred + conf.eps)
+                label_loss = label
+            else:
+                pred_loss = branch_pred.view(-1)
+                label_loss = label.view(-1).type(torch.float32)
+
+            semantic_loss += criterion(pred_loss, label_loss)
+
+    # Average over all branches and tasks
+    semantic_loss /= (len(branch_outputs) * len(conf.tasks.values()))
+    print(f'semantic_loss: {semantic_loss}')
+    return semantic_loss
+
 def compute_loss(net, mem_patch, mem_pos_enc, criterions, labels, conf):
     """
-    Obtain predictions, compute losses for each task and get some logging stats
+    Obtain predictions, compute losses for each task and get some logging stats.
     """
 
     # Obtain predictions
-    preds = net(mem_patch, mem_pos_enc)
+    main_output, branch_outputs = net(mem_patch, mem_pos_enc)
 
     # Compute losses for each task and sum them up
     loss = 0
@@ -78,26 +126,42 @@ def compute_loss(net, mem_patch, mem_pos_enc, criterions, labels, conf):
 
         criterion = criterions[t_name]
         label = labels[t_name]
-        pred = preds[t_name].squeeze(-1)
 
+        # Main output loss
+        main_pred = main_output[t_name].squeeze(-1)
         if t_act == 'softmax':
-            pred_loss = torch.log(pred + conf.eps)
+            pred_loss = torch.log(main_pred + conf.eps)
             label_loss = label
         else:
-            pred_loss = pred.view(-1)
+            pred_loss = main_pred.view(-1)
             label_loss = label.view(-1).type(torch.float32)
 
-        task_loss = criterion(pred_loss, label_loss)
-        # for logs
-        task_losses[t_name] = task_loss.item()
-        task_preds[t_name] = pred.detach().cpu().numpy()
+        main_task_loss = criterion(pred_loss, label_loss)
+        task_losses[t_name] = main_task_loss.item()
+
+        task_preds[t_name] = main_pred.detach().cpu().numpy()
         task_labels[t_name] = label.detach().cpu().numpy()
 
-        loss += task_loss
-    # Average task losses        
-    loss /= len(conf.tasks.values())
+        loss += main_task_loss
 
-    return loss, [task_losses, task_preds, task_labels]
+    print(f'loss before diversity and semantic: {loss}')
+
+    # Compute diversity loss
+    diversity_loss = compute_diversity_loss(net.transf.attn_maps)
+    print(f'diversity_loss: {diversity_loss}')
+
+    # Compute semantic loss
+    semantic_loss = compute_semantic_loss(branch_outputs, labels, criterions, conf)
+    print(f'semantic_loss: {semantic_loss}')
+
+    # Total loss
+    total_loss = loss + diversity_loss + semantic_loss
+
+    # Average task losses        
+    total_loss /= len(conf.tasks.values())
+
+    return total_loss, [task_losses, task_preds, task_labels]
+
 
 
 def train_one_epoch(net, criterions, data_loader, optimizer, device, epoch, log_writer, conf):
