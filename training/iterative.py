@@ -119,16 +119,15 @@ def compute_semantic_loss(branch_outputs, labels, criterions, conf):
         
         semantic_losses.append(branch_loss)
     
-    semantic_losses_tensor = torch.stack(semantic_losses)
-    mean_semantic_loss = semantic_losses_tensor.mean()
-    median_semantic_loss = semantic_losses_tensor.median()
-    variance_semantic_loss = semantic_losses_tensor.var()
+    semantic_losses_tensor = torch.stack(semantic_losses) /= len(conf.tasks.values())
+    mean_semantic_loss = semantic_losses_tensor.mean() /=  len(conf.tasks.values())
+    median_semantic_loss = semantic_losses_tensor.median()  /= len(conf.tasks.values())
+    variance_semantic_loss = semantic_losses_tensor.var()  /= len(conf.tasks.values())
 
     # Print out the mean, median, and variance of semantic loss
     print(f"Semantic Loss - Mean: {mean_semantic_loss:.4f}, Median: {median_semantic_loss:.4f}, Variance: {variance_semantic_loss:.4f}\n\n")
 
-    return semantic_losses_tensor.mean()
-
+    return semantic_losses_tensor.mean() /=  len(conf.tasks.values())
 
 
 def compute_loss(net, mem_patch, mem_pos_enc, criterions, labels, conf):
