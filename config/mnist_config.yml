@@ -1,9 +1,9 @@
 #opt
-n_epoch: 150          # number of epochs
+n_epoch: 10          # number of epochs
 B: 16                 # batch size
 B_seq: 16             # sequential batch size, set either to
                       # B (eager and lazy loading) or 1 (eager sequential loading)
-n_epoch_warmup: 10    # number of warm-up epochs
+n_epoch_warmup: 9    # number of warm-up epochs
 lr: 0.001             # learning rate
 wd: 0.1               # weight decay
 
