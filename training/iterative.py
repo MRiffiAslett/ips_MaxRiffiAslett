@@ -87,12 +87,12 @@ def compute_diversity_loss(attn_maps):
     variance_diversity_loss = diversity_losses_tensor.var()
     
     # Print out the statistics
-    print(f"Diversity Loss Statistics - Mean: {mean_diversity_loss:.4f}, Median: {median_diversity_loss:.4f}, Variance: {variance_diversity_loss:.4f}")
+    #print(f"Diversity Loss Statistics - Mean: {mean_diversity_loss:.4f}, Median: {median_diversity_loss:.4f}, Variance: {variance_diversity_loss:.4f}")
     
     # Calculate the average diversity loss as originally intended
     overall_diversity_loss = (2 / (num_heads * (num_heads - 1))) * torch.sum(diversity_losses_tensor)
     
-    return overall_diversity_loss
+    return overall_diversity_loss, variance_diversity_loss
 
 def compute_semantic_loss(branch_outputs, labels, criterions, conf):
     """
@@ -119,15 +119,24 @@ def compute_semantic_loss(branch_outputs, labels, criterions, conf):
         
         semantic_losses.append(branch_loss)
     
-    semantic_losses_tensor = torch.stack(semantic_losses) /= len(conf.tasks.values())
-    mean_semantic_loss = semantic_losses_tensor.mean() /=  len(conf.tasks.values())
-    median_semantic_loss = semantic_losses_tensor.median()  /= len(conf.tasks.values())
-    variance_semantic_loss = semantic_losses_tensor.var()  /= len(conf.tasks.values())
+    # Stack the semantic losses into a tensor
+    semantic_losses_tensor = torch.stack(semantic_losses)
+
+    # Get the number of tasks
+    num_tasks = len(conf.tasks.values())
+
+    # Divide each semantic loss in the tensor by the number of tasks
+    semantic_losses_tensor /= num_tasks
+
+    # Compute the mean, median, and variance of the adjusted tensor
+    mean_semantic_loss = semantic_losses_tensor.mean()
+    median_semantic_loss = semantic_losses_tensor.median()
+    variance_semantic_loss = semantic_losses_tensor.var()
 
     # Print out the mean, median, and variance of semantic loss
-    print(f"Semantic Loss - Mean: {mean_semantic_loss:.4f}, Median: {median_semantic_loss:.4f}, Variance: {variance_semantic_loss:.4f}\n\n")
+    #print(f"Semantic Loss - Mean: {mean_semantic_loss:.4f}, Median: {median_semantic_loss:.4f}, Variance: {variance_semantic_loss:.4f}\n\n")
 
-    return semantic_losses_tensor.mean() /=  len(conf.tasks.values())
+    return mean_semantic_loss, variance_semantic_loss
 
 
 def compute_loss(net, mem_patch, mem_pos_enc, criterions, labels, conf):
@@ -168,81 +177,60 @@ def compute_loss(net, mem_patch, mem_pos_enc, criterions, labels, conf):
     loss /= len(conf.tasks.values())
 
     # Compute diversity loss
-    diversity_loss = compute_diversity_loss(net.transf.attn_maps)
+    diversity_loss, variance_diversity_loss = compute_diversity_loss(net.transf.attn_maps)
 
     # Compute semantic loss
-    semantic_loss = compute_semantic_loss(branch_outputs, labels, criterions, conf)
+    semantic_loss, variance_semantic_loss = compute_semantic_loss(branch_outputs, labels, criterions, conf)
 
     # Total loss
     total_loss = loss + diversity_loss + semantic_loss
 
-    return total_loss, [task_losses, task_preds, task_labels]
+    return total_loss, task_losses, task_preds, task_labels, diversity_loss, semantic_loss, variance_diversity_loss, variance_semantic_loss
 
 
 
 def train_one_epoch(net, criterions, data_loader, optimizer, device, epoch, log_writer, conf):
-    """
-    Trains the given network for one epoch according to given criterions (loss functions)
-    """
-
-    # Set the network to training mode
     net.train()
 
-    # Initialize helper variables
-    n_prep, n_prep_batch = 0, 0 # num of prepared images/batches
+    n_prep, n_prep_batch = 0, 0 
     mem_pos_enc = None
     start_new_batch = True
 
-    times = [] # only used when tracking efficiency stats
-    # Loop through dataloader
+    times = []
     for data_it, data in enumerate(data_loader, start=epoch * len(data_loader)):
-        # Move input batch onto GPU if eager execution is enabled (default), else leave it on CPU
-        # Data is a dict with keys `input` (patches) and `{task_name}` (labels for given task)
         image_patches = data['input'].to(device) if conf.eager else data['input']
 
-        # If starting a new batch, create placeholders for data which are filled later
         if start_new_batch:
             mem_patch, mem_pos_enc, labels = init_batch(device, conf)
             start_new_batch = False
 
-            # If tracking efficiency, record time from here.
             if conf.track_efficiency:
                 start_event = torch.cuda.Event(enable_timing=True)
                 end_event = torch.cuda.Event(enable_timing=True)
                 start_event.record()
         
-        # Apply IPS to input patches
         mem_patch_iter, mem_pos_enc_iter = net.ips(image_patches)
         
-        # Fill batch placeholders with patches from IPS step
         batch_data = fill_batch(mem_patch, mem_pos_enc, labels, data, n_prep, n_prep_batch,
                                 mem_patch_iter, mem_pos_enc_iter, conf)
         mem_patch, mem_pos_enc, labels, n_prep, n_prep_batch = batch_data
 
-        # Check if the current batch is full or if it is the last batch
         batch_full = (n_prep == conf.B)
         is_last_batch = n_prep_batch == len(data_loader)
 
-        # Do training step as soon as batch is full (or last batch)
         if batch_full or is_last_batch:
 
             if not batch_full:
-                # Last batch may not be full, so remove empty instances
                 mem_patch, mem_pos_enc, labels = shrink_batch(mem_patch, mem_pos_enc, labels, n_prep, conf)
             
-            # Calculate and set new learning rate
             adjust_learning_rate(conf.n_epoch_warmup, conf.n_epoch, conf.lr, optimizer, data_loader, data_it+1)
             optimizer.zero_grad()
 
-            # Compute loss
-            loss, task_info = compute_loss(net, mem_patch, mem_pos_enc, criterions, labels, conf)
-            task_losses, task_preds, task_labels = task_info
+            loss, task_losses, task_preds, task_labels, diversity_loss, semantic_loss, variance_diversity_loss, variance_semantic_loss = compute_loss(net, mem_patch, mem_pos_enc, criterions, labels, conf)
 
-            # Backpropagate error and update parameters
             loss.backward()
             optimizer.step()
 
-            # If tracking efficiency, log the time and memory usage
             if conf.track_efficiency:
                 end_event.record()
                 torch.cuda.synchronize()
@@ -250,10 +238,8 @@ def train_one_epoch(net, criterions, data_loader, optimizer, device, epoch, log_
                     times.append(start_event.elapsed_time(end_event))
                     print("time: ", times[-1])
 
-            # Update log
-            log_writer.update(task_losses, task_preds, task_labels)
+            log_writer.update(task_losses, task_preds, task_labels, diversity_loss, semantic_loss, variance_diversity_loss, variance_semantic_loss)
 
-            # Reset helper variables
             n_prep = 0
             start_new_batch = True
     
@@ -269,18 +255,14 @@ def train_one_epoch(net, criterions, data_loader, optimizer, device, epoch, log_
             sys.exit()
 
 
-# Disable gradient calculation during evaluation
 @torch.no_grad()
-def evaluate(net, criterions, data_loader, device, log_writer, conf):
-
-    # Set the network to evaluation mode
+def evaluate(net, criterions, data_loader, device, log_writer, conf, epoch):
     net.eval()
 
-    # Remaining parts similar to training loop
     n_prep, n_prep_batch = 0, 0
     mem_pos_enc = None
     start_new_batch = True
-    
+
     for data in data_loader:
         image_patches = data['input'].to(device) if conf.eager else data['input']
 
@@ -301,11 +283,11 @@ def evaluate(net, criterions, data_loader, device, log_writer, conf):
 
             if not batch_full:
                 mem_patch, mem_pos_enc, labels = shrink_batch(mem_patch, mem_pos_enc, labels, n_prep, conf)
-            
-            _, task_info = compute_loss(net, mem_patch, mem_pos_enc, criterions, labels, conf)
-            task_losses, task_preds, task_labels = task_info
 
-            log_writer.update(task_losses, task_preds, task_labels)
+            loss, task_losses, task_preds, task_labels, diversity_loss, semantic_loss, variance_diversity_loss, variance_semantic_loss = compute_loss(net, mem_patch, mem_pos_enc, criterions, labels, conf)
+
+            log_writer.update(task_losses, task_preds, task_labels, diversity_loss, semantic_loss, variance_diversity_loss, variance_semantic_loss)
 
             n_prep = 0
             start_new_batch = True
+
