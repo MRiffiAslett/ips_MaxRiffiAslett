@@ -255,13 +255,13 @@ def main(argv):
     parser.add_argument(
         "--width",
         type=int,
-        default=1500,
+        default=3000,
         help="Set the width for the image"
     )
     parser.add_argument(
         "--height",
         type=int,
-        default=1500,
+        default=3000,
         help="Set the height for the image"
     )
     parser.add_argument(
