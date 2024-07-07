@@ -49,7 +49,17 @@ fi
 docker run --gpus all --shm-size=4g --rm -v "$REPO_DIR:/app" -v "$RESULTS_DIR:/app/results" $IMAGE_NAME bash -c "
   cd /app
   
-  python3 $DATA_SCRIPT_PATH --width 28 --height 28 --canvas-width 3000 --canvas-height 3000 --data-dir $DATA_DIR
+  # Ensure data directory exists
+  mkdir -p $DATA_DIR
+  
+  # Generate the dataset if needed
+  python3 $DATA_SCRIPT_PATH --width 28 --height 28 --width 3000 --height 3000 --data-dir $DATA_DIR
+  
+  # Check if parameters.json is created
+  if [ ! -f '$DATA_DIR/parameters.json' ]; then
+    echo 'parameters.json not found. Data generation failed.'
+    exit 1
+  fi
 
   # Run the main script and capture the output
   unbuffer python3 $MAIN_SCRIPT_PATH | tee $OUTPUT_FILE
