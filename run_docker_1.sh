@@ -21,7 +21,7 @@ REPO_DIR="$(pwd)"
 RESULTS_DIR="$REPO_DIR/results"
 SCRIPT_DIR="/app/ips_MaxRiffiAslett"
 MAIN_SCRIPT_PATH="$SCRIPT_DIR/main.py"
-DATA_SCRIPT_PATH="$SCRIPT_DIR/data/megapixel_mnist/make_mnist.py"
+DATA_SCRIPT_PATH="$SCRIPT_DIR/data/megapixel_mnist/PineneedleMegaMNIST_150.py"
 DATA_DIR="$SCRIPT_DIR/data/megapixel_mnist/dsets/megapixel_mnist_1500"
 OUTPUT_FILE="/app/results/results_28_28_3000_3000_150n.txt"
 DOCKERFILE_PATH="$REPO_DIR/Dockerfile.txt"
@@ -47,7 +47,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # Run the Docker container and mount the repository and results directory
-docker run --gpus all --shm-size=4g --rm -v "$REPO_DIR:/app/ips_MaxRiffiAslett" -v "$RESULTS_DIR:/app/results" $IMAGE_NAME bash -c "
+docker run --gpus all --shm-size=16g --rm -v "$REPO_DIR:/app/ips_MaxRiffiAslett" -v "$RESULTS_DIR:/app/results" $IMAGE_NAME bash -c "
   cd /app/ips_MaxRiffiAslett
   
   # Ensure data directory exists
@@ -55,7 +55,7 @@ docker run --gpus all --shm-size=4g --rm -v "$REPO_DIR:/app/ips_MaxRiffiAslett" 
   
   # Generate the dataset and log the output
   echo 'Generating dataset...'
-  python3 $DATA_SCRIPT_PATH --width 3000 --height 3000 --n_noise 150 $DATA_DIR > /app/results/data_generation.log 2>&1
+  python3 $DATA_SCRIPT_PATH 28 28 --width 3000 --height 3000 --n_noise 150 $DATA_DIR > /app/results/data_generation.log 2>&1
   
   # Check if parameters.json is created
   if [ ! -f '$DATA_DIR/parameters.json' ]; then
@@ -64,5 +64,5 @@ docker run --gpus all --shm-size=4g --rm -v "$REPO_DIR:/app/ips_MaxRiffiAslett" 
   fi
 
   # Run the main script and capture the output
-  unbuffer python3 $MAIN_SCRIPT_PATH | tee $OUTPUT_FILE
+  unbuffer python3 $MAIN_SCRIPT_PATH --num_workers 4 | tee $OUTPUT_FILE
 "
