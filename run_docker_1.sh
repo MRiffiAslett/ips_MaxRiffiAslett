@@ -39,10 +39,11 @@ mkdir -p "$DATA_DIR"
 rm -rf "$DATA_DIR/*"
 
 # Build the Docker image
-docker build -t $IMAGE_NAME -f $DOCKERFILE_PATH . > "$RESULTS_DIR/docker_build_$(date +%s).log" 2>&1
+DOCKER_BUILD_LOG="$RESULTS_DIR/docker_build_$(date +%s).log"
+docker build -t $IMAGE_NAME -f $DOCKERFILE_PATH . > "$DOCKER_BUILD_LOG" 2>&1
 
 if [ $? -ne 0 ]; then
-  echo "Docker image build failed. Check the log for details: $RESULTS_DIR/docker_build_$(date +%s).log"
+  echo "Docker image build failed. Check the log for details: $DOCKER_BUILD_LOG"
   exit 1
 fi
 
@@ -55,14 +56,15 @@ docker run --gpus all --shm-size=16g --rm -v "$REPO_DIR:/app/ips_MaxRiffiAslett"
   
   # Generate the dataset and log the output
   echo 'Generating dataset...'
-  python3 $DATA_SCRIPT_PATH 28 28 --width 3000 --height 3000 --n_noise 150 $DATA_DIR > /app/results/data_generation.log 2>&1
+  DATA_GEN_LOG='/app/results/data_generation_$(date +%s).log'
+  python3 $DATA_SCRIPT_PATH 28 28 --width 3000 --height 3000 --n_noise 150 $DATA_DIR 
   
   # Check if parameters.json is created
   if [ ! -f '$DATA_DIR/parameters.json' ]; then
-    echo 'parameters.json not found. Data generation failed.' >> /app/results/data_generation.log
+    echo 'parameters.json not found. Data generation failed.' 
     exit 1
   fi
 
   # Run the main script and capture the output
-  unbuffer python3 $MAIN_SCRIPT_PATH --num_workers 4 | tee $OUTPUT_FILE
+  unbuffer python3 $MAIN_SCRIPT_PATH | tee $OUTPUT_FILE
 "
