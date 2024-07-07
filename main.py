@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 import os
 import yaml
 from pprint import pprint
@@ -15,6 +13,11 @@ from data.megapixel_mnist.mnist_dataset import MegapixelMNIST
 #from data.camelyon.camelyon_dataset import CamelyonFeatures
 from architecture.ips_net import IPSNet
 from training.iterative import train_one_epoch, evaluate
+
+# Ensure the script is running from the correct directory
+script_dir = os.path.dirname(os.path.abspath(__file__))
+config_path = os.path.join(script_dir, 'config', 'mnist_config.yml')
+
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
