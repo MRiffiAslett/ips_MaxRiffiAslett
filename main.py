@@ -11,8 +11,8 @@ from torch.utils.data import DataLoader
 
 from utils.utils import Logger, Struct
 from data.megapixel_mnist.mnist_dataset import MegapixelMNIST
-from data.traffic.traffic_dataset import TrafficSigns
-from data.camelyon.camelyon_dataset import CamelyonFeatures
+#from data.traffic.traffic_dataset import TrafficSigns
+#from data.camelyon.camelyon_dataset import CamelyonFeatures
 from architecture.ips_net import IPSNet
 from training.iterative import train_one_epoch, evaluate
 
