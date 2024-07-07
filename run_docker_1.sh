@@ -19,12 +19,12 @@ start_rootless_docker.sh --quiet
 IMAGE_NAME="my-custom-image"
 REPO_DIR="$(pwd)"
 RESULTS_DIR="$REPO_DIR/results"
-SCRIPT_DIR="/home/mra23/ips_MaxRiffiAslett"
+SCRIPT_DIR="/app"
 MAIN_SCRIPT_PATH="$SCRIPT_DIR/main.py"
 DATA_SCRIPT_PATH="$SCRIPT_DIR/data/megapixel_mnist/PineneedleMegaMNIST_200.py"
 DATA_DIR="$SCRIPT_DIR/data/megapixel_mnist/dsets/megapixel_mnist_1500"
-OUTPUT_FILE="$RESULTS_DIR/results_28_28_3000_3000_150n.txt"
-DOCKERFILE_PATH="$SCRIPT_DIR/Dockerfile.txt"
+OUTPUT_FILE="/app/results/results_28_28_3000_3000_150n.txt"
+DOCKERFILE_PATH="$REPO_DIR/Dockerfile.txt"
 
 # Ensure the repository and results directories exist
 if [ ! -d "$REPO_DIR" ]; then
@@ -33,6 +33,9 @@ if [ ! -d "$REPO_DIR" ]; then
 fi
 
 mkdir -p "$RESULTS_DIR"
+
+# Clear previous data
+rm -rf "$RESULTS_DIR/*"
 
 # Build the Docker image
 docker build -t $IMAGE_NAME -f $DOCKERFILE_PATH . > "$RESULTS_DIR/docker_build_$(date +%s).log" 2>&1
