@@ -342,4 +342,3 @@ def main(argv):
 # Usage example: python make_mnist.py --width 1500 --height 1500 dsets/megapixel_mnist_1500
 if __name__ == "__main__":
     main(sys.argv[1:])
-
