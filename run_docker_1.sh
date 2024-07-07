@@ -51,9 +51,9 @@ mkdir -p "$DATA_DIR"
 
 # 1. Build the Docker image with no cache to force rebuild
 echo "Building Docker image: $IMAGE_NAME"
-docker build --no-cache -t $IMAGE_NAME .
-if [ $? -ne 0 ]; then
-  echo "Docker image build failed"
+docker build --no-cache -t $IMAGE_NAME . | tee /home/mra23/ips_MaxRiffiAslett/output/docker_build_%j.log
+if [ ${PIPESTATUS[0]} -ne 0 ]; then
+  echo "Docker image build failed. Check the log for details: /home/mra23/ips_MaxRiffiAslett/output/docker_build_%j.log"
   exit 1
 fi
 
