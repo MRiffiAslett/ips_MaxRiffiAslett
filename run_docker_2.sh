@@ -64,5 +64,5 @@ docker run --gpus all --shm-size=16g --rm -v "$REPO_DIR:/app/ips_MaxRiffiAslett"
   fi
 
   # Run the main script and capture the output
-  unbuffer python3 $MAIN_SCRIPT_PATH --num_workers 4 | tee $OUTPUT_FILE
+  unbuffer python3 $MAIN_SCRIPT_PATH | tee $OUTPUT_FILE
 "
