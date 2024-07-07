@@ -7,9 +7,9 @@
 #SBATCH --gpus-per-task=1
 #SBATCH --gpu-bind=single:1 
 #SBATCH --time=24:00:00
-#SBATCH --chdir=/home/mra23/ips_attention_masking
-#SBATCH -e /home/mra23/ips_attention_masking/output/run_all_docker_jobs_%j.err
-#SBATCH -o /home/mra23/ips_attention_masking/output/run_all_docker_jobs_%j.out
+#SBATCH --chdir=/home/mra23/ips_MaxRiffiAslett
+#SBATCH -e /home/mra23/ips_MaxRiffiAslett/output/run_all_docker_jobs_%j.err
+#SBATCH -o /home/mra23/ips_MaxRiffiAslett/output/run_all_docker_jobs_%j.out
 
 # Start rootless Docker daemon
 module load rootless-docker
