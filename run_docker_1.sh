@@ -19,9 +19,9 @@ start_rootless_docker.sh --quiet
 IMAGE_NAME="my-custom-image"
 REPO_DIR="$(pwd)"
 RESULTS_DIR="$REPO_DIR/results"
-SCRIPT_DIR="/app"
+SCRIPT_DIR="/app/ips_MaxRiffiAslett"
 MAIN_SCRIPT_PATH="$SCRIPT_DIR/main.py"
-DATA_SCRIPT_PATH="$SCRIPT_DIR/data/megapixel_mnist/PineneedleMegaMNIST_200.py"
+DATA_SCRIPT_PATH="$SCRIPT_DIR/data/megapixel_mnist/PineneedleMegaMNIST.py"
 DATA_DIR="$SCRIPT_DIR/data/megapixel_mnist/dsets/megapixel_mnist_1500"
 OUTPUT_FILE="/app/results/results_28_28_3000_3000_150n.txt"
 DOCKERFILE_PATH="$REPO_DIR/Dockerfile.txt"
@@ -46,14 +46,14 @@ if [ $? -ne 0 ]; then
 fi
 
 # Run the Docker container and mount the repository and results directory
-docker run --gpus all --shm-size=4g --rm -v "$REPO_DIR:/app" -v "$RESULTS_DIR:/app/results" $IMAGE_NAME bash -c "
-  cd /app
+docker run --gpus all --shm-size=4g --rm -v "$REPO_DIR:/app/ips_MaxRiffiAslett" -v "$RESULTS_DIR:/app/results" $IMAGE_NAME bash -c "
+  cd /app/ips_MaxRiffiAslett
   
   # Ensure data directory exists
   mkdir -p $DATA_DIR
   
   # Generate the dataset if needed
-  python3 $DATA_SCRIPT_PATH --width 28 --height 28 --width 3000 --height 3000 --data-dir $DATA_DIR
+  python3 $DATA_SCRIPT_PATH 28 28 --width 3000 --height 3000 -- $DATA_DIR
   
   # Check if parameters.json is created
   if [ ! -f '$DATA_DIR/parameters.json' ]; then
