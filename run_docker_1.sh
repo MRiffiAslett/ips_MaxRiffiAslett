@@ -52,12 +52,13 @@ docker run --gpus all --shm-size=4g --rm -v "$REPO_DIR:/app/ips_MaxRiffiAslett" 
   # Ensure data directory exists
   mkdir -p $DATA_DIR
   
-  # Generate the dataset if needed
-  python3 $DATA_SCRIPT_PATH 28 28 --width 3000 --height 3000 -- $DATA_DIR
+  # Generate the dataset and log the output
+  echo 'Generating dataset...'
+  python3 $DATA_SCRIPT_PATH 28 28 --width 3000 --height 3000 -- $DATA_DIR > /app/results/data_generation.log 2>&1
   
   # Check if parameters.json is created
   if [ ! -f '$DATA_DIR/parameters.json' ]; then
-    echo 'parameters.json not found. Data generation failed.'
+    echo 'parameters.json not found. Data generation failed.' >> /app/results/data_generation.log
     exit 1
   fi
 
