@@ -37,10 +37,10 @@ mkdir -p "$RESULTS_DIR"
 docker build -t $IMAGE_NAME .
 
 # 2. Run the Docker container and mount the repository and results directory
-docker run --gpus all --shm-size=4g --rm -v "$REPO_DIR:/app/ips_attention_masking" -v "$RESULTS_DIR:/app/results" $IMAGE_NAME bash -c "
-  cd /app/ips_attention_masking
+docker run --gpus all --shm-size=4g --rm -v "$REPO_DIR:/app/ips_MaxRiffiAslett" -v "$RESULTS_DIR:/app/results" $IMAGE_NAME bash -c "
+  cd /app/ips_MaxRiffiAslett
   
-  python3 $DATA_SCRIPT_PATH --width 28 28 3000 --height 3000 $DATA_DIR
+  python3 $DATA_SCRIPT_PATH --width 28 28 --width 3000 --height 3000 -- $DATA_DIR
 
   # 4. Run the main scripts sequentially and capture the output
   unbuffer python3 $MAIN_SCRIPT_PATH | tee $OUTPUT_FILE
