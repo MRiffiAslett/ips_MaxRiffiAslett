@@ -5,7 +5,7 @@
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=50GB
 #SBATCH --gpus-per-task=1
-#SBATCH --gpu-bind=single:1 
+#SBATCH --gpu-bind=single:1
 #SBATCH --time=24:00:00
 #SBATCH --chdir=/home/mra23/ips_MaxRiffiAslett
 #SBATCH -e /home/mra23/ips_MaxRiffiAslett/output/run_all_docker_jobs_%j.err
@@ -33,6 +33,7 @@ if [ ! -d "$REPO_DIR" ]; then
 fi
 
 mkdir -p "$RESULTS_DIR"
+mkdir -p "$DATA_DIR"
 
 # Clear previous data
 rm -rf "$DATA_DIR/*"
@@ -54,7 +55,7 @@ docker run --gpus all --shm-size=4g --rm -v "$REPO_DIR:/app/ips_MaxRiffiAslett" 
   
   # Generate the dataset and log the output
   echo 'Generating dataset...'
-  python3 $DATA_SCRIPT_PATH 28 28 --width 3000 --height 3000 $DATA_DIR > /app/results/data_generation.log 2>&1
+  python3 $DATA_SCRIPT_PATH 28 28 --width 3000 --height 3000 --n_noise 150 $DATA_DIR > /app/results/data_generation.log 2>&1
   
   # Check if parameters.json is created
   if [ ! -f '$DATA_DIR/parameters.json' ]; then
