@@ -2,7 +2,7 @@
 #SBATCH --job-name=run_all_docker_jobs
 #SBATCH --partition=its-2a30-01-part
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=8
+#SBATCH --cpus-per-task=4
 #SBATCH --mem=50GB
 #SBATCH --gpus-per-task=1
 #SBATCH --gpu-bind=single:1
