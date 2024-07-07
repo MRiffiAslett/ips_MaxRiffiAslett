@@ -2,9 +2,11 @@
 #SBATCH --job-name=run_all_docker_jobs
 #SBATCH --partition=its-2a30-01-part
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=1
-#SBATCH --mem=10GB
-#SBATCH --time=01:00:00
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=50GB
+#SBATCH --gpus-per-task=1
+#SBATCH --gpu-bind=single:1 
+#SBATCH --time=24:00:00
 #SBATCH --chdir=/home/mra23/ips_attention_masking
 #SBATCH -e /home/mra23/ips_attention_masking/output/run_all_docker_jobs_%j.err
 #SBATCH -o /home/mra23/ips_attention_masking/output/run_all_docker_jobs_%j.out
