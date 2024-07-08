@@ -75,7 +75,7 @@ for epoch in range(conf.n_epoch):
     more_to_print = {'lr': optimizer.param_groups[0]['lr']}
     log_writer_train.print_stats(epoch, train=True, **more_to_print)
 
-    evaluate(net, criterions, test_loader, device, log_writer_test, conf)
+    evaluate(net, criterions, test_loader, device, log_writer_test, conf, epoch)
     
     log_writer_test.compute_metric()
     log_writer_test.print_stats(epoch, train=False)
