@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=run_all_docker_jobs_200
+#SBATCH --job-name=run_all_docker_jobs
 #SBATCH --partition=its-2a30-01-part
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
@@ -8,8 +8,8 @@
 #SBATCH --gpu-bind=single:1
 #SBATCH --time=24:00:00
 #SBATCH --chdir=/home/mra23/ips_MaxRiffiAslett
-#SBATCH -e /home/mra23/ips_MaxRiffiAslett/output/run_all_docker_jobs_200_%j.err
-#SBATCH -o /home/mra23/ips_MaxRiffiAslett/output/run_all_docker_jobs_200_%j.out
+#SBATCH -e /home/mra23/ips_MaxRiffiAslett/output/run_all_docker_jobs_%j.err
+#SBATCH -o /home/mra23/ips_MaxRiffiAslett/output/run_all_docker_jobs_%j.out
 
 # Start rootless Docker daemon
 module load rootless-docker
@@ -21,11 +21,10 @@ REPO_DIR="$(pwd)"
 RESULTS_DIR="$REPO_DIR/results"
 SCRIPT_DIR="/app/ips_MaxRiffiAslett"
 MAIN_SCRIPT_PATH="$SCRIPT_DIR/main.py"
-DATA_SCRIPT_PATH="$SCRIPT_DIR/data/megapixel_mnist/PineneedleMegaMNIST_150.py"
+DATA_SCRIPT_PATH="$SCRIPT_DIR/data/megapixel_mnist/PineneedleMegaMNIST_200.py"
 DATA_DIR="$SCRIPT_DIR/data/megapixel_mnist/dsets/megapixel_mnist_1500"
 OUTPUT_FILE="/app/results/results_28_28_3000_3000_200n.txt"
 DOCKERFILE_PATH="$REPO_DIR/Dockerfile.txt"
-DATA_GEN_LOG="/app/results/data_generation_200.log"
 
 # Ensure the repository and results directories exist
 if [ ! -d "$REPO_DIR" ]; then
@@ -40,10 +39,10 @@ mkdir -p "$DATA_DIR"
 rm -rf "$DATA_DIR/*"
 
 # Build the Docker image
-docker build -t $IMAGE_NAME -f $DOCKERFILE_PATH . > "$RESULTS_DIR/docker_build_200_$(date +%s).log" 2>&1
+docker build -t $IMAGE_NAME -f $DOCKERFILE_PATH . > "$RESULTS_DIR/docker_build_$(date +%s).log" 2>&1
 
 if [ $? -ne 0 ]; then
-  echo "Docker image build failed. Check the log for details: $RESULTS_DIR/docker_build_200_$(date +%s).log"
+  echo "Docker image build failed. Check the log for details: $RESULTS_DIR/docker_build_$(date +%s).log"
   exit 1
 fi
 
@@ -56,17 +55,11 @@ docker run --gpus all --shm-size=16g --rm -v "$REPO_DIR:/app/ips_MaxRiffiAslett"
   
   # Generate the dataset and log the output
   echo 'Generating dataset...'
-  python3 $DATA_SCRIPT_PATH 28 28 --width 3000 --height 3000 --n_noise 150 $DATA_DIR > $DATA_GEN_LOG 2>&1
+  python3 $DATA_SCRIPT_PATH 28 28 --width 3000 --height 3000 --n_noise 200 $DATA_DIR > /app/results/data_generation.log 2>&1
   
   # Check if parameters.json is created
   if [ ! -f '$DATA_DIR/parameters.json' ]; then
-    echo 'parameters.json not found. Data generation failed.' >> $DATA_GEN_LOG
-    exit 1
-  fi
-  
-  # Check the data generation log for errors
-  if grep -q 'Traceback' $DATA_GEN_LOG; then
-    echo 'Data generation failed. Check the log for details: $DATA_GEN_LOG' >> $DATA_GEN_LOG
+    echo 'parameters.json not found. Data generation failed.' >> /app/results/data_generation.log
     exit 1
   fi
 
