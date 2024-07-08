@@ -20,6 +20,10 @@ seed: 0
 track_efficiency: False   # for training, needs to be False
 track_epoch: 0            # only relevant if efficiency stats are tracked.
 
+# masking
+mask_p: 0
+mask_K: 10
+
 #enc
 is_image: True          # should a convolutional patch encoder be used?
 enc_type: 'resnet18'    # used backbone, set either to 'resnet18' or 'resnet50'
