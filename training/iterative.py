@@ -294,4 +294,3 @@ def evaluate(net, criterions, data_loader, device, log_writer, conf, epoch):
 
             n_prep = 0
             start_new_batch = True
-
