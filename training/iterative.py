@@ -176,11 +176,15 @@ def compute_loss(net, mem_patch, mem_pos_enc, criterions, labels, conf):
     # Average task losses        
     loss /= len(conf.tasks.values())
 
-    # Compute diversity loss
-    diversity_loss, variance_diversity_loss = compute_diversity_loss(net.transf.attn_maps)
+    diversity_loss, variance_diversity_loss = torch.tensor(0.0), torch.tensor(0.0)
+    semantic_loss, variance_semantic_loss = torch.tensor(0.0), torch.tensor(0.0)
 
-    # Compute semantic loss
-    semantic_loss, variance_semantic_loss = compute_semantic_loss(branch_outputs, labels, criterions, conf)
+    if conf.semantic_diversity_loss:
+        # Compute diversity loss
+        diversity_loss, variance_diversity_loss = compute_diversity_loss(net.transf.attn_maps)
+
+        # Compute semantic loss
+        semantic_loss, variance_semantic_loss = compute_semantic_loss(branch_outputs, labels, criterions, conf)
 
     # Total loss
     total_loss = loss + diversity_loss + semantic_loss
