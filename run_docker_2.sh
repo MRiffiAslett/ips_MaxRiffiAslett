@@ -25,6 +25,7 @@ DATA_SCRIPT_PATH="$SCRIPT_DIR/data/megapixel_mnist/PineneedleMegaMNIST_200.py"
 DATA_DIR="$SCRIPT_DIR/data/megapixel_mnist/dsets/megapixel_mnist_1500"
 OUTPUT_FILE="/app/results/results_28_28_3000_3000_200n.txt"
 DOCKERFILE_PATH="$REPO_DIR/Dockerfile.txt"
+DATA_GEN_LOG="/app/results/data_generation_200.log"
 
 # Ensure the repository and results directories exist
 if [ ! -d "$REPO_DIR" ]; then
@@ -55,11 +56,17 @@ docker run --gpus all --shm-size=16g --rm -v "$REPO_DIR:/app/ips_MaxRiffiAslett"
   
   # Generate the dataset and log the output
   echo 'Generating dataset...'
-  python3 $DATA_SCRIPT_PATH 28 28 --width 3000 --height 3000 --n_noise 200 $DATA_DIR > /app/results/data_generation_200.log 2>&1
+  python3 $DATA_SCRIPT_PATH 28 28 --width 3000 --height 3000 --n_noise 200 $DATA_DIR > $DATA_GEN_LOG 2>&1
   
   # Check if parameters.json is created
   if [ ! -f '$DATA_DIR/parameters.json' ]; then
-    echo 'parameters.json not found. Data generation failed.' >> /app/results/data_generation_200.log
+    echo 'parameters.json not found. Data generation failed.' >> $DATA_GEN_LOG
+    exit 1
+  fi
+  
+  # Check the data generation log for errors
+  if grep -q 'Traceback' $DATA_GEN_LOG; then
+    echo 'Data generation failed. Check the log for details: $DATA_GEN_LOG' >> $DATA_GEN_LOG
     exit 1
   fi
 
