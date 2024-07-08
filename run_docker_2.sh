@@ -39,10 +39,10 @@ mkdir -p "$DATA_DIR"
 rm -rf "$DATA_DIR/*"
 
 # Build the Docker image
-docker build -t $IMAGE_NAME -f $DOCKERFILE_PATH . > "$RESULTS_DIR/docker_build_$(date +%s).log" 2>&1
+docker build -t $IMAGE_NAME -f $DOCKERFILE_PATH . > "$RESULTS_DIR/docker_build_200_$(date +%s).log" 2>&1
 
 if [ $? -ne 0 ]; then
-  echo "Docker image build failed. Check the log for details: $RESULTS_DIR/docker_build_$(date +%s).log"
+  echo "Docker image build failed. Check the log for details: $RESULTS_DIR/docker_build_200_$(date +%s).log"
   exit 1
 fi
 
@@ -64,5 +64,5 @@ docker run --gpus all --shm-size=16g --rm -v "$REPO_DIR:/app/ips_MaxRiffiAslett"
   fi
 
   # Run the main script and capture the output
-  unbuffer python3 $MAIN_SCRIPT_PATH | tee $OUTPUT_FILE
+  unbuffer python3 $MAIN_SCRIPT_PATH --num_workers 4 | tee $OUTPUT_FILE
 "
