@@ -95,6 +95,8 @@ class IPSNet(nn.Module):
         self.shuffle = conf.shuffle
         self.shuffle_style = conf.shuffle_style
         self.is_image = conf.is_image
+        self.mask_p = conf.mask_p  # Probability of masking
+        self.mask_K = conf.mask_K  # Number of top-K instances to consider for masking
 
         if self.is_image:
             self.encoder = self.get_conv_patch_enc(conf.enc_type, conf.pretrained,
@@ -133,27 +135,67 @@ class IPSNet(nn.Module):
         
         return patches, pos_enc
 
-    def score_and_select(self, emb, emb_pos, M, idx):
-        """ 
-        Scores embeddings and selects the top-M embeddings
-        """
-        D = emb.shape[2]
+    # def score_and_select(self, emb, emb_pos, M, idx):
+    #     """ 
+    #     Scores embeddings and selects the top-M embeddings
+    #     """
+    #     D = emb.shape[2]
 
-        emb_to_score = emb_pos if torch.is_tensor(emb_pos) else emb
+    #     emb_to_score = emb_pos if torch.is_tensor(emb_pos) else emb
 
-        # Obtain scores from transformer
-        attn = self.transf.get_scores(emb_to_score) # (B, M+I)
+    #     # Obtain scores from transformer
+    #     attn = self.transf.get_scores(emb_to_score) # (B, M+I)
 
-        # Get indixes of top-scoring patches
-        top_idx = torch.topk(attn, M, dim = -1)[1] # (B, M)
+    #     # Get indixes of top-scoring patches
+    #     top_idx = torch.topk(attn, M, dim = -1)[1] # (B, M)
         
+    #     # Update memory buffers
+    #     # Note: Scoring is based on `emb_to_score`, selection is based on `emb`
+    #     mem_emb = torch.gather(emb, 1, top_idx.unsqueeze(-1).expand(-1,-1,D))
+    #     mem_idx = torch.gather(idx, 1, top_idx)
+
+    #     return mem_emb, mem_idx
+
+    def score_and_select(self, emb, emb_pos, M, idx, mask_K,  mask_p):
+
+        D = emb.shape[2]
+    
+        emb_to_score = emb_pos if torch.is_tensor(emb_pos) else emb
+    
+        # Obtain scores from the transformer
+        attn = self.transf.get_scores(emb_to_score)  # (B, M+I)
+        
+        # print(f"Attn shape after get_scores: {attn.shape}")
+    
+        # 1. Get indices of top-K patches for masking
+        # finds the indices of the top-K elements in the tensor attn along the last dimension (dim=-1).
+        top_K_idx = torch.topk(attn, self.mask_K, dim=-1)[1]  # (B, K)
+                
+        # 2. Create a mask with probability p for top-K instances
+        # torch.rand(top_K_idx.shape, device=attn.device) generates a tensor of random numbers with the same shape as top_K_idx. These numbers are uniformly distributed between 0 and 1.
+        # (torch.rand(top_K_idx.shape, device=attn.device) < self.mask_p) compares each element of the random tensor with self.mask_p. This results in a boolean tensor where each element is True with probability self.mask_p and False otherwise.
+        # .float() converts this boolean tensor into a float tensor, where True becomes 1.0 and False becomes 0.0
+        mask = (torch.rand(top_K_idx.shape, device=attn.device) < self.mask_p).float()
+    
+    
+        # 3. Apply the mask to the top-K attention scores
+        # "attn.gather(1, top_K_idx)": Gathers the attention scores from attn at the indices specified by top_K_idx.
+        # (1 - mask):  Generates a binary mask tensor where 1 - mask indicates which top-K elements should be modified (if mask is 1, the element will be masked out).
+        # "attn.gather(1, top_K_idx) * (1 - mask)": Zeros out the attention scores where mask is 1, effectively masking those elements.
+        # attn.scatter_(1, top_K_idx, ...): catters (or writes) the modified attention scores back into attn at the indices specified by top_K_idx.
+        attn.scatter_(1, top_K_idx, attn.gather(1, top_K_idx) * (1 - mask))
+    
+        # 4. Get indices of top-M patches after masking
+        top_idx = torch.topk(attn, M, dim=-1)[1]  # (B, M)
+        
+        # print(f"Top_idx shape: {top_idx.shape}")
+    
         # Update memory buffers
         # Note: Scoring is based on `emb_to_score`, selection is based on `emb`
-        mem_emb = torch.gather(emb, 1, top_idx.unsqueeze(-1).expand(-1,-1,D))
+        mem_emb = torch.gather(emb, 1, top_idx.unsqueeze(-1).expand(-1, -1, D))
         mem_idx = torch.gather(idx, 1, top_idx)
-
+        
         return mem_emb, mem_idx
-
     def get_preds(self, embeddings):
         preds = {}
         for task in self.tasks.values():
@@ -180,6 +222,8 @@ class IPSNet(nn.Module):
         pos_enc = self.pos_enc
         patch_shape = patches.shape
         B, N = patch_shape[:2]
+        mask_p =  self.mask_p  # Probability of masking
+        mask_K = self.mask_K   # Number of top-K instances to consider for masking
 
         # Shortcut: IPS not required when memory is larger than total number of patches
         if M >= N:
@@ -238,7 +282,7 @@ class IPSNet(nn.Module):
                 all_emb_pos = None
 
             # Select Top-M patches according to cross-attention scores
-            mem_emb, mem_idx = self.score_and_select(all_emb, all_emb_pos, M, all_idx)
+            mem_emb, mem_idx = self.score_and_select(all_emb, all_emb_pos, M, all_idx, mask_K,  mask_p)
 
         # Select patches
         n_dim_expand = len(patch_shape) - 2
