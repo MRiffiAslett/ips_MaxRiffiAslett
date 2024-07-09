@@ -65,6 +65,13 @@ docker run --gpus all --shm-size=16g --rm -v "$REPO_DIR:/app/ips_MaxRiffiAslett"
     exit 1
   fi
 
+  echo 'Data generation successful. Proceeding with training.'
+
   # Run the main script and capture the output
   unbuffer python3 $MAIN_SCRIPT_PATH | tee $OUTPUT_FILE
 "
+
+if [ $? -ne 0 ]; then
+  echo "Data generation or training failed. Exiting."
+  exit 1
+fi
