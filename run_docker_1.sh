@@ -36,7 +36,7 @@ mkdir -p "$RESULTS_DIR"
 mkdir -p "$DATA_DIR"
 
 # Clear previous data
-rm -rf "$DATA_DIR"
+rm -rf "$DATA_DIR/*"
 
 # Build the Docker image
 DOCKER_BUILD_LOG="$RESULTS_DIR/docker_build_$(date +%s).log"
@@ -59,9 +59,15 @@ docker run --gpus all --shm-size=16g --rm -v "$REPO_DIR:/app/ips_MaxRiffiAslett"
   DATA_GEN_LOG='/app/results/data_generation_$(date +%s).log'
   python3 $DATA_SCRIPT_PATH 28 28 --width 3000 --height 3000 --n_noise 50 $DATA_DIR > \$DATA_GEN_LOG 2>&1
   
-  # Check if parameters.json is created
-  if [ ! -f '$DATA_DIR/parameters.json' ]; then
-    echo 'parameters.json not found. Data generation failed.' 
+  # Check if data generation succeeded
+  if grep -q 'Error' \$DATA_GEN_LOG; then
+    echo 'Data generation failed. Check the log for details: \$DATA_GEN_LOG'
+    exit 1
+  fi
+
+  # Check if parameters.json is updated (modification time is recent)
+  if [ ! -f '$DATA_DIR/parameters.json' ] || [ \$(( \$(date +%s) - \$(stat -c %Y '$DATA_DIR/parameters.json') )) -gt 60 ]; then
+    echo 'parameters.json not found or not recently updated. Data generation failed.'
     exit 1
   fi
 
