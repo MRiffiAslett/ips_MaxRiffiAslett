@@ -273,7 +273,6 @@ def main(argv):
     parser.add_argument(
         "--n_noise",
         type=int,
-        default=50,
         help="Set the number of noise patterns per image"
     )
     parser.add_argument(
