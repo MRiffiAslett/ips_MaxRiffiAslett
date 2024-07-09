@@ -85,7 +85,7 @@ class MegapixelMNIST:
             Generates a random curved line using Bezier curves
             """
             img = np.zeros((image_size, image_size), dtype=np.float32)
-            thickness = int(1.71 * (28 / image_size))
+            thickness = int(1.91 * (28 / image_size))
 
             # Create random points for the Bezier curve
             points = np.random.rand(num_points, 2) * image_size
@@ -303,7 +303,7 @@ def main(argv):
                 "seed": args.dataset_seed,
                 "noise_size": args.noise_size,
                 "digit_size": args.digit_size,
-                "line":1.721
+                "line":1.921
             },
             f,
             indent=4
