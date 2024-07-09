@@ -36,7 +36,7 @@ mkdir -p "$RESULTS_DIR"
 mkdir -p "$DATA_DIR"
 
 # Clear previous data
-rm -rf "$DATA_DIR/*"
+rm -rf "$DATA_DIR"
 
 # Build the Docker image
 DOCKER_BUILD_LOG="$RESULTS_DIR/docker_build_$(date +%s).log"
@@ -57,7 +57,7 @@ docker run --gpus all --shm-size=16g --rm -v "$REPO_DIR:/app/ips_MaxRiffiAslett"
   # Generate the dataset and log the output
   echo 'Generating dataset...'
   DATA_GEN_LOG='/app/results/data_generation_$(date +%s).log'
-  python3 $DATA_SCRIPT_PATH 28 28 --width 3000 --height 3000 --n_noise 50 $DATA_DIR 
+  python3 $DATA_SCRIPT_PATH 28 28 --width 3000 --height 3000 --n_noise 50 $DATA_DIR > \$DATA_GEN_LOG 2>&1
   
   # Check if parameters.json is created
   if [ ! -f '$DATA_DIR/parameters.json' ]; then
