@@ -21,9 +21,9 @@ REPO_DIR="$(pwd)"
 RESULTS_DIR="$REPO_DIR/results"
 SCRIPT_DIR="/app/ips_MaxRiffiAslett"
 MAIN_SCRIPT_PATH="$SCRIPT_DIR/main.py"
-DATA_SCRIPT_PATH="$SCRIPT_DIR/data/megapixel_mnist/PineneedleMegaMNIST_200.py"
+DATA_SCRIPT_PATH="$SCRIPT_DIR/data/megapixel_mnist/PineneedleMegaMNIST.py"
 DATA_DIR="$SCRIPT_DIR/data/megapixel_mnist/dsets/megapixel_mnist_1500"
-OUTPUT_FILE="/app/results/results_28_28_3000_3000_200n.txt"
+OUTPUT_FILE="/app/results/results_28_28_3000_3000_50n.txt"
 DOCKERFILE_PATH="$REPO_DIR/Dockerfile.txt"
 
 # Ensure the repository and results directories exist
@@ -39,10 +39,11 @@ mkdir -p "$DATA_DIR"
 rm -rf "$DATA_DIR/*"
 
 # Build the Docker image
-docker build -t $IMAGE_NAME -f $DOCKERFILE_PATH . > "$RESULTS_DIR/docker_build_$(date +%s).log" 2>&1
+DOCKER_BUILD_LOG="$RESULTS_DIR/docker_build_$(date +%s).log"
+docker build -t $IMAGE_NAME -f $DOCKERFILE_PATH . > "$DOCKER_BUILD_LOG" 2>&1
 
 if [ $? -ne 0 ]; then
-  echo "Docker image build failed. Check the log for details: $RESULTS_DIR/docker_build_$(date +%s).log"
+  echo "Docker image build failed. Check the log for details: $DOCKER_BUILD_LOG"
   exit 1
 fi
 
@@ -55,14 +56,28 @@ docker run --gpus all --shm-size=16g --rm -v "$REPO_DIR:/app/ips_MaxRiffiAslett"
   
   # Generate the dataset and log the output
   echo 'Generating dataset...'
-  python3 $DATA_SCRIPT_PATH 28 28 --width 3000 --height 3000 --n_noise 200 $DATA_DIR > /app/results/data_generation.log 2>&1
+  DATA_GEN_LOG='/app/results/data_generation_$(date +%s).log'
+  python3 $DATA_SCRIPT_PATH 28 28 --width 3000 --height 3000 --n_noise 50 $DATA_DIR > \$DATA_GEN_LOG 2>&1
   
-  # Check if parameters.json is created
-  if [ ! -f '$DATA_DIR/parameters.json' ]; then
-    echo 'parameters.json not found. Data generation failed.' >> /app/results/data_generation.log
+  # Check if data generation succeeded
+  if grep -q 'Error' \$DATA_GEN_LOG; then
+    echo 'Data generation failed. Check the log for details: \$DATA_GEN_LOG'
     exit 1
   fi
 
+  # Check if parameters.json is updated (modification time is recent)
+  if [ ! -f '$DATA_DIR/parameters.json' ] || [ \$(( \$(date +%s) - \$(stat -c %Y '$DATA_DIR/parameters.json') )) -gt 60 ]; then
+    echo 'parameters.json not found or not recently updated. Data generation failed.'
+    exit 1
+  fi
+
+  echo 'Data generation successful. Proceeding with training.'
+
   # Run the main script and capture the output
-  unbuffer python3 $MAIN_SCRIPT_PATH --num_workers 4 | tee $OUTPUT_FILE
+  unbuffer python3 $MAIN_SCRIPT_PATH | tee $OUTPUT_FILE
 "
+
+if [ $? -ne 0 ]; then
+  echo "Data generation or training failed. Exiting."
+  exit 1
+fi
