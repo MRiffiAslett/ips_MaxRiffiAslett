@@ -21,9 +21,9 @@ REPO_DIR="$(pwd)"
 RESULTS_DIR="$REPO_DIR/results"
 SCRIPT_DIR="/app/ips_MaxRiffiAslett"
 MAIN_SCRIPT_PATH="$SCRIPT_DIR/main.py"
-DATA_SCRIPT_PATH="$SCRIPT_DIR/data/megapixel_mnist/PineneedleMegaMNIST_150.py"
+DATA_SCRIPT_PATH="$SCRIPT_DIR/data/megapixel_mnist/PineneedleMegaMNIST_50.py"
 DATA_DIR="$SCRIPT_DIR/data/megapixel_mnist/dsets/megapixel_mnist_1500"
-OUTPUT_FILE="/app/results/results_28_28_3000_3000_150n.txt"
+OUTPUT_FILE="/app/results/results_28_28_3000_3000_50n.txt"
 DOCKERFILE_PATH="$REPO_DIR/Dockerfile.txt"
 
 # Ensure the repository and results directories exist
@@ -57,7 +57,7 @@ docker run --gpus all --shm-size=16g --rm -v "$REPO_DIR:/app/ips_MaxRiffiAslett"
   # Generate the dataset and log the output
   echo 'Generating dataset...'
   DATA_GEN_LOG='/app/results/data_generation_$(date +%s).log'
-  python3 $DATA_SCRIPT_PATH 28 28 --width 3000 --height 3000 --n_noise 150 $DATA_DIR 
+  python3 $DATA_SCRIPT_PATH 28 28 --width 3000 --height 3000 --n_noise 50 $DATA_DIR 
   
   # Check if parameters.json is created
   if [ ! -f '$DATA_DIR/parameters.json' ]; then
