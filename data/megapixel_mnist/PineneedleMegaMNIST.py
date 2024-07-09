@@ -303,7 +303,7 @@ def main(argv):
                 "seed": args.dataset_seed,
                 "noise_size": args.noise_size,
                 "digit_size": args.digit_size,
-                "line":1.121
+                "line":1.721
             },
             f,
             indent=4
