@@ -64,3 +64,8 @@ task: majority, mean loss: 2.31859, accuracy: 0.09100, task: max, mean loss: 1.9
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
+Train Epoch: 2 
+task: majority, mean loss: 2.33141, accuracy: 0.10250, task: max, mean loss: 1.87650, accuracy: 0.26750, task: top, mean loss: 2.34491, accuracy: 0.09375, task: multi, mean loss: 0.61648, multilabel_accuracy: 0.00000, avg. loss over tasks: 1.79233, lr: 0.0002
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
