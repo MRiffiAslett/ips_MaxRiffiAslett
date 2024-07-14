@@ -54,3 +54,13 @@ Used config:
  'track_epoch': 0,
  'use_pos': True,
  'wd': 0.1}
+Train Epoch: 1 
+task: majority, mean loss: 2.35531, accuracy: 0.11375, task: max, mean loss: 2.20393, accuracy: 0.27375, task: top, mean loss: 2.35761, accuracy: 0.09000, task: multi, mean loss: 0.69946, multilabel_accuracy: 0.00125, avg. loss over tasks: 1.90408, lr: 0.0001
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 1 
+task: majority, mean loss: 2.31859, accuracy: 0.09100, task: max, mean loss: 1.92447, accuracy: 0.27400, task: top, mean loss: 2.32580, accuracy: 0.10800, task: multi, mean loss: 0.63527, multilabel_accuracy: 0.00000, avg. loss over tasks: 1.80103
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+

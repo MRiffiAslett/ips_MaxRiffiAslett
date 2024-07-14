@@ -1,0 +1,4 @@
+  File "/app/ips_MaxRiffiAslett/data/megapixel_mnist/PineneedleMegaMNIST.py", line 246
+    default=,
+            ^
+SyntaxError: invalid syntax

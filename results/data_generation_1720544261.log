@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/app/ips_MaxRiffiAslett/data/megapixel_mnist/PineneedleMegaMNIST.py", line 4, in <module>
+    import matplotlib.pyplot as plt
+ModuleNotFoundError: No module named 'matplotlib'

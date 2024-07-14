@@ -1,0 +1,45 @@
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+Sending build context to Docker daemon  2.052GB
+Step 1/13 : FROM nvcr.io/nvidia/cuda:11.6.2-base-ubuntu20.04
+ ---> 2098e65daccd
+Step 2/13 : WORKDIR /app
+ ---> Using cache
+ ---> 15db9de2454a
+Step 3/13 : ENV DEBIAN_FRONTEND=noninteractive
+ ---> Using cache
+ ---> c97a7687ef83
+Step 4/13 : ENV TZ=Europe/London
+ ---> Using cache
+ ---> 560c640e413a
+Step 5/13 : RUN apt-get update && apt-get install -y     openslide-tools     python3     python3-pip     python3-openslide     expect     tzdata     git     ffmpeg     libsm6     libxext6     libgl1-mesa-glx &&     rm -rf /var/lib/apt/lists/*
+ ---> Using cache
+ ---> 3d58ce0bb51b
+Step 6/13 : RUN python3 --version && pip3 --version
+ ---> Using cache
+ ---> 60092f920604
+Step 7/13 : RUN pip3 install --upgrade cryptography pyopenssl
+ ---> Using cache
+ ---> 699103521f33
+Step 8/13 : COPY requirements.txt /app/requirements.txt
+ ---> Using cache
+ ---> 4edc8753780b
+Step 9/13 : RUN pip3 install -r /app/requirements.txt
+ ---> Using cache
+ ---> ea5775dcfc25
+Step 10/13 : RUN pip3 install torch==1.13.0 torchvision==0.14.0 --extra-index-url https://download.pytorch.org/whl/cu117
+ ---> Using cache
+ ---> e8d21f30c620
+Step 11/13 : RUN pip3 install opencv-python-headless
+ ---> Using cache
+ ---> 332e3a79d2fd
+Step 12/13 : COPY . /app/ips_attention_masking
+ ---> bc5e57b7e622
+Step 13/13 : CMD ["bash"]
+ ---> Running in 943d45a11028
+Removing intermediate container 943d45a11028
+ ---> 7a26f4ad6736
+Successfully built 7a26f4ad6736
+Successfully tagged my-custom-image:latest
