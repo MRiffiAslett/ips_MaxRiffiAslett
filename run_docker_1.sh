@@ -19,11 +19,11 @@ start_rootless_docker.sh --quiet
 IMAGE_NAME="my-custom-image"
 REPO_DIR="$(pwd)"
 RESULTS_DIR="$REPO_DIR/results"
-SCRIPT_DIR="/workspace/ips_MaxRiffiAslett"
+SCRIPT_DIR="/home/mra23/ips_MaxRiffiAslett"
 MAIN_SCRIPT_PATH="$SCRIPT_DIR/main.py"
 DATA_SCRIPT_PATH="$SCRIPT_DIR/data/megapixel_mnist/PineneedleMegaMNIST.py"
 DATA_DIR="$SCRIPT_DIR/data/megapixel_mnist/dsets/megapixel_mnist_1500"
-OUTPUT_FILE="/workspace/results/results_168_168_3000_3000_150n_800d.txt"
+OUTPUT_FILE="$RESULTS_DIR/results_168_168_3000_3000_150n_800d.txt"
 DOCKERFILE_PATH="$REPO_DIR/Dockerfile.txt"
 
 # Ensure the repository and results directories exist
@@ -48,15 +48,15 @@ if [ $? -ne 0 ]; then
 fi
 
 # Run the Docker container and mount the repository and results directory
-docker run --gpus all --shm-size=16g --rm -v "$REPO_DIR:/workspace/ips_MaxRiffiAslett" -v "$RESULTS_DIR:/workspace/results" $IMAGE_NAME bash -c "
-  cd /workspace/ips_MaxRiffiAslett
+docker run --gpus all --shm-size=16g --rm -v "$REPO_DIR:/home/mra23/ips_MaxRiffiAslett" -v "$RESULTS_DIR:/home/mra23/ips_MaxRiffiAslett/results" $IMAGE_NAME bash -c "
+  cd /home/mra23/ips_MaxRiffiAslett
   
   # Ensure data directory exists
   mkdir -p $DATA_DIR
   
   # Generate the dataset and log the output
   echo 'Generating dataset...'
-  DATA_GEN_LOG='/workspace/results/data_generation_$(date +%s).log'
+  DATA_GEN_LOG='/home/mra23/ips_MaxRiffiAslett/results/data_generation_$(date +%s).log'
   python3 $DATA_SCRIPT_PATH 168 168 --width 3000 --height 3000 --n_noise 150 --n_train 800 --n_test 1000 $DATA_DIR > \$DATA_GEN_LOG 2>&1
   
   # Check if data generation succeeded
