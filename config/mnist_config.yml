@@ -37,7 +37,7 @@ n_res_blocks: 2         # number of residual ResNet blocks, mnist only uses 2
 shuffle: True               # should patches be shuffled?
 shuffle_style: 'batch'      # 'batch' or 'instance'. 'batch' shuffles each instance of the batch the same way
 n_token: 4                  # number of learnable query tokens, corresponds to number of tasks (mnist has 4 tasks)
-N: 3600                      # number of total patches, needs to be consistent with patch size/stride
+N: 100                      # number of total patches, needs to be consistent with patch size/stride
 M: 18                      # memory size
 I: 18                      # iteration size
 patch_size: [300, 300]        # dims of patch
