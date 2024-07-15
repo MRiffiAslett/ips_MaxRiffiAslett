@@ -12,7 +12,7 @@ semantic_diversity_loss: False
 #dset
 n_class: 10                                                   # number of classes
 data_dir: 'data/megapixel_mnist/dsets/megapixel_mnist_1500'   # directory of dataset
-n_worker: 4                                                   # number of workers
+n_worker: 2                                                   # number of workers
 pin_memory: True                                              # use pin memory in dataloader
 eager: True                                                   # eager or lazy loading
 
@@ -38,8 +38,8 @@ shuffle: True               # should patches be shuffled?
 shuffle_style: 'batch'      # 'batch' or 'instance'. 'batch' shuffles each instance of the batch the same way
 n_token: 4                  # number of learnable query tokens, corresponds to number of tasks (mnist has 4 tasks)
 N: 3600                      # number of total patches, needs to be consistent with patch size/stride
-M: 100                      # memory size
-I: 100                      # iteration size
+M: 25                      # memory size
+I: 25                      # iteration size
 patch_size: [50, 50]        # dims of patch
 patch_stride: [50, 50]      # stride of patch, use 25 per side for 50% overlap
 
