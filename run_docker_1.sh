@@ -57,7 +57,7 @@ docker run --gpus all --shm-size=16g --rm -v "$REPO_DIR:/app/ips_MaxRiffiAslett"
   # Generate the dataset and log the output
   echo 'Generating dataset...'
   DATA_GEN_LOG='/app/results/data_generation_$(date +%s).log'
-  python3 $DATA_SCRIPT_PATH 168 168 --width 3000 --height 3000 --n_noise 150 --n_train 800 --n_test 1000 $DATA_DIR > \$DATA_GEN_LOG 2>&1
+  python3 $DATA_SCRIPT_PATH 168 168 --width 3000 --height 3000 --n_noise 150 --n_train 800 --n_test 1000 $DATA_DIR 
   
   # Check if data generation succeeded
   if grep -q 'Error' \$DATA_GEN_LOG; then
