@@ -1,0 +1,6 @@
+usage: PineneedleMegaMNIST.py [-h] [--n_train N_TRAIN] [--n_test N_TEST]
+                              [--width WIDTH] [--height HEIGHT] [--no_noise]
+                              [--n_noise N_NOISE]
+                              [--dataset_seed DATASET_SEED]
+                              digit_size noise_size output_directory
+PineneedleMegaMNIST.py: error: unrecognized arguments: --n-train n-test 1000 /app/ips_MaxRiffiAslett/data/megapixel_mnist/dsets/megapixel_mnist_1500
