@@ -1,0 +1,3 @@
+mkdir: cannot create directory ‘/app’: Permission denied
+bash: line 9:     8 Killed                  python3 /app/ips_MaxRiffiAslett/data/megapixel_mnist/PineneedleMegaMNIST.py 448 448 --width 3000 --height 3000 --n_noise 50 --n_train 800 --n_test 1000 /app/ips_MaxRiffiAslett/data/megapixel_mnist/dsets/megapixel_mnist_1500 > $DATA_GEN_LOG 2>&1
+slurmstepd: error: Detected 1 oom-kill event(s) in StepId=4008.batch. Some of your processes may have been killed by the cgroup out-of-memory handler.
