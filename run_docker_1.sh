@@ -3,7 +3,7 @@
 #SBATCH --partition=its-2a30-01-part
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
-#SBATCH --mem=50GB
+#SBATCH --mem=50GB  # Increase memory allocation
 #SBATCH --gpus-per-task=1
 #SBATCH --gpu-bind=single:1
 #SBATCH --time=24:00:00
@@ -14,6 +14,16 @@
 # Start rootless Docker daemon
 module load rootless-docker
 start_rootless_docker.sh --quiet
+
+# Ensure Docker daemon is running
+if ! pgrep -x "dockerd" > /dev/null; then
+  echo "Docker daemon not running. Starting Docker daemon."
+  start_rootless_docker.sh --quiet
+fi
+
+# Remove old Docker images, containers, and volumes
+echo "Cleaning up old Docker resources..."
+docker system prune -a -f --volumes
 
 # Variables
 IMAGE_NAME="my-custom-image"
