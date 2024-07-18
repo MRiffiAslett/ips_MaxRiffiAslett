@@ -1,0 +1,2 @@
+mkdir: cannot create directory ‘/workspace’: Permission denied
+bash: line 9:     8 Killed                  python3 /workspace/ips_MaxRiffiAslett/data/megapixel_mnist/PineneedleMegaMNIST.py 168 168 --width 3000 --height 3000 --n_noise 150 --n_train 800 --n_test 1000 /workspace/ips_MaxRiffiAslett/data/megapixel_mnist/dsets/megapixel_mnist_1500 > $DATA_GEN_LOG 2>&1

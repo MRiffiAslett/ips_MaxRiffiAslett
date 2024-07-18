@@ -1,0 +1,2 @@
+mkdir: cannot create directory ‘/app’: Permission denied
+slurmstepd: error: *** JOB 3802 ON its-2a30-01.st-andrews.ac.uk CANCELLED AT 2024-07-11T12:13:17 ***
