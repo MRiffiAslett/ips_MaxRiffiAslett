@@ -3,7 +3,7 @@
 #SBATCH --partition=its-2a30-01-part
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
-#SBATCH --mem=200GB  # Increased memory allocation
+#SBATCH --mem=50GB  # Increased memory allocation
 #SBATCH --gpus-per-task=1
 #SBATCH --gpu-bind=single:1
 #SBATCH --time=24:00:00
