@@ -39,8 +39,8 @@ shuffle_style: 'batch'      # 'batch' or 'instance'. 'batch' shuffles each insta
 n_token: 4                  # number of learnable query tokens, corresponds to number of tasks (mnist has 4 tasks)
 
 N: 900                     # number of total patches, needs to be consistent with patch size/stride
-M: 25                      # memory size
-I: 25                     # iteration size
+M: 50                      # memory size
+I: 50                     # iteration size
 patch_size: [100, 100]        # dims of patch
 patch_stride: [100, 100]      # stride of patch, use 25 per side for 50% overlap
 
