@@ -33,7 +33,7 @@ SCRIPT_DIR="/home/mra23/ips_MaxRiffiAslett"  # Changed to a writable directory
 MAIN_SCRIPT_PATH="$SCRIPT_DIR/main.py"
 DATA_SCRIPT_PATH="$SCRIPT_DIR/data/megapixel_mnist/PineneedleMegaMNIST.py"
 DATA_DIR="$SCRIPT_DIR/data/megapixel_mnist/dsets/megapixel_mnist_1500"
-OUTPUT_FILE="$RESULTS_DIR/results_42_42_3000_3000_600n_800d.txt"
+OUTPUT_FILE="$RESULTS_DIR/results_70_70_3000_3000_337n_800d.txt"
 DOCKERFILE_PATH="$REPO_DIR/Dockerfile.txt"
 
 # Ensure the repository and results directories exist
@@ -68,7 +68,7 @@ docker run --gpus all --shm-size=16g --rm -v "$REPO_DIR:/home/mra23/ips_MaxRiffi
   echo 'Generating dataset...'
   DATA_GEN_LOG='/home/mra23/ips_MaxRiffiAslett/results/data_generation_$(date +%s).log'
 
-  python3 $DATA_SCRIPT_PATH 42 42 --width 3000 --height 3000 --n_noise 600 --n_train 800 --n_test 1000 $DATA_DIR > \$DATA_GEN_LOG 2>&1
+  python3 $DATA_SCRIPT_PATH 70 70 --width 3000 --height 3000 --n_noise 600 --n_train 800 --n_test 1000 $DATA_DIR > \$DATA_GEN_LOG 2>&1
 
   
   # Check if data generation succeeded
