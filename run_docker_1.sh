@@ -3,15 +3,15 @@
 #SBATCH --partition=its-2a30-01-part
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
-#SBATCH --mem=50GB  # Increased memory allocation
+#SBATCH --mem=50GB
 #SBATCH --gpus-per-task=1
 #SBATCH --gpu-bind=single:1
 #SBATCH --time=24:00:00
 #SBATCH --chdir=/home/mra23/ips_MaxRiffiAslett
 #SBATCH -e /home/mra23/ips_MaxRiffiAslett/output/run_all_docker_jobs_%j.err
 #SBATCH -o /home/mra23/ips_MaxRiffiAslett/output/run_all_docker_jobs_%j.out
-
 # Start rootless Docker daemon
+
 module load rootless-docker
 start_rootless_docker.sh --quiet
 
