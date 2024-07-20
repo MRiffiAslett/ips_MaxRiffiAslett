@@ -38,11 +38,11 @@ shuffle: True               # should patches be shuffled?
 shuffle_style: 'batch'      # 'batch' or 'instance'. 'batch' shuffles each instance of the batch the same way
 n_token: 4                  # number of learnable query tokens, corresponds to number of tasks (mnist has 4 tasks)
 
-N: 1600                     # number of total patches, needs to be consistent with patch size/stride
-M: 75                      # memory size
-I: 75                      # iteration size
-patch_size: [75, 75]        # dims of patch
-patch_stride: [75, 75]      # stride of patch, use 25 per side for 50% overlap
+N: 3600                     # number of total patches, needs to be consistent with patch size/stride
+M: 100                      # memory size
+I: 100                     # iteration size
+patch_size: [50, 50]        # dims of patch
+patch_stride: [50, 50]      # stride of patch, use 25 per side for 50% overlap
 
 
 #aggr
