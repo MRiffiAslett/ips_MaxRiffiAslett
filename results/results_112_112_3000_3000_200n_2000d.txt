@@ -55,212 +55,1002 @@ Used config:
  'use_pos': True,
  'wd': 0.1}
 Train Epoch: 1 
-task: majority, mean loss: 2.35022, accuracy: 0.09600, task: max, mean loss: 2.08812, accuracy: 0.24300, task: top, mean loss: 2.36133, accuracy: 0.09350, task: multi, mean loss: 0.67000, multilabel_accuracy: 0.00150, avg. loss over tasks: 1.86742, lr: 0.0001
+task: majority, mean loss: 2.35019, accuracy: 0.09650, task: max, mean loss: 2.08808, accuracy: 0.24500, task: top, mean loss: 2.36163, accuracy: 0.09100, task: multi, mean loss: 0.66983, multilabel_accuracy: 0.00150, avg. loss over tasks: 1.86743, lr: 0.0001
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Test Epoch: 1 
-task: majority, mean loss: 2.31969, accuracy: 0.09400, task: max, mean loss: 1.88709, accuracy: 0.27400, task: top, mean loss: 2.32212, accuracy: 0.08800, task: multi, mean loss: 0.60472, multilabel_accuracy: 0.00000, avg. loss over tasks: 1.78341
+task: majority, mean loss: 2.31930, accuracy: 0.09400, task: max, mean loss: 1.88597, accuracy: 0.27400, task: top, mean loss: 2.32304, accuracy: 0.08500, task: multi, mean loss: 0.60480, multilabel_accuracy: 0.00000, avg. loss over tasks: 1.78328
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Train Epoch: 2 
-task: majority, mean loss: 2.32081, accuracy: 0.11000, task: max, mean loss: 1.85316, accuracy: 0.24500, task: top, mean loss: 2.32079, accuracy: 0.11300, task: multi, mean loss: 0.60756, multilabel_accuracy: 0.00000, avg. loss over tasks: 1.77558, lr: 0.0002
+task: majority, mean loss: 2.32072, accuracy: 0.10800, task: max, mean loss: 1.85371, accuracy: 0.24600, task: top, mean loss: 2.32128, accuracy: 0.10950, task: multi, mean loss: 0.60752, multilabel_accuracy: 0.00000, avg. loss over tasks: 1.77581, lr: 0.0002
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Test Epoch: 2 
-task: majority, mean loss: 2.34513, accuracy: 0.08300, task: max, mean loss: 1.89858, accuracy: 0.27400, task: top, mean loss: 2.31300, accuracy: 0.10700, task: multi, mean loss: 0.60147, multilabel_accuracy: 0.00000, avg. loss over tasks: 1.78954
+task: majority, mean loss: 2.34121, accuracy: 0.07900, task: max, mean loss: 1.89551, accuracy: 0.28600, task: top, mean loss: 2.31011, accuracy: 0.10700, task: multi, mean loss: 0.60144, multilabel_accuracy: 0.00000, avg. loss over tasks: 1.78707
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Train Epoch: 3 
-task: majority, mean loss: 2.28070, accuracy: 0.13100, task: max, mean loss: 1.84310, accuracy: 0.26800, task: top, mean loss: 2.28783, accuracy: 0.14250, task: multi, mean loss: 0.60469, multilabel_accuracy: 0.00000, avg. loss over tasks: 1.75408, lr: 0.0003
+task: majority, mean loss: 2.27990, accuracy: 0.13400, task: max, mean loss: 1.84317, accuracy: 0.26900, task: top, mean loss: 2.28856, accuracy: 0.14200, task: multi, mean loss: 0.60467, multilabel_accuracy: 0.00000, avg. loss over tasks: 1.75407, lr: 0.0003
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Test Epoch: 3 
-task: majority, mean loss: 2.24173, accuracy: 0.14100, task: max, mean loss: 1.84759, accuracy: 0.28700, task: top, mean loss: 2.32403, accuracy: 0.10700, task: multi, mean loss: 0.60011, multilabel_accuracy: 0.00000, avg. loss over tasks: 1.75336
+task: majority, mean loss: 2.25522, accuracy: 0.13100, task: max, mean loss: 1.85829, accuracy: 0.26700, task: top, mean loss: 2.35046, accuracy: 0.09800, task: multi, mean loss: 0.60164, multilabel_accuracy: 0.00000, avg. loss over tasks: 1.76640
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Train Epoch: 4 
-task: majority, mean loss: 2.22337, accuracy: 0.16350, task: max, mean loss: 1.80689, accuracy: 0.26950, task: top, mean loss: 2.27964, accuracy: 0.14600, task: multi, mean loss: 0.59702, multilabel_accuracy: 0.00000, avg. loss over tasks: 1.72673, lr: 0.0004
+task: majority, mean loss: 2.22114, accuracy: 0.16150, task: max, mean loss: 1.79901, accuracy: 0.28650, task: top, mean loss: 2.27142, accuracy: 0.14600, task: multi, mean loss: 0.59593, multilabel_accuracy: 0.00000, avg. loss over tasks: 1.72188, lr: 0.0004
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Test Epoch: 4 
-task: majority, mean loss: 2.92788, accuracy: 0.10600, task: max, mean loss: 2.29837, accuracy: 0.16500, task: top, mean loss: 2.71083, accuracy: 0.09800, task: multi, mean loss: 0.66155, multilabel_accuracy: 0.00200, avg. loss over tasks: 2.14965
+task: majority, mean loss: 2.79915, accuracy: 0.10600, task: max, mean loss: 2.22391, accuracy: 0.16500, task: top, mean loss: 2.65208, accuracy: 0.09800, task: multi, mean loss: 0.65141, multilabel_accuracy: 0.00200, avg. loss over tasks: 2.08164
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Train Epoch: 5 
-task: majority, mean loss: 2.06809, accuracy: 0.22150, task: max, mean loss: 1.77458, accuracy: 0.30400, task: top, mean loss: 2.20322, accuracy: 0.19450, task: multi, mean loss: 0.58911, multilabel_accuracy: 0.00450, avg. loss over tasks: 1.65875, lr: 0.0005
+task: majority, mean loss: 2.04094, accuracy: 0.23150, task: max, mean loss: 1.74653, accuracy: 0.32300, task: top, mean loss: 2.18942, accuracy: 0.19450, task: multi, mean loss: 0.58499, multilabel_accuracy: 0.00450, avg. loss over tasks: 1.64047, lr: 0.0005
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Test Epoch: 5 
-task: majority, mean loss: 3.60633, accuracy: 0.10000, task: max, mean loss: 2.16114, accuracy: 0.21300, task: top, mean loss: 2.90225, accuracy: 0.09600, task: multi, mean loss: 0.71513, multilabel_accuracy: 0.00500, avg. loss over tasks: 2.34621
+task: majority, mean loss: 3.35058, accuracy: 0.10000, task: max, mean loss: 2.18385, accuracy: 0.21300, task: top, mean loss: 2.81725, accuracy: 0.10300, task: multi, mean loss: 0.70008, multilabel_accuracy: 0.00500, avg. loss over tasks: 2.26294
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Train Epoch: 6 
-task: majority, mean loss: 1.94698, accuracy: 0.26450, task: max, mean loss: 1.73926, accuracy: 0.32000, task: top, mean loss: 2.12194, accuracy: 0.22250, task: multi, mean loss: 0.57617, multilabel_accuracy: 0.00400, avg. loss over tasks: 1.59609, lr: 0.0006
+task: majority, mean loss: 1.84889, accuracy: 0.28900, task: max, mean loss: 1.69666, accuracy: 0.34400, task: top, mean loss: 2.07692, accuracy: 0.24300, task: multi, mean loss: 0.56975, multilabel_accuracy: 0.00600, avg. loss over tasks: 1.54805, lr: 0.0006
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Test Epoch: 6 
-task: majority, mean loss: 3.26559, accuracy: 0.10000, task: max, mean loss: 2.24654, accuracy: 0.21300, task: top, mean loss: 2.69137, accuracy: 0.10300, task: multi, mean loss: 0.70224, multilabel_accuracy: 0.00200, avg. loss over tasks: 2.22644
+task: majority, mean loss: 1.99669, accuracy: 0.25800, task: max, mean loss: 1.75312, accuracy: 0.31300, task: top, mean loss: 2.16839, accuracy: 0.20600, task: multi, mean loss: 0.58090, multilabel_accuracy: 0.00700, avg. loss over tasks: 1.62477
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Train Epoch: 7 
-task: majority, mean loss: 1.80811, accuracy: 0.30250, task: max, mean loss: 1.66847, accuracy: 0.35950, task: top, mean loss: 2.03727, accuracy: 0.25650, task: multi, mean loss: 0.56267, multilabel_accuracy: 0.01100, avg. loss over tasks: 1.51913, lr: 0.0007
+task: majority, mean loss: 1.79599, accuracy: 0.31100, task: max, mean loss: 1.65150, accuracy: 0.37150, task: top, mean loss: 2.01939, accuracy: 0.25300, task: multi, mean loss: 0.56262, multilabel_accuracy: 0.01100, avg. loss over tasks: 1.50737, lr: 0.0007
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Test Epoch: 7 
-task: majority, mean loss: 3.37657, accuracy: 0.14700, task: max, mean loss: 2.11462, accuracy: 0.20300, task: top, mean loss: 2.79314, accuracy: 0.15400, task: multi, mean loss: 0.70130, multilabel_accuracy: 0.00600, avg. loss over tasks: 2.24640
+task: majority, mean loss: 1.89621, accuracy: 0.30700, task: max, mean loss: 1.79616, accuracy: 0.32300, task: top, mean loss: 1.98987, accuracy: 0.26800, task: multi, mean loss: 0.57573, multilabel_accuracy: 0.01300, avg. loss over tasks: 1.56449
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Train Epoch: 8 
-task: majority, mean loss: 1.64726, accuracy: 0.36150, task: max, mean loss: 1.64625, accuracy: 0.37750, task: top, mean loss: 1.88595, accuracy: 0.31750, task: multi, mean loss: 0.55119, multilabel_accuracy: 0.01150, avg. loss over tasks: 1.43266, lr: 0.0008
+task: majority, mean loss: 1.61915, accuracy: 0.36700, task: max, mean loss: 1.62646, accuracy: 0.39200, task: top, mean loss: 1.84214, accuracy: 0.34150, task: multi, mean loss: 0.54755, multilabel_accuracy: 0.01200, avg. loss over tasks: 1.40882, lr: 0.0008
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Test Epoch: 8 
-task: majority, mean loss: 2.73093, accuracy: 0.23100, task: max, mean loss: 2.38882, accuracy: 0.17100, task: top, mean loss: 2.36280, accuracy: 0.18800, task: multi, mean loss: 0.65320, multilabel_accuracy: 0.00600, avg. loss over tasks: 2.03394
+task: majority, mean loss: 2.72354, accuracy: 0.11600, task: max, mean loss: 1.74925, accuracy: 0.32200, task: top, mean loss: 2.13954, accuracy: 0.24600, task: multi, mean loss: 0.61078, multilabel_accuracy: 0.00500, avg. loss over tasks: 1.80578
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Train Epoch: 9 
-task: majority, mean loss: 1.64306, accuracy: 0.37100, task: max, mean loss: 1.61820, accuracy: 0.38550, task: top, mean loss: 1.84044, accuracy: 0.32850, task: multi, mean loss: 0.54891, multilabel_accuracy: 0.00800, avg. loss over tasks: 1.41265, lr: 0.0009
+task: majority, mean loss: 1.60783, accuracy: 0.39250, task: max, mean loss: 1.59679, accuracy: 0.40600, task: top, mean loss: 1.82894, accuracy: 0.33950, task: multi, mean loss: 0.54505, multilabel_accuracy: 0.01050, avg. loss over tasks: 1.39465, lr: 0.0009
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Test Epoch: 9 
-task: majority, mean loss: 2.06059, accuracy: 0.25200, task: max, mean loss: 1.63013, accuracy: 0.39200, task: top, mean loss: 1.84454, accuracy: 0.33800, task: multi, mean loss: 0.55909, multilabel_accuracy: 0.00700, avg. loss over tasks: 1.52359
+task: majority, mean loss: 2.00916, accuracy: 0.27700, task: max, mean loss: 1.80117, accuracy: 0.31600, task: top, mean loss: 2.06907, accuracy: 0.27300, task: multi, mean loss: 0.56172, multilabel_accuracy: 0.00900, avg. loss over tasks: 1.61028
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Train Epoch: 10 
-task: majority, mean loss: 1.53810, accuracy: 0.40850, task: max, mean loss: 1.58809, accuracy: 0.40500, task: top, mean loss: 1.74710, accuracy: 0.37100, task: multi, mean loss: 0.53789, multilabel_accuracy: 0.01400, avg. loss over tasks: 1.35280, lr: 0.001
+task: majority, mean loss: 1.48191, accuracy: 0.42700, task: max, mean loss: 1.55462, accuracy: 0.41850, task: top, mean loss: 1.71104, accuracy: 0.38300, task: multi, mean loss: 0.53151, multilabel_accuracy: 0.01400, avg. loss over tasks: 1.31977, lr: 0.001
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Test Epoch: 10 
-task: majority, mean loss: 2.06286, accuracy: 0.34300, task: max, mean loss: 1.71813, accuracy: 0.34700, task: top, mean loss: 2.06995, accuracy: 0.31500, task: multi, mean loss: 0.59558, multilabel_accuracy: 0.00700, avg. loss over tasks: 1.61163
+task: majority, mean loss: 1.97333, accuracy: 0.30500, task: max, mean loss: 1.87815, accuracy: 0.34800, task: top, mean loss: 1.79588, accuracy: 0.33900, task: multi, mean loss: 0.56990, multilabel_accuracy: 0.00300, avg. loss over tasks: 1.55432
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Train Epoch: 11 
-task: majority, mean loss: 1.47651, accuracy: 0.44250, task: max, mean loss: 1.54748, accuracy: 0.41650, task: top, mean loss: 1.66826, accuracy: 0.39350, task: multi, mean loss: 0.53189, multilabel_accuracy: 0.01850, avg. loss over tasks: 1.30604, lr: 0.0009996957180960382
+task: majority, mean loss: 1.49999, accuracy: 0.41750, task: max, mean loss: 1.55274, accuracy: 0.41800, task: top, mean loss: 1.70167, accuracy: 0.38400, task: multi, mean loss: 0.53391, multilabel_accuracy: 0.01400, avg. loss over tasks: 1.32208, lr: 0.0009996957180960382
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Test Epoch: 11 
-task: majority, mean loss: 3.28315, accuracy: 0.13600, task: max, mean loss: 2.86052, accuracy: 0.17800, task: top, mean loss: 2.49144, accuracy: 0.19000, task: multi, mean loss: 0.65737, multilabel_accuracy: 0.00400, avg. loss over tasks: 2.32312
+task: majority, mean loss: 3.08596, accuracy: 0.18000, task: max, mean loss: 1.65575, accuracy: 0.32500, task: top, mean loss: 2.81364, accuracy: 0.21000, task: multi, mean loss: 0.64665, multilabel_accuracy: 0.00500, avg. loss over tasks: 2.05050
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Train Epoch: 12 
-task: majority, mean loss: 1.33879, accuracy: 0.48650, task: max, mean loss: 1.51678, accuracy: 0.42950, task: top, mean loss: 1.53956, accuracy: 0.45300, task: multi, mean loss: 0.51965, multilabel_accuracy: 0.01850, avg. loss over tasks: 1.22870, lr: 0.0009987832431047822
+task: majority, mean loss: 1.37196, accuracy: 0.47200, task: max, mean loss: 1.50944, accuracy: 0.44550, task: top, mean loss: 1.60528, accuracy: 0.41550, task: multi, mean loss: 0.52188, multilabel_accuracy: 0.01950, avg. loss over tasks: 1.25214, lr: 0.0009987832431047822
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Test Epoch: 12 
-task: majority, mean loss: 2.54343, accuracy: 0.28700, task: max, mean loss: 1.56286, accuracy: 0.41600, task: top, mean loss: 1.68897, accuracy: 0.37400, task: multi, mean loss: 0.57984, multilabel_accuracy: 0.02200, avg. loss over tasks: 1.59377
+task: majority, mean loss: 1.78906, accuracy: 0.37400, task: max, mean loss: 1.64027, accuracy: 0.38300, task: top, mean loss: 1.90799, accuracy: 0.34400, task: multi, mean loss: 0.53769, multilabel_accuracy: 0.01400, avg. loss over tasks: 1.46875
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Train Epoch: 13 
-task: majority, mean loss: 1.31582, accuracy: 0.50600, task: max, mean loss: 1.47391, accuracy: 0.43300, task: top, mean loss: 1.46569, accuracy: 0.49300, task: multi, mean loss: 0.50888, multilabel_accuracy: 0.02150, avg. loss over tasks: 1.19108, lr: 0.0009972636867364526
+task: majority, mean loss: 1.30479, accuracy: 0.51050, task: max, mean loss: 1.48466, accuracy: 0.44000, task: top, mean loss: 1.48259, accuracy: 0.47300, task: multi, mean loss: 0.50992, multilabel_accuracy: 0.02500, avg. loss over tasks: 1.19549, lr: 0.0009972636867364526
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Test Epoch: 13 
-task: majority, mean loss: 1.60688, accuracy: 0.43300, task: max, mean loss: 1.42077, accuracy: 0.47900, task: top, mean loss: 1.41703, accuracy: 0.53100, task: multi, mean loss: 0.51539, multilabel_accuracy: 0.03400, avg. loss over tasks: 1.24002
+task: majority, mean loss: 3.33117, accuracy: 0.15400, task: max, mean loss: 2.05416, accuracy: 0.31200, task: top, mean loss: 2.32999, accuracy: 0.25300, task: multi, mean loss: 0.63112, multilabel_accuracy: 0.00300, avg. loss over tasks: 2.08661
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Train Epoch: 14 
-task: majority, mean loss: 1.22275, accuracy: 0.53450, task: max, mean loss: 1.43229, accuracy: 0.47750, task: top, mean loss: 1.37591, accuracy: 0.52300, task: multi, mean loss: 0.50453, multilabel_accuracy: 0.02300, avg. loss over tasks: 1.13387, lr: 0.0009951389003364144
+task: majority, mean loss: 1.20368, accuracy: 0.55550, task: max, mean loss: 1.43639, accuracy: 0.46000, task: top, mean loss: 1.40984, accuracy: 0.50300, task: multi, mean loss: 0.50173, multilabel_accuracy: 0.02400, avg. loss over tasks: 1.13791, lr: 0.0009951389003364144
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Test Epoch: 14 
-task: majority, mean loss: 2.05956, accuracy: 0.31000, task: max, mean loss: 1.53866, accuracy: 0.38300, task: top, mean loss: 1.75617, accuracy: 0.38300, task: multi, mean loss: 0.61669, multilabel_accuracy: 0.01100, avg. loss over tasks: 1.49277
+task: majority, mean loss: 3.64098, accuracy: 0.12200, task: max, mean loss: 1.92224, accuracy: 0.26800, task: top, mean loss: 2.57540, accuracy: 0.18400, task: multi, mean loss: 0.65008, multilabel_accuracy: 0.01000, avg. loss over tasks: 2.19718
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Train Epoch: 15 
-task: majority, mean loss: 1.21384, accuracy: 0.54550, task: max, mean loss: 1.34773, accuracy: 0.50050, task: top, mean loss: 1.34633, accuracy: 0.53700, task: multi, mean loss: 0.49649, multilabel_accuracy: 0.02300, avg. loss over tasks: 1.10110, lr: 0.000992411472629598
+task: majority, mean loss: 1.17708, accuracy: 0.57100, task: max, mean loss: 1.38720, accuracy: 0.48000, task: top, mean loss: 1.33137, accuracy: 0.53950, task: multi, mean loss: 0.49527, multilabel_accuracy: 0.02200, avg. loss over tasks: 1.09773, lr: 0.000992411472629598
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Test Epoch: 15 
-task: majority, mean loss: 1.26682, accuracy: 0.51700, task: max, mean loss: 1.35915, accuracy: 0.51200, task: top, mean loss: 1.22904, accuracy: 0.57400, task: multi, mean loss: 0.48974, multilabel_accuracy: 0.03000, avg. loss over tasks: 1.08618
+task: majority, mean loss: 2.14265, accuracy: 0.36200, task: max, mean loss: 1.65429, accuracy: 0.39100, task: top, mean loss: 1.67965, accuracy: 0.41000, task: multi, mean loss: 0.59775, multilabel_accuracy: 0.01800, avg. loss over tasks: 1.51859
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Train Epoch: 16 
-task: majority, mean loss: 1.00133, accuracy: 0.62050, task: max, mean loss: 1.26390, accuracy: 0.54850, task: top, mean loss: 1.09960, accuracy: 0.62850, task: multi, mean loss: 0.47320, multilabel_accuracy: 0.04000, avg. loss over tasks: 0.95951, lr: 0.000989084726566536
+task: majority, mean loss: 1.05161, accuracy: 0.61800, task: max, mean loss: 1.32959, accuracy: 0.51200, task: top, mean loss: 1.14531, accuracy: 0.60300, task: multi, mean loss: 0.48260, multilabel_accuracy: 0.04000, avg. loss over tasks: 1.00228, lr: 0.000989084726566536
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Test Epoch: 16 
-task: majority, mean loss: 1.27443, accuracy: 0.49800, task: max, mean loss: 1.22614, accuracy: 0.58400, task: top, mean loss: 1.08336, accuracy: 0.63200, task: multi, mean loss: 0.48393, multilabel_accuracy: 0.06000, avg. loss over tasks: 1.01696
+task: majority, mean loss: 1.27994, accuracy: 0.55000, task: max, mean loss: 1.26294, accuracy: 0.55000, task: top, mean loss: 1.13404, accuracy: 0.60700, task: multi, mean loss: 0.48462, multilabel_accuracy: 0.04600, avg. loss over tasks: 1.04039
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Train Epoch: 17 
-task: majority, mean loss: 0.92140, accuracy: 0.66650, task: max, mean loss: 1.21245, accuracy: 0.56350, task: top, mean loss: 1.01047, accuracy: 0.65700, task: multi, mean loss: 0.46744, multilabel_accuracy: 0.05000, avg. loss over tasks: 0.90294, lr: 0.00098516271527486
+task: majority, mean loss: 0.94804, accuracy: 0.65000, task: max, mean loss: 1.26856, accuracy: 0.54350, task: top, mean loss: 1.09289, accuracy: 0.62250, task: multi, mean loss: 0.47269, multilabel_accuracy: 0.04450, avg. loss over tasks: 0.94555, lr: 0.00098516271527486
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Test Epoch: 17 
-task: majority, mean loss: 0.91331, accuracy: 0.67000, task: max, mean loss: 1.28296, accuracy: 0.52100, task: top, mean loss: 0.99678, accuracy: 0.67300, task: multi, mean loss: 0.45138, multilabel_accuracy: 0.05200, avg. loss over tasks: 0.91111
+task: majority, mean loss: 2.64063, accuracy: 0.26700, task: max, mean loss: 1.40662, accuracy: 0.51500, task: top, mean loss: 2.11837, accuracy: 0.31000, task: multi, mean loss: 0.61107, multilabel_accuracy: 0.00700, avg. loss over tasks: 1.69417
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Train Epoch: 18 
-task: majority, mean loss: 0.77435, accuracy: 0.71850, task: max, mean loss: 1.13547, accuracy: 0.59200, task: top, mean loss: 0.89504, accuracy: 0.69250, task: multi, mean loss: 0.44293, multilabel_accuracy: 0.06600, avg. loss over tasks: 0.81195, lr: 0.0009806502171211902
+task: majority, mean loss: 0.86444, accuracy: 0.68250, task: max, mean loss: 1.17444, accuracy: 0.57800, task: top, mean loss: 0.95707, accuracy: 0.67100, task: multi, mean loss: 0.45437, multilabel_accuracy: 0.05050, avg. loss over tasks: 0.86258, lr: 0.0009806502171211902
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Test Epoch: 18 
-task: majority, mean loss: 1.08648, accuracy: 0.61900, task: max, mean loss: 1.65160, accuracy: 0.42100, task: top, mean loss: 1.10730, accuracy: 0.63600, task: multi, mean loss: 0.46706, multilabel_accuracy: 0.05300, avg. loss over tasks: 1.07811
+task: majority, mean loss: 0.82166, accuracy: 0.71000, task: max, mean loss: 1.32999, accuracy: 0.52300, task: top, mean loss: 0.97928, accuracy: 0.67000, task: multi, mean loss: 0.43364, multilabel_accuracy: 0.06700, avg. loss over tasks: 0.89114
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Train Epoch: 19 
-task: majority, mean loss: 0.84908, accuracy: 0.68750, task: max, mean loss: 1.16093, accuracy: 0.57600, task: top, mean loss: 0.94327, accuracy: 0.67700, task: multi, mean loss: 0.45247, multilabel_accuracy: 0.05500, avg. loss over tasks: 0.85144, lr: 0.0009755527298894293
+task: majority, mean loss: 0.73858, accuracy: 0.73800, task: max, mean loss: 1.15551, accuracy: 0.58700, task: top, mean loss: 0.84137, accuracy: 0.71100, task: multi, mean loss: 0.43744, multilabel_accuracy: 0.07250, avg. loss over tasks: 0.79322, lr: 0.0009755527298894293
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Test Epoch: 19 
-task: majority, mean loss: 1.07525, accuracy: 0.61700, task: max, mean loss: 1.14571, accuracy: 0.58400, task: top, mean loss: 1.05658, accuracy: 0.65800, task: multi, mean loss: 0.44155, multilabel_accuracy: 0.05100, avg. loss over tasks: 0.92977
+task: majority, mean loss: 2.71611, accuracy: 0.21500, task: max, mean loss: 1.39441, accuracy: 0.51700, task: top, mean loss: 1.94098, accuracy: 0.42300, task: multi, mean loss: 0.60678, multilabel_accuracy: 0.01300, avg. loss over tasks: 1.66457
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Train Epoch: 20 
-task: majority, mean loss: 0.65173, accuracy: 0.76900, task: max, mean loss: 1.06862, accuracy: 0.61700, task: top, mean loss: 0.71099, accuracy: 0.76450, task: multi, mean loss: 0.42290, multilabel_accuracy: 0.08800, avg. loss over tasks: 0.71356, lr: 0.0009698764640825613
+task: majority, mean loss: 0.74376, accuracy: 0.73600, task: max, mean loss: 1.07504, accuracy: 0.60450, task: top, mean loss: 0.82575, accuracy: 0.72900, task: multi, mean loss: 0.43205, multilabel_accuracy: 0.07100, avg. loss over tasks: 0.76915, lr: 0.0009698764640825613
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Test Epoch: 20 
-task: majority, mean loss: 0.99538, accuracy: 0.63800, task: max, mean loss: 1.09785, accuracy: 0.60200, task: top, mean loss: 1.02109, accuracy: 0.68300, task: multi, mean loss: 0.44432, multilabel_accuracy: 0.04700, avg. loss over tasks: 0.88966
+task: majority, mean loss: 0.93923, accuracy: 0.65800, task: max, mean loss: 1.10515, accuracy: 0.62500, task: top, mean loss: 0.87204, accuracy: 0.70900, task: multi, mean loss: 0.44679, multilabel_accuracy: 0.06500, avg. loss over tasks: 0.84080
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Train Epoch: 21 
-task: majority, mean loss: 0.60564, accuracy: 0.78100, task: max, mean loss: 0.96857, accuracy: 0.65100, task: top, mean loss: 0.65947, accuracy: 0.77900, task: multi, mean loss: 0.40631, multilabel_accuracy: 0.10500, avg. loss over tasks: 0.66000, lr: 0.0009636283353561103
+task: majority, mean loss: 0.64623, accuracy: 0.77850, task: max, mean loss: 0.99954, accuracy: 0.64400, task: top, mean loss: 0.73916, accuracy: 0.76400, task: multi, mean loss: 0.41077, multilabel_accuracy: 0.08550, avg. loss over tasks: 0.69893, lr: 0.0009636283353561103
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
 Test Epoch: 21 
-task: majority, mean loss: 0.70270, accuracy: 0.75400, task: max, mean loss: 1.01071, accuracy: 0.60900, task: top, mean loss: 0.94550, accuracy: 0.71400, task: multi, mean loss: 0.40255, multilabel_accuracy: 0.08200, avg. loss over tasks: 0.76536
+task: majority, mean loss: 2.72977, accuracy: 0.27000, task: max, mean loss: 1.81488, accuracy: 0.37300, task: top, mean loss: 1.69935, accuracy: 0.48500, task: multi, mean loss: 0.65336, multilabel_accuracy: 0.02300, avg. loss over tasks: 1.72434
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 22 
+task: majority, mean loss: 0.54426, accuracy: 0.80500, task: max, mean loss: 0.97656, accuracy: 0.64750, task: top, mean loss: 0.63935, accuracy: 0.79350, task: multi, mean loss: 0.39378, multilabel_accuracy: 0.09500, avg. loss over tasks: 0.63849, lr: 0.0009568159560924791
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 22 
+task: majority, mean loss: 1.11459, accuracy: 0.62600, task: max, mean loss: 1.00465, accuracy: 0.61900, task: top, mean loss: 0.83142, accuracy: 0.74000, task: multi, mean loss: 0.44176, multilabel_accuracy: 0.07100, avg. loss over tasks: 0.84811
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 23 
+task: majority, mean loss: 0.52128, accuracy: 0.81300, task: max, mean loss: 0.90158, accuracy: 0.67250, task: top, mean loss: 0.57468, accuracy: 0.80800, task: multi, mean loss: 0.37793, multilabel_accuracy: 0.11000, avg. loss over tasks: 0.59387, lr: 0.000949447626126434
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 23 
+task: majority, mean loss: 0.41915, accuracy: 0.85800, task: max, mean loss: 0.91131, accuracy: 0.67100, task: top, mean loss: 0.69248, accuracy: 0.78600, task: multi, mean loss: 0.34698, multilabel_accuracy: 0.14000, avg. loss over tasks: 0.59248
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 24 
+task: majority, mean loss: 0.43942, accuracy: 0.83700, task: max, mean loss: 0.85949, accuracy: 0.68400, task: top, mean loss: 0.57972, accuracy: 0.81000, task: multi, mean loss: 0.36804, multilabel_accuracy: 0.12150, avg. loss over tasks: 0.56167, lr: 0.000941532322633034
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 24 
+task: majority, mean loss: 0.81316, accuracy: 0.71500, task: max, mean loss: 0.80766, accuracy: 0.69700, task: top, mean loss: 0.72445, accuracy: 0.75600, task: multi, mean loss: 0.38165, multilabel_accuracy: 0.11400, avg. loss over tasks: 0.68173
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 25 
+task: majority, mean loss: 0.39378, accuracy: 0.86150, task: max, mean loss: 0.79882, accuracy: 0.71050, task: top, mean loss: 0.44172, accuracy: 0.85450, task: multi, mean loss: 0.34921, multilabel_accuracy: 0.14800, avg. loss over tasks: 0.49588, lr: 0.0009330796891903273
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 25 
+task: majority, mean loss: 1.13473, accuracy: 0.58600, task: max, mean loss: 0.89260, accuracy: 0.67700, task: top, mean loss: 0.99516, accuracy: 0.69300, task: multi, mean loss: 0.38910, multilabel_accuracy: 0.09700, avg. loss over tasks: 0.85290
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 26 
+task: majority, mean loss: 0.40212, accuracy: 0.85500, task: max, mean loss: 0.75897, accuracy: 0.72350, task: top, mean loss: 0.43847, accuracy: 0.85250, task: multi, mean loss: 0.34313, multilabel_accuracy: 0.15400, avg. loss over tasks: 0.48567, lr: 0.0009241000240301347
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 26 
+task: majority, mean loss: 0.56489, accuracy: 0.78900, task: max, mean loss: 1.17699, accuracy: 0.59000, task: top, mean loss: 0.66252, accuracy: 0.79400, task: multi, mean loss: 0.36809, multilabel_accuracy: 0.15900, avg. loss over tasks: 0.69312
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 27 
+task: majority, mean loss: 0.34683, accuracy: 0.87300, task: max, mean loss: 0.68112, accuracy: 0.76100, task: top, mean loss: 0.41356, accuracy: 0.86300, task: multi, mean loss: 0.33082, multilabel_accuracy: 0.15550, avg. loss over tasks: 0.44308, lr: 0.0009146042674912433
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 27 
+task: majority, mean loss: 0.72380, accuracy: 0.76300, task: max, mean loss: 0.85801, accuracy: 0.70000, task: top, mean loss: 0.63262, accuracy: 0.81400, task: multi, mean loss: 0.35915, multilabel_accuracy: 0.14700, avg. loss over tasks: 0.64340
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 28 
+task: majority, mean loss: 0.30326, accuracy: 0.89500, task: max, mean loss: 0.63581, accuracy: 0.77700, task: top, mean loss: 0.35229, accuracy: 0.87550, task: multi, mean loss: 0.31815, multilabel_accuracy: 0.18400, avg. loss over tasks: 0.40238, lr: 0.0009046039886902862
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 28 
+task: majority, mean loss: 0.82141, accuracy: 0.72200, task: max, mean loss: 1.22516, accuracy: 0.60300, task: top, mean loss: 0.79209, accuracy: 0.75300, task: multi, mean loss: 0.39411, multilabel_accuracy: 0.10500, avg. loss over tasks: 0.80819
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 29 
+task: majority, mean loss: 0.25594, accuracy: 0.91000, task: max, mean loss: 0.65373, accuracy: 0.76350, task: top, mean loss: 0.32475, accuracy: 0.89450, task: multi, mean loss: 0.30972, multilabel_accuracy: 0.19300, avg. loss over tasks: 0.38604, lr: 0.0008941113714265576
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 29 
+task: majority, mean loss: 4.01753, accuracy: 0.24200, task: max, mean loss: 1.49336, accuracy: 0.47500, task: top, mean loss: 2.46585, accuracy: 0.41400, task: multi, mean loss: 0.81146, multilabel_accuracy: 0.02900, avg. loss over tasks: 2.19705
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 30 
+task: majority, mean loss: 0.27380, accuracy: 0.90050, task: max, mean loss: 0.64903, accuracy: 0.76450, task: top, mean loss: 0.37258, accuracy: 0.87350, task: multi, mean loss: 0.31790, multilabel_accuracy: 0.18850, avg. loss over tasks: 0.40333, lr: 0.0008831391993379295
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 30 
+task: majority, mean loss: 0.61681, accuracy: 0.79900, task: max, mean loss: 0.84096, accuracy: 0.72200, task: top, mean loss: 0.63567, accuracy: 0.80500, task: multi, mean loss: 0.33534, multilabel_accuracy: 0.20000, avg. loss over tasks: 0.60719
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 31 
+task: majority, mean loss: 0.27596, accuracy: 0.90500, task: max, mean loss: 0.60677, accuracy: 0.78750, task: top, mean loss: 0.33113, accuracy: 0.88850, task: multi, mean loss: 0.31269, multilabel_accuracy: 0.19750, avg. loss over tasks: 0.38164, lr: 0.0008717008403259585
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 31 
+task: majority, mean loss: 0.96245, accuracy: 0.68500, task: max, mean loss: 1.18057, accuracy: 0.61500, task: top, mean loss: 0.82498, accuracy: 0.76300, task: multi, mean loss: 0.40858, multilabel_accuracy: 0.11000, avg. loss over tasks: 0.84414
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 32 
+task: majority, mean loss: 0.23000, accuracy: 0.91700, task: max, mean loss: 0.54879, accuracy: 0.79950, task: top, mean loss: 0.25473, accuracy: 0.91600, task: multi, mean loss: 0.29178, multilabel_accuracy: 0.23000, avg. loss over tasks: 0.33132, lr: 0.0008598102302691562
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 32 
+task: majority, mean loss: 0.52121, accuracy: 0.80900, task: max, mean loss: 0.75777, accuracy: 0.73400, task: top, mean loss: 0.57906, accuracy: 0.83000, task: multi, mean loss: 0.31439, multilabel_accuracy: 0.20600, avg. loss over tasks: 0.54311
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 33 
+task: majority, mean loss: 0.25647, accuracy: 0.90600, task: max, mean loss: 0.47697, accuracy: 0.82550, task: top, mean loss: 0.24468, accuracy: 0.92050, task: multi, mean loss: 0.28823, multilabel_accuracy: 0.22900, avg. loss over tasks: 0.31659, lr: 0.0008474818560442692
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 33 
+task: majority, mean loss: 0.40486, accuracy: 0.85900, task: max, mean loss: 0.79419, accuracy: 0.73400, task: top, mean loss: 0.55045, accuracy: 0.84000, task: multi, mean loss: 0.30755, multilabel_accuracy: 0.18100, avg. loss over tasks: 0.51426
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 34 
+task: majority, mean loss: 0.24509, accuracy: 0.91200, task: max, mean loss: 0.48430, accuracy: 0.82350, task: top, mean loss: 0.27136, accuracy: 0.90850, task: multi, mean loss: 0.28232, multilabel_accuracy: 0.24300, avg. loss over tasks: 0.32077, lr: 0.0008347307378762497
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 34 
+task: majority, mean loss: 0.43440, accuracy: 0.85800, task: max, mean loss: 0.95082, accuracy: 0.69300, task: top, mean loss: 0.59481, accuracy: 0.83800, task: multi, mean loss: 0.31635, multilabel_accuracy: 0.19700, avg. loss over tasks: 0.57410
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 35 
+task: majority, mean loss: 0.21632, accuracy: 0.91200, task: max, mean loss: 0.48256, accuracy: 0.82950, task: top, mean loss: 0.21854, accuracy: 0.93100, task: multi, mean loss: 0.27619, multilabel_accuracy: 0.26600, avg. loss over tasks: 0.29840, lr: 0.0008215724110384265
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 35 
+task: majority, mean loss: 0.43586, accuracy: 0.85600, task: max, mean loss: 0.88225, accuracy: 0.70100, task: top, mean loss: 0.64802, accuracy: 0.82200, task: multi, mean loss: 0.33158, multilabel_accuracy: 0.18300, avg. loss over tasks: 0.57443
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 36 
+task: majority, mean loss: 0.19793, accuracy: 0.93500, task: max, mean loss: 0.46390, accuracy: 0.84150, task: top, mean loss: 0.19435, accuracy: 0.93700, task: multi, mean loss: 0.27306, multilabel_accuracy: 0.25950, avg. loss over tasks: 0.28231, lr: 0.0008080229069251663
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 36 
+task: majority, mean loss: 0.74436, accuracy: 0.79300, task: max, mean loss: 0.79818, accuracy: 0.73800, task: top, mean loss: 0.77440, accuracy: 0.78300, task: multi, mean loss: 0.35922, multilabel_accuracy: 0.20600, avg. loss over tasks: 0.66904
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 37 
+task: majority, mean loss: 0.16581, accuracy: 0.94400, task: max, mean loss: 0.36916, accuracy: 0.87150, task: top, mean loss: 0.19659, accuracy: 0.93700, task: multi, mean loss: 0.25115, multilabel_accuracy: 0.29200, avg. loss over tasks: 0.24568, lr: 0.0007940987335200903
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 37 
+task: majority, mean loss: 0.26053, accuracy: 0.91000, task: max, mean loss: 0.70269, accuracy: 0.74800, task: top, mean loss: 0.41563, accuracy: 0.88100, task: multi, mean loss: 0.27780, multilabel_accuracy: 0.25600, avg. loss over tasks: 0.41416
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 38 
+task: majority, mean loss: 0.11979, accuracy: 0.96450, task: max, mean loss: 0.30831, accuracy: 0.88300, task: top, mean loss: 0.14637, accuracy: 0.95000, task: multi, mean loss: 0.24012, multilabel_accuracy: 0.32500, avg. loss over tasks: 0.20365, lr: 0.0007798168552836382
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 38 
+task: majority, mean loss: 0.20835, accuracy: 0.92900, task: max, mean loss: 0.73746, accuracy: 0.75100, task: top, mean loss: 0.42384, accuracy: 0.88600, task: multi, mean loss: 0.25713, multilabel_accuracy: 0.28200, avg. loss over tasks: 0.40670
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 39 
+task: majority, mean loss: 0.16510, accuracy: 0.94200, task: max, mean loss: 0.34676, accuracy: 0.87600, task: top, mean loss: 0.17621, accuracy: 0.94350, task: multi, mean loss: 0.25364, multilabel_accuracy: 0.28600, avg. loss over tasks: 0.23543, lr: 0.0007651946724844859
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 39 
+task: majority, mean loss: 0.28358, accuracy: 0.90300, task: max, mean loss: 0.79524, accuracy: 0.75200, task: top, mean loss: 0.45372, accuracy: 0.86400, task: multi, mean loss: 0.27360, multilabel_accuracy: 0.29900, avg. loss over tasks: 0.45153
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 40 
+task: majority, mean loss: 0.12231, accuracy: 0.95950, task: max, mean loss: 0.29067, accuracy: 0.90200, task: top, mean loss: 0.13797, accuracy: 0.94850, task: multi, mean loss: 0.24057, multilabel_accuracy: 0.30500, avg. loss over tasks: 0.19788, lr: 0.00075025
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 40 
+task: majority, mean loss: 0.59280, accuracy: 0.81900, task: max, mean loss: 1.04337, accuracy: 0.69300, task: top, mean loss: 0.74838, accuracy: 0.80600, task: multi, mean loss: 0.33050, multilabel_accuracy: 0.23800, avg. loss over tasks: 0.67876
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 41 
+task: majority, mean loss: 0.13036, accuracy: 0.95400, task: max, mean loss: 0.28508, accuracy: 0.89800, task: top, mean loss: 0.14566, accuracy: 0.94850, task: multi, mean loss: 0.23437, multilabel_accuracy: 0.32500, avg. loss over tasks: 0.19887, lr: 0.0007350010456115524
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 41 
+task: majority, mean loss: 0.24621, accuracy: 0.91800, task: max, mean loss: 0.79019, accuracy: 0.74900, task: top, mean loss: 0.52079, accuracy: 0.85400, task: multi, mean loss: 0.28255, multilabel_accuracy: 0.27900, avg. loss over tasks: 0.45994
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 42 
+task: majority, mean loss: 0.11839, accuracy: 0.95750, task: max, mean loss: 0.21720, accuracy: 0.92450, task: top, mean loss: 0.09836, accuracy: 0.97000, task: multi, mean loss: 0.22843, multilabel_accuracy: 0.33750, avg. loss over tasks: 0.16559, lr: 0.0007194663878211441
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 42 
+task: majority, mean loss: 0.30692, accuracy: 0.89500, task: max, mean loss: 0.86979, accuracy: 0.74600, task: top, mean loss: 0.50707, accuracy: 0.87900, task: multi, mean loss: 0.28379, multilabel_accuracy: 0.28000, avg. loss over tasks: 0.49189
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 43 
+task: majority, mean loss: 0.09689, accuracy: 0.96950, task: max, mean loss: 0.21510, accuracy: 0.92800, task: top, mean loss: 0.10259, accuracy: 0.96600, task: multi, mean loss: 0.22090, multilabel_accuracy: 0.35200, avg. loss over tasks: 0.15887, lr: 0.0007036649532163622
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 43 
+task: majority, mean loss: 0.24698, accuracy: 0.91600, task: max, mean loss: 0.71924, accuracy: 0.77200, task: top, mean loss: 0.48947, accuracy: 0.86200, task: multi, mean loss: 0.26212, multilabel_accuracy: 0.31700, avg. loss over tasks: 0.42945
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 44 
+task: majority, mean loss: 0.12009, accuracy: 0.95800, task: max, mean loss: 0.20372, accuracy: 0.93150, task: top, mean loss: 0.09451, accuracy: 0.96750, task: multi, mean loss: 0.21907, multilabel_accuracy: 0.36100, avg. loss over tasks: 0.15935, lr: 0.0006876159934112482
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 44 
+task: majority, mean loss: 0.25555, accuracy: 0.90500, task: max, mean loss: 0.92235, accuracy: 0.73200, task: top, mean loss: 0.52960, accuracy: 0.86500, task: multi, mean loss: 0.27772, multilabel_accuracy: 0.28700, avg. loss over tasks: 0.49630
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 45 
+task: majority, mean loss: 0.10706, accuracy: 0.96400, task: max, mean loss: 0.22533, accuracy: 0.92850, task: top, mean loss: 0.10025, accuracy: 0.96700, task: multi, mean loss: 0.22045, multilabel_accuracy: 0.36200, avg. loss over tasks: 0.16327, lr: 0.0006713390615911716
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 45 
+task: majority, mean loss: 0.23564, accuracy: 0.92900, task: max, mean loss: 0.73284, accuracy: 0.78700, task: top, mean loss: 0.44654, accuracy: 0.88500, task: multi, mean loss: 0.25424, multilabel_accuracy: 0.32600, avg. loss over tasks: 0.41731
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 46 
+task: majority, mean loss: 0.06627, accuracy: 0.97750, task: max, mean loss: 0.15582, accuracy: 0.95150, task: top, mean loss: 0.05847, accuracy: 0.97950, task: multi, mean loss: 0.20065, multilabel_accuracy: 0.39600, avg. loss over tasks: 0.12030, lr: 0.0006548539886902863
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 46 
+task: majority, mean loss: 0.29867, accuracy: 0.90500, task: max, mean loss: 0.76199, accuracy: 0.77600, task: top, mean loss: 0.49046, accuracy: 0.87900, task: multi, mean loss: 0.26497, multilabel_accuracy: 0.29100, avg. loss over tasks: 0.45402
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 47 
+task: majority, mean loss: 0.07614, accuracy: 0.97450, task: max, mean loss: 0.13513, accuracy: 0.95850, task: top, mean loss: 0.06188, accuracy: 0.97800, task: multi, mean loss: 0.19964, multilabel_accuracy: 0.40750, avg. loss over tasks: 0.11820, lr: 0.0006381808592305911
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 47 
+task: majority, mean loss: 0.47848, accuracy: 0.86200, task: max, mean loss: 0.94276, accuracy: 0.74600, task: top, mean loss: 0.62739, accuracy: 0.84300, task: multi, mean loss: 0.30724, multilabel_accuracy: 0.25900, avg. loss over tasks: 0.58897
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 48 
+task: majority, mean loss: 0.10119, accuracy: 0.96550, task: max, mean loss: 0.15437, accuracy: 0.95000, task: top, mean loss: 0.10687, accuracy: 0.96750, task: multi, mean loss: 0.20971, multilabel_accuracy: 0.39550, avg. loss over tasks: 0.14304, lr: 0.0006213399868520341
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 48 
+task: majority, mean loss: 0.35575, accuracy: 0.89100, task: max, mean loss: 1.11491, accuracy: 0.69600, task: top, mean loss: 0.66873, accuracy: 0.84400, task: multi, mean loss: 0.31703, multilabel_accuracy: 0.25800, avg. loss over tasks: 0.61411
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 49 
+task: majority, mean loss: 0.07977, accuracy: 0.97400, task: max, mean loss: 0.13228, accuracy: 0.95800, task: top, mean loss: 0.07488, accuracy: 0.97750, task: multi, mean loss: 0.20282, multilabel_accuracy: 0.39700, avg. loss over tasks: 0.12244, lr: 0.0006043518895634708
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 49 
+task: majority, mean loss: 0.23101, accuracy: 0.93000, task: max, mean loss: 0.99008, accuracy: 0.73000, task: top, mean loss: 0.53868, accuracy: 0.85600, task: multi, mean loss: 0.27437, multilabel_accuracy: 0.28600, avg. loss over tasks: 0.50853
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 50 
+task: majority, mean loss: 0.06414, accuracy: 0.97900, task: max, mean loss: 0.13922, accuracy: 0.95350, task: top, mean loss: 0.06779, accuracy: 0.97650, task: multi, mean loss: 0.19459, multilabel_accuracy: 0.40500, avg. loss over tasks: 0.11644, lr: 0.0005872372647446318
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 50 
+task: majority, mean loss: 0.25951, accuracy: 0.92200, task: max, mean loss: 0.89503, accuracy: 0.75000, task: top, mean loss: 0.48988, accuracy: 0.87300, task: multi, mean loss: 0.26034, multilabel_accuracy: 0.31600, avg. loss over tasks: 0.47619
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 51 
+task: majority, mean loss: 0.03960, accuracy: 0.99000, task: max, mean loss: 0.09158, accuracy: 0.97500, task: top, mean loss: 0.04516, accuracy: 0.98650, task: multi, mean loss: 0.17702, multilabel_accuracy: 0.45350, avg. loss over tasks: 0.08834, lr: 0.0005700169639295527
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 51 
+task: majority, mean loss: 0.17716, accuracy: 0.93800, task: max, mean loss: 0.82561, accuracy: 0.77400, task: top, mean loss: 0.42222, accuracy: 0.89400, task: multi, mean loss: 0.24234, multilabel_accuracy: 0.33700, avg. loss over tasks: 0.41684
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 52 
+task: majority, mean loss: 0.06311, accuracy: 0.97900, task: max, mean loss: 0.09022, accuracy: 0.96950, task: top, mean loss: 0.05697, accuracy: 0.98400, task: multi, mean loss: 0.18304, multilabel_accuracy: 0.43950, avg. loss over tasks: 0.09834, lr: 0.0005527119674021931
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 52 
+task: majority, mean loss: 0.22983, accuracy: 0.92700, task: max, mean loss: 0.80083, accuracy: 0.77300, task: top, mean loss: 0.56641, accuracy: 0.87000, task: multi, mean loss: 0.25881, multilabel_accuracy: 0.34900, avg. loss over tasks: 0.46397
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 53 
+task: majority, mean loss: 0.05781, accuracy: 0.98150, task: max, mean loss: 0.07352, accuracy: 0.97550, task: top, mean loss: 0.05412, accuracy: 0.98500, task: multi, mean loss: 0.17403, multilabel_accuracy: 0.47200, avg. loss over tasks: 0.08987, lr: 0.0005353433586351906
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 53 
+task: majority, mean loss: 0.45712, accuracy: 0.85700, task: max, mean loss: 1.07327, accuracy: 0.72600, task: top, mean loss: 0.54994, accuracy: 0.85900, task: multi, mean loss: 0.29958, multilabel_accuracy: 0.26600, avg. loss over tasks: 0.59498
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 54 
+task: majority, mean loss: 0.06360, accuracy: 0.98100, task: max, mean loss: 0.09948, accuracy: 0.96450, task: top, mean loss: 0.05007, accuracy: 0.98550, task: multi, mean loss: 0.18343, multilabel_accuracy: 0.44900, avg. loss over tasks: 0.09914, lr: 0.0005179322986028993
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 54 
+task: majority, mean loss: 0.20476, accuracy: 0.92300, task: max, mean loss: 0.81482, accuracy: 0.77700, task: top, mean loss: 0.45750, accuracy: 0.88700, task: multi, mean loss: 0.23820, multilabel_accuracy: 0.36200, avg. loss over tasks: 0.42882
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 55 
+task: majority, mean loss: 0.03898, accuracy: 0.98950, task: max, mean loss: 0.06202, accuracy: 0.98100, task: top, mean loss: 0.04404, accuracy: 0.99000, task: multi, mean loss: 0.16578, multilabel_accuracy: 0.48500, avg. loss over tasks: 0.07770, lr: 0.0005004999999999999
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 55 
+task: majority, mean loss: 0.20027, accuracy: 0.93400, task: max, mean loss: 0.91123, accuracy: 0.77100, task: top, mean loss: 0.48714, accuracy: 0.88400, task: multi, mean loss: 0.25709, multilabel_accuracy: 0.32300, avg. loss over tasks: 0.46394
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 56 
+task: majority, mean loss: 0.03012, accuracy: 0.99100, task: max, mean loss: 0.05466, accuracy: 0.98550, task: top, mean loss: 0.03544, accuracy: 0.98800, task: multi, mean loss: 0.15803, multilabel_accuracy: 0.50200, avg. loss over tasks: 0.06956, lr: 0.00048306770139710083
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 56 
+task: majority, mean loss: 0.23438, accuracy: 0.92700, task: max, mean loss: 1.04619, accuracy: 0.73500, task: top, mean loss: 0.48749, accuracy: 0.88400, task: multi, mean loss: 0.26406, multilabel_accuracy: 0.33000, avg. loss over tasks: 0.50803
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 57 
+task: majority, mean loss: 0.03845, accuracy: 0.98850, task: max, mean loss: 0.07919, accuracy: 0.97400, task: top, mean loss: 0.04506, accuracy: 0.98900, task: multi, mean loss: 0.16620, multilabel_accuracy: 0.48050, avg. loss over tasks: 0.08222, lr: 0.0004656566413648094
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 57 
+task: majority, mean loss: 0.20292, accuracy: 0.92600, task: max, mean loss: 0.98400, accuracy: 0.76400, task: top, mean loss: 0.50233, accuracy: 0.87800, task: multi, mean loss: 0.25572, multilabel_accuracy: 0.33600, avg. loss over tasks: 0.48624
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 58 
+task: majority, mean loss: 0.07441, accuracy: 0.97100, task: max, mean loss: 0.12921, accuracy: 0.95400, task: top, mean loss: 0.08433, accuracy: 0.97550, task: multi, mean loss: 0.18148, multilabel_accuracy: 0.46250, avg. loss over tasks: 0.11736, lr: 0.0004482880325978072
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 58 
+task: majority, mean loss: 0.49532, accuracy: 0.84700, task: max, mean loss: 1.02455, accuracy: 0.73300, task: top, mean loss: 0.65122, accuracy: 0.85300, task: multi, mean loss: 0.30568, multilabel_accuracy: 0.29100, avg. loss over tasks: 0.61919
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 59 
+task: majority, mean loss: 0.07438, accuracy: 0.97300, task: max, mean loss: 0.10550, accuracy: 0.96450, task: top, mean loss: 0.08347, accuracy: 0.97600, task: multi, mean loss: 0.17948, multilabel_accuracy: 0.44200, avg. loss over tasks: 0.11071, lr: 0.0004309830360704473
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 59 
+task: majority, mean loss: 0.21232, accuracy: 0.92900, task: max, mean loss: 1.04610, accuracy: 0.72600, task: top, mean loss: 0.47146, accuracy: 0.88600, task: multi, mean loss: 0.26210, multilabel_accuracy: 0.34300, avg. loss over tasks: 0.49800
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 60 
+task: majority, mean loss: 0.04517, accuracy: 0.98700, task: max, mean loss: 0.05505, accuracy: 0.98200, task: top, mean loss: 0.02939, accuracy: 0.99200, task: multi, mean loss: 0.16007, multilabel_accuracy: 0.51700, avg. loss over tasks: 0.07242, lr: 0.00041376273525536844
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 60 
+task: majority, mean loss: 0.22584, accuracy: 0.92400, task: max, mean loss: 0.88106, accuracy: 0.76400, task: top, mean loss: 0.45526, accuracy: 0.89500, task: multi, mean loss: 0.24107, multilabel_accuracy: 0.36100, avg. loss over tasks: 0.45081
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 61 
+task: majority, mean loss: 0.02870, accuracy: 0.99150, task: max, mean loss: 0.03502, accuracy: 0.99150, task: top, mean loss: 0.02679, accuracy: 0.99200, task: multi, mean loss: 0.14921, multilabel_accuracy: 0.53200, avg. loss over tasks: 0.05993, lr: 0.00039664811043652916
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 61 
+task: majority, mean loss: 0.24111, accuracy: 0.92000, task: max, mean loss: 0.84058, accuracy: 0.79300, task: top, mean loss: 0.45721, accuracy: 0.88300, task: multi, mean loss: 0.25372, multilabel_accuracy: 0.36700, avg. loss over tasks: 0.44816
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 62 
+task: majority, mean loss: 0.02723, accuracy: 0.99200, task: max, mean loss: 0.03241, accuracy: 0.99400, task: top, mean loss: 0.01907, accuracy: 0.99500, task: multi, mean loss: 0.14238, multilabel_accuracy: 0.54700, avg. loss over tasks: 0.05527, lr: 0.00037966001314796593
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 62 
+task: majority, mean loss: 0.18368, accuracy: 0.93300, task: max, mean loss: 0.91432, accuracy: 0.78300, task: top, mean loss: 0.44092, accuracy: 0.89700, task: multi, mean loss: 0.23917, multilabel_accuracy: 0.37400, avg. loss over tasks: 0.44452
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 63 
+task: majority, mean loss: 0.02213, accuracy: 0.99350, task: max, mean loss: 0.02030, accuracy: 0.99550, task: top, mean loss: 0.01214, accuracy: 0.99700, task: multi, mean loss: 0.13395, multilabel_accuracy: 0.56950, avg. loss over tasks: 0.04713, lr: 0.00036281914076940894
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 63 
+task: majority, mean loss: 0.26677, accuracy: 0.91700, task: max, mean loss: 0.88840, accuracy: 0.78900, task: top, mean loss: 0.43630, accuracy: 0.90300, task: multi, mean loss: 0.24552, multilabel_accuracy: 0.36500, avg. loss over tasks: 0.45925
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 64 
+task: majority, mean loss: 0.02503, accuracy: 0.99350, task: max, mean loss: 0.02895, accuracy: 0.99300, task: top, mean loss: 0.02181, accuracy: 0.99300, task: multi, mean loss: 0.12903, multilabel_accuracy: 0.60900, avg. loss over tasks: 0.05120, lr: 0.00034614601130971383
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 64 
+task: majority, mean loss: 0.22606, accuracy: 0.93900, task: max, mean loss: 0.91662, accuracy: 0.77200, task: top, mean loss: 0.46007, accuracy: 0.89800, task: multi, mean loss: 0.24150, multilabel_accuracy: 0.38300, avg. loss over tasks: 0.46106
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 65 
+task: majority, mean loss: 0.02401, accuracy: 0.99300, task: max, mean loss: 0.02098, accuracy: 0.99550, task: top, mean loss: 0.01593, accuracy: 0.99600, task: multi, mean loss: 0.12886, multilabel_accuracy: 0.59950, avg. loss over tasks: 0.04745, lr: 0.0003296609384088285
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 65 
+task: majority, mean loss: 0.19374, accuracy: 0.93900, task: max, mean loss: 0.89041, accuracy: 0.78000, task: top, mean loss: 0.46623, accuracy: 0.89100, task: multi, mean loss: 0.23659, multilabel_accuracy: 0.39100, avg. loss over tasks: 0.44675
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 66 
+task: majority, mean loss: 0.01570, accuracy: 0.99650, task: max, mean loss: 0.02181, accuracy: 0.99450, task: top, mean loss: 0.00803, accuracy: 0.99950, task: multi, mean loss: 0.11850, multilabel_accuracy: 0.62250, avg. loss over tasks: 0.04101, lr: 0.00031338400658875205
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 66 
+task: majority, mean loss: 0.21502, accuracy: 0.94100, task: max, mean loss: 0.87609, accuracy: 0.78800, task: top, mean loss: 0.46162, accuracy: 0.90600, task: multi, mean loss: 0.23313, multilabel_accuracy: 0.38200, avg. loss over tasks: 0.44647
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 67 
+task: majority, mean loss: 0.02603, accuracy: 0.99300, task: max, mean loss: 0.02188, accuracy: 0.99450, task: top, mean loss: 0.01491, accuracy: 0.99550, task: multi, mean loss: 0.12259, multilabel_accuracy: 0.60750, avg. loss over tasks: 0.04635, lr: 0.00029733504678363786
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 67 
+task: majority, mean loss: 0.18594, accuracy: 0.94300, task: max, mean loss: 0.91387, accuracy: 0.78200, task: top, mean loss: 0.42943, accuracy: 0.90700, task: multi, mean loss: 0.22446, multilabel_accuracy: 0.40400, avg. loss over tasks: 0.43843
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 68 
+task: majority, mean loss: 0.01622, accuracy: 0.99600, task: max, mean loss: 0.02417, accuracy: 0.99150, task: top, mean loss: 0.01544, accuracy: 0.99550, task: multi, mean loss: 0.12295, multilabel_accuracy: 0.61900, avg. loss over tasks: 0.04469, lr: 0.0002815336121788558
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 68 
+task: majority, mean loss: 0.17020, accuracy: 0.94800, task: max, mean loss: 0.95968, accuracy: 0.78300, task: top, mean loss: 0.43864, accuracy: 0.89600, task: multi, mean loss: 0.24482, multilabel_accuracy: 0.37300, avg. loss over tasks: 0.45334
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 69 
+task: majority, mean loss: 0.02368, accuracy: 0.99200, task: max, mean loss: 0.01826, accuracy: 0.99550, task: top, mean loss: 0.01254, accuracy: 0.99650, task: multi, mean loss: 0.11972, multilabel_accuracy: 0.62250, avg. loss over tasks: 0.04355, lr: 0.0002659989543884475
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 69 
+task: majority, mean loss: 0.22442, accuracy: 0.92900, task: max, mean loss: 0.86973, accuracy: 0.79500, task: top, mean loss: 0.44471, accuracy: 0.90300, task: multi, mean loss: 0.22762, multilabel_accuracy: 0.40500, avg. loss over tasks: 0.44162
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 70 
+task: majority, mean loss: 0.02164, accuracy: 0.99350, task: max, mean loss: 0.01851, accuracy: 0.99500, task: top, mean loss: 0.01240, accuracy: 0.99750, task: multi, mean loss: 0.11212, multilabel_accuracy: 0.64700, avg. loss over tasks: 0.04117, lr: 0.0002507500000000001
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 70 
+task: majority, mean loss: 0.16210, accuracy: 0.94600, task: max, mean loss: 0.89551, accuracy: 0.78400, task: top, mean loss: 0.41203, accuracy: 0.90900, task: multi, mean loss: 0.21645, multilabel_accuracy: 0.42300, avg. loss over tasks: 0.42152
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 71 
+task: majority, mean loss: 0.02290, accuracy: 0.99450, task: max, mean loss: 0.01561, accuracy: 0.99600, task: top, mean loss: 0.01435, accuracy: 0.99550, task: multi, mean loss: 0.11158, multilabel_accuracy: 0.66200, avg. loss over tasks: 0.04111, lr: 0.0002358053275155142
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 71 
+task: majority, mean loss: 0.17088, accuracy: 0.94300, task: max, mean loss: 0.95048, accuracy: 0.77400, task: top, mean loss: 0.46245, accuracy: 0.89700, task: multi, mean loss: 0.22942, multilabel_accuracy: 0.39800, avg. loss over tasks: 0.45331
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 72 
+task: majority, mean loss: 0.01122, accuracy: 0.99900, task: max, mean loss: 0.01500, accuracy: 0.99750, task: top, mean loss: 0.00598, accuracy: 1.00000, task: multi, mean loss: 0.10304, multilabel_accuracy: 0.67550, avg. loss over tasks: 0.03381, lr: 0.00022118314471636204
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 72 
+task: majority, mean loss: 0.17381, accuracy: 0.94100, task: max, mean loss: 0.91450, accuracy: 0.78500, task: top, mean loss: 0.42250, accuracy: 0.90500, task: multi, mean loss: 0.21901, multilabel_accuracy: 0.42700, avg. loss over tasks: 0.43246
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 73 
+task: majority, mean loss: 0.01559, accuracy: 0.99700, task: max, mean loss: 0.01294, accuracy: 0.99650, task: top, mean loss: 0.00997, accuracy: 0.99800, task: multi, mean loss: 0.10357, multilabel_accuracy: 0.68400, avg. loss over tasks: 0.03552, lr: 0.00020690126647990973
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 73 
+task: majority, mean loss: 0.17136, accuracy: 0.94600, task: max, mean loss: 0.87188, accuracy: 0.79100, task: top, mean loss: 0.43208, accuracy: 0.90600, task: multi, mean loss: 0.21851, multilabel_accuracy: 0.41800, avg. loss over tasks: 0.42346
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 74 
+task: majority, mean loss: 0.00717, accuracy: 0.99950, task: max, mean loss: 0.01349, accuracy: 0.99600, task: top, mean loss: 0.00833, accuracy: 0.99850, task: multi, mean loss: 0.09350, multilabel_accuracy: 0.71200, avg. loss over tasks: 0.03062, lr: 0.00019297709307483367
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 74 
+task: majority, mean loss: 0.17224, accuracy: 0.94000, task: max, mean loss: 0.96826, accuracy: 0.78300, task: top, mean loss: 0.43764, accuracy: 0.90900, task: multi, mean loss: 0.22832, multilabel_accuracy: 0.41600, avg. loss over tasks: 0.45162
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 75 
+task: majority, mean loss: 0.01122, accuracy: 0.99850, task: max, mean loss: 0.01468, accuracy: 0.99600, task: top, mean loss: 0.01054, accuracy: 0.99600, task: multi, mean loss: 0.09933, multilabel_accuracy: 0.69950, avg. loss over tasks: 0.03394, lr: 0.0001794275889615736
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 75 
+task: majority, mean loss: 0.17473, accuracy: 0.95100, task: max, mean loss: 0.91998, accuracy: 0.77400, task: top, mean loss: 0.46891, accuracy: 0.90300, task: multi, mean loss: 0.22406, multilabel_accuracy: 0.41700, avg. loss over tasks: 0.44692
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 76 
+task: majority, mean loss: 0.00804, accuracy: 0.99950, task: max, mean loss: 0.01073, accuracy: 0.99900, task: top, mean loss: 0.01092, accuracy: 0.99650, task: multi, mean loss: 0.09425, multilabel_accuracy: 0.71900, avg. loss over tasks: 0.03098, lr: 0.0001662692621237503
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 76 
+task: majority, mean loss: 0.16048, accuracy: 0.94500, task: max, mean loss: 0.90454, accuracy: 0.79400, task: top, mean loss: 0.45016, accuracy: 0.90000, task: multi, mean loss: 0.21896, multilabel_accuracy: 0.43500, avg. loss over tasks: 0.43354
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 77 
+task: majority, mean loss: 0.00913, accuracy: 0.99950, task: max, mean loss: 0.01132, accuracy: 0.99750, task: top, mean loss: 0.00884, accuracy: 0.99700, task: multi, mean loss: 0.08952, multilabel_accuracy: 0.73250, avg. loss over tasks: 0.02970, lr: 0.00015351814395573083
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 77 
+task: majority, mean loss: 0.16475, accuracy: 0.94800, task: max, mean loss: 0.97648, accuracy: 0.78100, task: top, mean loss: 0.44130, accuracy: 0.90200, task: multi, mean loss: 0.22226, multilabel_accuracy: 0.43500, avg. loss over tasks: 0.45120
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 78 
+task: majority, mean loss: 0.00753, accuracy: 0.99950, task: max, mean loss: 0.00731, accuracy: 0.99950, task: top, mean loss: 0.00920, accuracy: 0.99750, task: multi, mean loss: 0.08728, multilabel_accuracy: 0.73150, avg. loss over tasks: 0.02783, lr: 0.00014118976973084385
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 78 
+task: majority, mean loss: 0.16731, accuracy: 0.94500, task: max, mean loss: 0.91946, accuracy: 0.78400, task: top, mean loss: 0.43641, accuracy: 0.90400, task: multi, mean loss: 0.22565, multilabel_accuracy: 0.43100, avg. loss over tasks: 0.43721
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 79 
+task: majority, mean loss: 0.00699, accuracy: 0.99950, task: max, mean loss: 0.00703, accuracy: 0.99900, task: top, mean loss: 0.00447, accuracy: 1.00000, task: multi, mean loss: 0.08485, multilabel_accuracy: 0.74450, avg. loss over tasks: 0.02584, lr: 0.0001292991596740417
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 79 
+task: majority, mean loss: 0.16777, accuracy: 0.94800, task: max, mean loss: 0.91155, accuracy: 0.78600, task: top, mean loss: 0.42645, accuracy: 0.90700, task: multi, mean loss: 0.21539, multilabel_accuracy: 0.42900, avg. loss over tasks: 0.43029
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 80 
+task: majority, mean loss: 0.00836, accuracy: 0.99950, task: max, mean loss: 0.00464, accuracy: 1.00000, task: top, mean loss: 0.00607, accuracy: 0.99850, task: multi, mean loss: 0.08112, multilabel_accuracy: 0.76350, avg. loss over tasks: 0.02505, lr: 0.00011786080066207054
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 80 
+task: majority, mean loss: 0.15861, accuracy: 0.95000, task: max, mean loss: 0.91093, accuracy: 0.78900, task: top, mean loss: 0.41621, accuracy: 0.90700, task: multi, mean loss: 0.21747, multilabel_accuracy: 0.44700, avg. loss over tasks: 0.42580
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 81 
+task: majority, mean loss: 0.00698, accuracy: 1.00000, task: max, mean loss: 0.00680, accuracy: 0.99950, task: top, mean loss: 0.00649, accuracy: 0.99850, task: multi, mean loss: 0.08007, multilabel_accuracy: 0.76250, avg. loss over tasks: 0.02509, lr: 0.00010688862857344241
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 81 
+task: majority, mean loss: 0.15861, accuracy: 0.94800, task: max, mean loss: 0.88860, accuracy: 0.79400, task: top, mean loss: 0.42366, accuracy: 0.90400, task: multi, mean loss: 0.21462, multilabel_accuracy: 0.44400, avg. loss over tasks: 0.42137
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 82 
+task: majority, mean loss: 0.00675, accuracy: 0.99950, task: max, mean loss: 0.00853, accuracy: 0.99700, task: top, mean loss: 0.00430, accuracy: 0.99950, task: multi, mean loss: 0.07941, multilabel_accuracy: 0.76250, avg. loss over tasks: 0.02475, lr: 9.63960113097138e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 82 
+task: majority, mean loss: 0.15780, accuracy: 0.95100, task: max, mean loss: 0.89276, accuracy: 0.79100, task: top, mean loss: 0.41886, accuracy: 0.91300, task: multi, mean loss: 0.21856, multilabel_accuracy: 0.44000, avg. loss over tasks: 0.42200
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 83 
+task: majority, mean loss: 0.00504, accuracy: 0.99950, task: max, mean loss: 0.00661, accuracy: 0.99900, task: top, mean loss: 0.00460, accuracy: 0.99850, task: multi, mean loss: 0.07364, multilabel_accuracy: 0.78450, avg. loss over tasks: 0.02247, lr: 8.639573250875671e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 83 
+task: majority, mean loss: 0.16189, accuracy: 0.94900, task: max, mean loss: 0.88620, accuracy: 0.79400, task: top, mean loss: 0.42584, accuracy: 0.90800, task: multi, mean loss: 0.21430, multilabel_accuracy: 0.44100, avg. loss over tasks: 0.42206
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 84 
+task: majority, mean loss: 0.00565, accuracy: 1.00000, task: max, mean loss: 0.00601, accuracy: 0.99900, task: top, mean loss: 0.00573, accuracy: 0.99900, task: multi, mean loss: 0.07572, multilabel_accuracy: 0.77250, avg. loss over tasks: 0.02328, lr: 7.689997596986524e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 84 
+task: majority, mean loss: 0.16716, accuracy: 0.94700, task: max, mean loss: 0.90287, accuracy: 0.78600, task: top, mean loss: 0.44652, accuracy: 0.90300, task: multi, mean loss: 0.21830, multilabel_accuracy: 0.44200, avg. loss over tasks: 0.43371
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 85 
+task: majority, mean loss: 0.00591, accuracy: 0.99950, task: max, mean loss: 0.00573, accuracy: 0.99900, task: top, mean loss: 0.00456, accuracy: 0.99950, task: multi, mean loss: 0.07632, multilabel_accuracy: 0.78600, avg. loss over tasks: 0.02313, lr: 6.792031080967287e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 85 
+task: majority, mean loss: 0.16643, accuracy: 0.95000, task: max, mean loss: 0.88071, accuracy: 0.79000, task: top, mean loss: 0.44023, accuracy: 0.90400, task: multi, mean loss: 0.21780, multilabel_accuracy: 0.44800, avg. loss over tasks: 0.42629
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 86 
+task: majority, mean loss: 0.00579, accuracy: 0.99950, task: max, mean loss: 0.00515, accuracy: 0.99950, task: top, mean loss: 0.00701, accuracy: 0.99750, task: multi, mean loss: 0.07067, multilabel_accuracy: 0.80100, avg. loss over tasks: 0.02215, lr: 5.946767736696608e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 86 
+task: majority, mean loss: 0.15554, accuracy: 0.95300, task: max, mean loss: 0.87794, accuracy: 0.80400, task: top, mean loss: 0.41195, accuracy: 0.91400, task: multi, mean loss: 0.21409, multilabel_accuracy: 0.45100, avg. loss over tasks: 0.41488
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 87 
+task: majority, mean loss: 0.00789, accuracy: 0.99800, task: max, mean loss: 0.00589, accuracy: 0.99850, task: top, mean loss: 0.01073, accuracy: 0.99750, task: multi, mean loss: 0.07269, multilabel_accuracy: 0.77950, avg. loss over tasks: 0.02430, lr: 5.155237387356618e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 87 
+task: majority, mean loss: 0.18274, accuracy: 0.94500, task: max, mean loss: 0.89827, accuracy: 0.79400, task: top, mean loss: 0.44755, accuracy: 0.90400, task: multi, mean loss: 0.21570, multilabel_accuracy: 0.45600, avg. loss over tasks: 0.43606
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 88 
+task: majority, mean loss: 0.00651, accuracy: 0.99900, task: max, mean loss: 0.00734, accuracy: 0.99800, task: top, mean loss: 0.00412, accuracy: 0.99900, task: multi, mean loss: 0.07041, multilabel_accuracy: 0.79900, avg. loss over tasks: 0.02209, lr: 4.418404390752081e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 88 
+task: majority, mean loss: 0.15962, accuracy: 0.95300, task: max, mean loss: 0.90517, accuracy: 0.79200, task: top, mean loss: 0.42841, accuracy: 0.90500, task: multi, mean loss: 0.21611, multilabel_accuracy: 0.44900, avg. loss over tasks: 0.42733
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 89 
+task: majority, mean loss: 0.00564, accuracy: 0.99950, task: max, mean loss: 0.00505, accuracy: 0.99900, task: top, mean loss: 0.00423, accuracy: 0.99950, task: multi, mean loss: 0.06766, multilabel_accuracy: 0.80450, avg. loss over tasks: 0.02064, lr: 3.7371664643889735e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 89 
+task: majority, mean loss: 0.16629, accuracy: 0.94900, task: max, mean loss: 0.91490, accuracy: 0.78900, task: top, mean loss: 0.43876, accuracy: 0.90600, task: multi, mean loss: 0.21988, multilabel_accuracy: 0.45700, avg. loss over tasks: 0.43496
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 90 
+task: majority, mean loss: 0.00451, accuracy: 1.00000, task: max, mean loss: 0.00380, accuracy: 0.99950, task: top, mean loss: 0.00442, accuracy: 0.99950, task: multi, mean loss: 0.06484, multilabel_accuracy: 0.80950, avg. loss over tasks: 0.01939, lr: 3.11235359174388e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 90 
+task: majority, mean loss: 0.16284, accuracy: 0.94900, task: max, mean loss: 0.91524, accuracy: 0.79800, task: top, mean loss: 0.42979, accuracy: 0.90700, task: multi, mean loss: 0.21616, multilabel_accuracy: 0.45000, avg. loss over tasks: 0.43101
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 91 
+task: majority, mean loss: 0.00682, accuracy: 0.99850, task: max, mean loss: 0.00557, accuracy: 0.99850, task: top, mean loss: 0.00262, accuracy: 1.00000, task: multi, mean loss: 0.06616, multilabel_accuracy: 0.81650, avg. loss over tasks: 0.02030, lr: 2.544727011057081e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 91 
+task: majority, mean loss: 0.15784, accuracy: 0.95300, task: max, mean loss: 0.92754, accuracy: 0.79500, task: top, mean loss: 0.41950, accuracy: 0.91100, task: multi, mean loss: 0.21762, multilabel_accuracy: 0.44600, avg. loss over tasks: 0.43063
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 92 
+task: majority, mean loss: 0.00531, accuracy: 0.99950, task: max, mean loss: 0.00673, accuracy: 0.99850, task: top, mean loss: 0.00353, accuracy: 0.99900, task: multi, mean loss: 0.06437, multilabel_accuracy: 0.81550, avg. loss over tasks: 0.01998, lr: 2.0349782878809714e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 92 
+task: majority, mean loss: 0.15824, accuracy: 0.95500, task: max, mean loss: 0.91068, accuracy: 0.79200, task: top, mean loss: 0.41703, accuracy: 0.91400, task: multi, mean loss: 0.21487, multilabel_accuracy: 0.45400, avg. loss over tasks: 0.42521
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 93 
+task: majority, mean loss: 0.00707, accuracy: 0.99900, task: max, mean loss: 0.00541, accuracy: 0.99800, task: top, mean loss: 0.00257, accuracy: 1.00000, task: multi, mean loss: 0.06377, multilabel_accuracy: 0.81700, avg. loss over tasks: 0.01970, lr: 1.583728472513976e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 93 
+task: majority, mean loss: 0.14875, accuracy: 0.95300, task: max, mean loss: 0.91762, accuracy: 0.78900, task: top, mean loss: 0.41699, accuracy: 0.91000, task: multi, mean loss: 0.21649, multilabel_accuracy: 0.45700, avg. loss over tasks: 0.42496
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 94 
+task: majority, mean loss: 0.00444, accuracy: 0.99900, task: max, mean loss: 0.00334, accuracy: 1.00000, task: top, mean loss: 0.00362, accuracy: 0.99950, task: multi, mean loss: 0.06345, multilabel_accuracy: 0.81500, avg. loss over tasks: 0.01871, lr: 1.1915273433464114e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 94 
+task: majority, mean loss: 0.15654, accuracy: 0.95200, task: max, mean loss: 0.90809, accuracy: 0.79300, task: top, mean loss: 0.41710, accuracy: 0.91000, task: multi, mean loss: 0.21517, multilabel_accuracy: 0.45300, avg. loss over tasks: 0.42422
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 95 
+task: majority, mean loss: 0.00521, accuracy: 0.99900, task: max, mean loss: 0.00367, accuracy: 1.00000, task: top, mean loss: 0.00255, accuracy: 0.99950, task: multi, mean loss: 0.06371, multilabel_accuracy: 0.82400, avg. loss over tasks: 0.01878, lr: 8.588527370402095e-06
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 95 
+task: majority, mean loss: 0.15980, accuracy: 0.95200, task: max, mean loss: 0.91178, accuracy: 0.79000, task: top, mean loss: 0.42218, accuracy: 0.90900, task: multi, mean loss: 0.21566, multilabel_accuracy: 0.45000, avg. loss over tasks: 0.42736
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 96 
+task: majority, mean loss: 0.00431, accuracy: 1.00000, task: max, mean loss: 0.00467, accuracy: 0.99950, task: top, mean loss: 0.00400, accuracy: 0.99950, task: multi, mean loss: 0.06233, multilabel_accuracy: 0.82500, avg. loss over tasks: 0.01883, lr: 5.86109966358566e-06
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 96 
+task: majority, mean loss: 0.15228, accuracy: 0.95100, task: max, mean loss: 0.92013, accuracy: 0.78700, task: top, mean loss: 0.42389, accuracy: 0.90900, task: multi, mean loss: 0.21595, multilabel_accuracy: 0.45300, avg. loss over tasks: 0.42806
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 97 
+task: majority, mean loss: 0.00515, accuracy: 0.99900, task: max, mean loss: 0.00435, accuracy: 0.99900, task: top, mean loss: 0.00423, accuracy: 0.99950, task: multi, mean loss: 0.06189, multilabel_accuracy: 0.82600, avg. loss over tasks: 0.01890, lr: 3.7363132635474912e-06
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 97 
+task: majority, mean loss: 0.15460, accuracy: 0.95200, task: max, mean loss: 0.91346, accuracy: 0.78800, task: top, mean loss: 0.42035, accuracy: 0.91200, task: multi, mean loss: 0.21445, multilabel_accuracy: 0.45400, avg. loss over tasks: 0.42572
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 98 
+task: majority, mean loss: 0.00473, accuracy: 1.00000, task: max, mean loss: 0.00618, accuracy: 0.99900, task: top, mean loss: 0.00457, accuracy: 0.99850, task: multi, mean loss: 0.06263, multilabel_accuracy: 0.82050, avg. loss over tasks: 0.01953, lr: 2.2167568952178134e-06
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 98 
+task: majority, mean loss: 0.15576, accuracy: 0.95200, task: max, mean loss: 0.90871, accuracy: 0.79300, task: top, mean loss: 0.41904, accuracy: 0.91200, task: multi, mean loss: 0.21404, multilabel_accuracy: 0.45100, avg. loss over tasks: 0.42439
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 99 
+task: majority, mean loss: 0.00359, accuracy: 0.99950, task: max, mean loss: 0.00432, accuracy: 0.99900, task: top, mean loss: 0.00346, accuracy: 0.99900, task: multi, mean loss: 0.06052, multilabel_accuracy: 0.83350, avg. loss over tasks: 0.01797, lr: 1.3042819039616668e-06
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 99 
+task: majority, mean loss: 0.15521, accuracy: 0.95100, task: max, mean loss: 0.91562, accuracy: 0.78900, task: top, mean loss: 0.41843, accuracy: 0.91100, task: multi, mean loss: 0.21432, multilabel_accuracy: 0.45100, avg. loss over tasks: 0.42589
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 100 
+task: majority, mean loss: 0.00418, accuracy: 0.99950, task: max, mean loss: 0.00541, accuracy: 0.99850, task: top, mean loss: 0.00737, accuracy: 0.99800, task: multi, mean loss: 0.06081, multilabel_accuracy: 0.83600, avg. loss over tasks: 0.01944, lr: 1e-06
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 100 
+task: majority, mean loss: 0.15324, accuracy: 0.95200, task: max, mean loss: 0.91966, accuracy: 0.78700, task: top, mean loss: 0.42207, accuracy: 0.91100, task: multi, mean loss: 0.21535, multilabel_accuracy: 0.45100, avg. loss over tasks: 0.42758
 Diversity Loss - Mean: 0.00000, Variance: 0.00000
 Semantic Loss - Mean: 0.00000, Variance: 0.00000
 
