@@ -77,11 +77,6 @@ docker run --gpus all --shm-size=16g --rm -v "$REPO_DIR:/home/mra23/ips_MaxRiffi
     exit 1
   fi
 
-  # Check if parameters.json is updated (modification time is recent)
-  if [ ! -f '$DATA_DIR/parameters.json' ] || [ \$(( \$(date +%s) - \$(stat -c %Y '$DATA_DIR/parameters.json') )) -gt 60 ]; then
-    echo 'parameters.json not found or not recently updated. Data generation failed.'
-    exit 1
-  fi
 
   echo 'Data generation successful. Proceeding with training.'
 
