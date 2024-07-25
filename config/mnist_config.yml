@@ -7,7 +7,7 @@ n_epoch_warmup: 10    # number of warm-up epochs
 lr: 0.001             # learning rate
 wd: 0.1               # weight decay
 
-semantic_diversity_loss: False
+semantic_diversity_loss: True
 
 #dset
 n_class: 10                                                   # number of classes
