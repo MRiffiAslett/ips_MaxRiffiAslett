@@ -33,7 +33,7 @@ SCRIPT_DIR="/home/mra23/ips_MaxRiffiAslett"  # Changed to a writable directory
 MAIN_SCRIPT_PATH="$SCRIPT_DIR/main.py"
 DATA_SCRIPT_PATH="$SCRIPT_DIR/data/megapixel_mnist/PineneedleMegaMNIST.py"
 DATA_DIR="$SCRIPT_DIR/data/megapixel_mnist/dsets/megapixel_mnist_1500"
-OUTPUT_FILE="$RESULTS_DIR/results_56_56_3000_3000_600n_1000d_W_2.txt"
+OUTPUT_FILE="$RESULTS_DIR/results_56_56_3000_3000_600n_1000d_W_3.txt"
 DOCKERFILE_PATH="$REPO_DIR/Dockerfile.txt"
 
 # Ensure the repository and results directories exist
