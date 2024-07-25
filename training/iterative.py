@@ -187,7 +187,7 @@ def compute_loss(net, mem_patch, mem_pos_enc, criterions, labels, conf):
         semantic_loss, variance_semantic_loss = compute_semantic_loss(branch_outputs, labels, criterions, conf)
 
     # Total loss
-    total_loss = loss + (diversity_loss * 2) + semantic_loss
+    total_loss = loss + (diversity_loss * 3) + semantic_loss
 
     return total_loss, task_losses, task_preds, task_labels, diversity_loss, semantic_loss, variance_diversity_loss, variance_semantic_loss
 
