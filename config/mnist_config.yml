@@ -23,8 +23,8 @@ track_efficiency: False   # for training, needs to be False
 track_epoch: 0            # only relevant if efficiency stats are tracked.
 
 # masking
-mask_p: 0
-mask_K: 10
+mask_p: 0.2
+mask_K: 20
 
 #enc
 is_image: True          # should a convolutional patch encoder be used?
@@ -38,7 +38,7 @@ shuffle: True               # should patches be shuffled?
 shuffle_style: 'batch'      # 'batch' or 'instance'. 'batch' shuffles each instance of the batch the same way
 n_token: 4                  # number of learnable query tokens, corresponds to number of tasks (mnist has 4 tasks)
 
-N: 3600                     # number of total patches, needs to be consistent with patch size/stride
+N: 900                     # number of total patches, needs to be consistent with patch size/stride
 M: 100                      # memory size
 I: 100                     # iteration size
 patch_size: [50, 50]        # dims of patch
