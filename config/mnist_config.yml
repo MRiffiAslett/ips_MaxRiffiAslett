@@ -7,7 +7,7 @@ n_epoch_warmup: 10    # number of warm-up epochs
 lr: 0.001             # learning rate
 wd: 0.1               # weight decay
 
-semantic_diversity_loss: True
+semantic_diversity_loss: False
 
 #dset
 n_class: 10                                                   # number of classes
@@ -24,7 +24,7 @@ track_epoch: 0            # only relevant if efficiency stats are tracked.
 
 # masking
 mask_p: 0.2
-mask_K: 20
+mask_K: 30
 
 #enc
 is_image: True          # should a convolutional patch encoder be used?
