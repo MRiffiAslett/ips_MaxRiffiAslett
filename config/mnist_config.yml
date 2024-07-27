@@ -24,7 +24,7 @@ track_epoch: 0            # only relevant if efficiency stats are tracked.
 
 # masking
 mask_p: 0.2
-mask_K: 30
+mask_K: 20
 
 #enc
 is_image: True          # should a convolutional patch encoder be used?
