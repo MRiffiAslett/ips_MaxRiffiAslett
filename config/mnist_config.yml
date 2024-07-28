@@ -23,8 +23,8 @@ track_efficiency: False   # for training, needs to be False
 track_epoch: 0            # only relevant if efficiency stats are tracked.
 
 # masking
-mask_p: 0.2
-mask_K: 20
+mask_p: 0
+mask_K: 0
 
 #enc
 is_image: True          # should a convolutional patch encoder be used?
