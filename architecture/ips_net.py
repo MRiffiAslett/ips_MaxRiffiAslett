@@ -1,55 +1,54 @@
-import sys
-import math
-
 import torch
 import torch.nn as nn
 from torchvision.models import resnet18, resnet50, ResNet18_Weights, ResNet50_Weights
-
 from utils.utils import shuffle_batch, shuffle_instance
 from architecture.transformer import Transformer, pos_enc_1d
 
 class IPSNet(nn.Module):
     """
     Net that runs all the main components:
-    patch encoder, IPS, patch aggregator and classification head
+    patch encoder, IPS, patch aggregator, and classification head
     """
 
     def get_conv_patch_enc(self, enc_type, pretrained, n_chan_in, n_res_blocks):
         # Get architecture for patch encoder
         if enc_type == 'resnet18': 
             res_net_fn = resnet18
-            weights=ResNet18_Weights.IMAGENET1K_V1 if pretrained else None
+            weights = ResNet18_Weights.IMAGENET1K_V1 if pretrained else None
+            n_res_blocks = 2  # Appropriate setting for ResNet18
         elif enc_type == 'resnet50':
             res_net_fn = resnet50
-            # Resnet50 pretrained weights not used in experiments
-            weights=ResNet50_Weights.IMAGENET1K_V1 if pretrained else None        
+            weights = ResNet50_Weights.IMAGENET1K_V1 if pretrained else None        
+            n_res_blocks = 4  # Appropriate setting for ResNet50
 
         res_net = res_net_fn(weights=weights)
 
         if n_chan_in == 1:
             # Standard resnet uses 3 input channels
             res_net.conv1 = nn.Conv2d(n_chan_in, 64, kernel_size=7, stride=2, padding=3, bias=False)
-        
+
         # Compose patch encoder
         layer_ls = []
         layer_ls.extend([
-            res_net.conv1,
-            res_net.bn1,
-            res_net.relu,
-            res_net.maxpool,
-            res_net.layer1,
-            res_net.layer2
+            res_net.conv1,  # Convolutional layer: reduces spatial dimensions by half
+            res_net.bn1,    # Batch normalization: normalizes the output
+            res_net.relu,   # ReLU activation: introduces non-linearity
+            res_net.maxpool,# Max pooling: further reduces spatial dimensions by half
+            res_net.layer1, # First ResNet layer block: maintains dimensions
+            res_net.layer2  # Second ResNet layer block: reduces spatial dimensions by half
         ])
 
         if n_res_blocks == 4:
             layer_ls.extend([
-                res_net.layer3,
-                res_net.layer4
+                res_net.layer3, # Third ResNet layer block: reduces spatial dimensions by half
+                res_net.layer4  # Fourth ResNet layer block: maintains dimensions
             ])
-        
-        layer_ls.append(res_net.avgpool)
 
-        return nn.Sequential(*layer_ls)
+        layer_ls.append(res_net.avgpool) # Average pooling: reduces each spatial dimension to 1
+
+        encoder = nn.Sequential(*layer_ls)
+        
+        return encoder
 
     def get_projector(self, n_chan_in, D):
         return nn.Sequential(
@@ -57,7 +56,7 @@ class IPSNet(nn.Module):
             nn.Linear(n_chan_in, D),
             nn.BatchNorm1d(D),
             nn.ReLU()
-        )   
+        )
 
     def get_output_layers(self, tasks):
         """
@@ -101,11 +100,18 @@ class IPSNet(nn.Module):
         if self.is_image:
             self.encoder = self.get_conv_patch_enc(conf.enc_type, conf.pretrained,
                 conf.n_chan_in, conf.n_res_blocks)
+            if conf.enc_type == 'resnet50':
+                self.projection = nn.Linear(2048, 128)  # Adding projection layer for ResNet50
+                self.encoder_out_dim = 128  # Update encoder output dimension
+            else:
+                self.projection = None  # No projection layer for ResNet18
+                self.encoder_out_dim = 512  # ResNet18 final output dimension
         else:
             self.encoder = self.get_projector(conf.n_chan_in, self.D)
+            self.projection = None  # No projection layer for non-image data
 
         # Define the multi-head cross-attention transformer
-        self.transf = Transformer(conf.n_token, conf.H, conf.D, conf.D_k, conf.D_v,
+        self.transf = Transformer(conf.n_token, conf.H, self.encoder_out_dim, conf.D_k, conf.D_v,
             conf.D_inner, conf.attn_dropout, conf.dropout)
 
         # Optionally use standard 1d sinusoidal positional encoding
@@ -135,29 +141,7 @@ class IPSNet(nn.Module):
         
         return patches, pos_enc
 
-    # def score_and_select(self, emb, emb_pos, M, idx):
-    #     """ 
-    #     Scores embeddings and selects the top-M embeddings
-    #     """
-    #     D = emb.shape[2]
-
-    #     emb_to_score = emb_pos if torch.is_tensor(emb_pos) else emb
-
-    #     # Obtain scores from transformer
-    #     attn = self.transf.get_scores(emb_to_score) # (B, M+I)
-
-    #     # Get indixes of top-scoring patches
-    #     top_idx = torch.topk(attn, M, dim = -1)[1] # (B, M)
-        
-    #     # Update memory buffers
-    #     # Note: Scoring is based on `emb_to_score`, selection is based on `emb`
-    #     mem_emb = torch.gather(emb, 1, top_idx.unsqueeze(-1).expand(-1,-1,D))
-    #     mem_idx = torch.gather(idx, 1, top_idx)
-
-    #     return mem_emb, mem_idx
-
-    def score_and_select(self, emb, emb_pos, M, idx, mask_K,  mask_p):
-
+    def score_and_select(self, emb, emb_pos, M, idx, mask_K, mask_p):
         D = emb.shape[2]
     
         emb_to_score = emb_pos if torch.is_tensor(emb_pos) else emb
@@ -165,37 +149,24 @@ class IPSNet(nn.Module):
         # Obtain scores from the transformer
         attn = self.transf.get_scores(emb_to_score)  # (B, M+I)
         
-        # print(f"Attn shape after get_scores: {attn.shape}")
-    
         # 1. Get indices of top-K patches for masking
-        # finds the indices of the top-K elements in the tensor attn along the last dimension (dim=-1).
         top_K_idx = torch.topk(attn, self.mask_K, dim=-1)[1]  # (B, K)
                 
         # 2. Create a mask with probability p for top-K instances
-        # torch.rand(top_K_idx.shape, device=attn.device) generates a tensor of random numbers with the same shape as top_K_idx. These numbers are uniformly distributed between 0 and 1.
-        # (torch.rand(top_K_idx.shape, device=attn.device) < self.mask_p) compares each element of the random tensor with self.mask_p. This results in a boolean tensor where each element is True with probability self.mask_p and False otherwise.
-        # .float() converts this boolean tensor into a float tensor, where True becomes 1.0 and False becomes 0.0
         mask = (torch.rand(top_K_idx.shape, device=attn.device) < self.mask_p).float()
     
-    
         # 3. Apply the mask to the top-K attention scores
-        # "attn.gather(1, top_K_idx)": Gathers the attention scores from attn at the indices specified by top_K_idx.
-        # (1 - mask):  Generates a binary mask tensor where 1 - mask indicates which top-K elements should be modified (if mask is 1, the element will be masked out).
-        # "attn.gather(1, top_K_idx) * (1 - mask)": Zeros out the attention scores where mask is 1, effectively masking those elements.
-        # attn.scatter_(1, top_K_idx, ...): catters (or writes) the modified attention scores back into attn at the indices specified by top_K_idx.
         attn.scatter_(1, top_K_idx, attn.gather(1, top_K_idx) * (1 - mask))
     
         # 4. Get indices of top-M patches after masking
         top_idx = torch.topk(attn, M, dim=-1)[1]  # (B, M)
-        
-        # print(f"Top_idx shape: {top_idx.shape}")
     
         # Update memory buffers
-        # Note: Scoring is based on `emb_to_score`, selection is based on `emb`
         mem_emb = torch.gather(emb, 1, top_idx.unsqueeze(-1).expand(-1, -1, D))
         mem_idx = torch.gather(idx, 1, top_idx)
         
         return mem_emb, mem_idx
+
     def get_preds(self, embeddings):
         preds = {}
         for task in self.tasks.values():
@@ -215,15 +186,15 @@ class IPSNet(nn.Module):
         # Get useful variables
         M = self.M
         I = self.I
-        D = self.D  
+        D = self.encoder_out_dim  # Use the encoder output dimension
         device = self.device
         shuffle = self.shuffle
         use_pos = self.use_pos
         pos_enc = self.pos_enc
         patch_shape = patches.shape
         B, N = patch_shape[:2]
-        mask_p =  self.mask_p  # Probability of masking
-        mask_K = self.mask_K   # Number of top-K instances to consider for masking
+        mask_p = self.mask_p  # Probability of masking
+        mask_K = self.mask_K  # Number of top-K instances to consider for masking
 
         # Shortcut: IPS not required when memory is larger than total number of patches
         if M >= N:
@@ -251,6 +222,8 @@ class IPSNet(nn.Module):
         
         ## Embed
         mem_emb = self.encoder(init_patch.reshape(-1, *patch_shape[2:]))
+        if self.projection:
+            mem_emb = self.projection(mem_emb.view(mem_emb.size(0), -1))  # Apply projection layer for ResNet50
         mem_emb = mem_emb.view(B, M, -1)
         
         # Init memory indixes in order to select patches at the end of IPS.
@@ -269,6 +242,8 @@ class IPSNet(nn.Module):
 
             # Embed
             iter_emb = self.encoder(iter_patch.reshape(-1, *patch_shape[2:]))
+            if self.projection:
+                iter_emb = self.projection(iter_emb.view(iter_emb.size(0), -1))  # Apply projection layer for ResNet50
             iter_emb = iter_emb.view(B, -1, D)
             
             # Concatenate with memory buffer
@@ -282,7 +257,7 @@ class IPSNet(nn.Module):
                 all_emb_pos = None
 
             # Select Top-M patches according to cross-attention scores
-            mem_emb, mem_idx = self.score_and_select(all_emb, all_emb_pos, M, all_idx, mask_K,  mask_p)
+            mem_emb, mem_idx = self.score_and_select(all_emb, all_emb_pos, M, all_idx, mask_K, mask_p)
 
         # Select patches
         n_dim_expand = len(patch_shape) - 2
@@ -315,12 +290,14 @@ class IPSNet(nn.Module):
         B, M = patch_shape[:2]
 
         mem_emb = self.encoder(mem_patch.reshape(-1, *patch_shape[2:]))
+        if self.projection:
+            mem_emb = self.projection(mem_emb.view(mem_emb.size(0), -1))  # Apply projection layer for ResNet50
         mem_emb = mem_emb.view(B, M, -1)        
 
         if torch.is_tensor(mem_pos):
             mem_emb = mem_emb + mem_pos
 
-        # Seperate main embeddings and image embeddings
+        # Separate main embeddings and image embeddings
         image_emb = self.transf(mem_emb)[0]
 
         branch_embeddings = self.transf(mem_emb)[1]
@@ -330,34 +307,8 @@ class IPSNet(nn.Module):
         branch_preds = []
 
         for i in range(branch_embeddings.shape[1]):
-          branch_preds.append(self.get_preds(branch_embeddings[:,i]))
+            branch_preds.append(self.get_preds(branch_embeddings[:,i]))
 
-        # if isinstance(preds, dict):
-        #     for key, value in preds.items():
-                # print(f'Prediction key: {key}, value shape: {value.shape if hasattr(value, "shape") else "Not a tensor"}')
-                # Prediction key: majority, value shape: torch.Size([16, 10])
-                # Prediction key: max, value shape: torch.Size([16, 10])
-                # Prediction key: top, value shape: torch.Size([16, 10])
-                # Prediction key: multi, value shape: torch.Size([16, 10])
-        # else:
-            #print(f'Prediction shape main: {preds.shape}')
-
-        # Similarly for branch_preds[0] if it might be a dictionary
-        # if isinstance(branch_preds[0], dict):
-        #     for key, value in branch_preds[0].items():
-                # print(f'Branch prediction key: {key}, value shape: {value.shape if hasattr(value, "shape") else "Not a tensor"}')
-                # Branch prediction key: majority, value shape: torch.Size([16, 10])
-                # Branch prediction key: max, value shape: torch.Size([16, 10])
-                # Branch prediction key: top, value shape: torch.Size([16, 10])
-                # Branch prediction key: multi, value shape: torch.Size([16, 10])
-        #else:
-            # print(f'Prediction shape main: {branch_preds[0].shape}')
-
-            
         return preds, branch_preds
-        
-    def compute_diversity_loss(self):
-        """
-        Compute the diversity loss using the attention maps from the transformer.
-        """
-        return self.transf.compute_diversity_loss()
+
+# Define your configuration and other necessary components here
