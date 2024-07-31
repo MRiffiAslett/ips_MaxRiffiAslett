@@ -13,51 +13,61 @@ class IPSNet(nn.Module):
     patch encoder, IPS, patch aggregator, and classification head
     """
 
-    def get_conv_patch_enc(self, enc_type, pretrained, n_chan_in, n_res_blocks, freeze_weights):
-        # Get architecture for patch encoder
+    def get_conv_patch_enc(self, enc_type, pretrained, n_chan_in, freeze_weights):
+        """
+        Initializes a ResNet-based patch encoder, with options for using pretrained weights and freezing layers.
+        
+        Parameters:
+        enc_type (str): Type of ResNet to use ('resnet18' or 'resnet50').
+        pretrained (bool): Whether to initialize with pretrained weights.
+        n_chan_in (int): Number of input channels.
+        freeze_weights (bool): Whether to freeze the weights of the encoder.
+        
+        Returns:
+        encoder (nn.Sequential): Sequential model with the chosen ResNet architecture up to the specified number of blocks.
+        out_dim (int): Output dimension of the encoder.
+        """
+        # Select the ResNet architecture based on enc_type
         if enc_type == 'resnet18': 
-            res_net_fn = resnet18
-            weights = ResNet18_Weights.IMAGENET1K_V1 if pretrained else None
-            n_res_blocks = 2  # Appropriate setting for ResNet18
+            res_net_fn = resnet18  # Use ResNet18 architecture
+            weights = ResNet18_Weights.IMAGENET1K_V1 if pretrained else None  # Load pretrained weights if specified
+            out_dim = 512  # Output dimension for ResNet18
         elif enc_type == 'resnet50':
-            res_net_fn = resnet50
-            weights = ResNet50_Weights.IMAGENET1K_V1 if pretrained else None        
-            n_res_blocks = 4  # Appropriate setting for ResNet50
+            res_net_fn = resnet50  # Use ResNet50 architecture
+            weights = ResNet50_Weights.IMAGENET1K_V1 if pretrained else None  # Load pretrained weights if specified
+            out_dim = 2048  # Output dimension for ResNet50
 
+        # Initialize the ResNet model with the specified weights
         res_net = res_net_fn(weights=weights)
 
+        # Freeze weights if specified and pretrained weights are used
         if freeze_weights and pretrained:
             for param in res_net.parameters():
-                param.requires_grad = False
+                param.requires_grad = False  # Disable gradient computation for these parameters
 
+        # Modify the first convolutional layer to accept different number of input channels if needed
         if n_chan_in == 1:
-            # Standard resnet uses 3 input channels
+            # Standard ResNet uses 3 input channels (RGB), modify to use 1 channel (grayscale)
             res_net.conv1 = nn.Conv2d(n_chan_in, 64, kernel_size=7, stride=2, padding=3, bias=False)
 
-        # Compose patch encoder
-        layer_ls = []
-        layer_ls.extend([
-            res_net.conv1,  # Convolutional layer: reduces spatial dimensions by half
-            res_net.bn1,    # Batch normalization: normalizes the output
-            res_net.relu,   # ReLU activation: introduces non-linearity
-            res_net.maxpool,# Max pooling: further reduces spatial dimensions by half
-            res_net.layer1, # First ResNet layer block: maintains dimensions
-            res_net.layer2  # Second ResNet layer block: reduces spatial dimensions by half
-        ])
-
-        if n_res_blocks == 4:
-            layer_ls.extend([
-                res_net.layer3, # Third ResNet layer block: reduces spatial dimensions by half
-                res_net.layer4  # Fourth ResNet layer block: maintains dimensions
-            ])
-
-        layer_ls.append(res_net.avgpool) # Average pooling: reduces each spatial dimension to 1
-
-        encoder = nn.Sequential(*layer_ls)
+        # Remove the fully connected layer and subsequent layers
+        # Keep all layers up to and including the average pooling layer
+        modules = list(res_net.children())[:-2]  # Exclude the final FC layer and adaptive avg pool
+        encoder = nn.Sequential(*modules)  # Create a sequential model with the remaining layers
         
-        return encoder
+        return encoder, out_dim
 
     def get_projector(self, n_chan_in, D):
+        """
+        Creates a simple projection layer with layer normalization, linear transformation, batch normalization, and ReLU activation.
+        
+        Parameters:
+        n_chan_in (int): Number of input channels.
+        D (int): Dimension of the output.
+        
+        Returns:
+        projector (nn.Sequential): Sequential model with the projection layers.
+        """
         return nn.Sequential(
             nn.LayerNorm(n_chan_in, eps=1e-05, elementwise_affine=False),
             nn.Linear(n_chan_in, D),
@@ -67,9 +77,14 @@ class IPSNet(nn.Module):
 
     def get_output_layers(self, tasks):
         """
-        Create an output layer for each task according to task definition
+        Create an output layer for each task according to task definition.
+        
+        Parameters:
+        tasks (dict): Dictionary containing task definitions.
+        
+        Returns:
+        output_layers (nn.ModuleDict): Dictionary of output layers for each task.
         """
-
         D = self.D
         n_class = self.n_class
 
@@ -105,18 +120,17 @@ class IPSNet(nn.Module):
         self.mask_K = conf.mask_K  # Number of top-K instances to consider for masking
 
         # Define whether to freeze the weights of the pretrained model
-        freeze_weights = False
+        freeze_weights = True
 
         if self.is_image:
-            self.encoder = self.get_conv_patch_enc(conf.enc_type, conf.pretrained,
-                conf.n_chan_in, conf.n_res_blocks, freeze_weights)
-            if conf.enc_type == 'resnet50':
-                self.projection = nn.Linear(2048, 128)  # Adding projection layer for ResNet50
-                self.encoder_out_dim = 128  # Update encoder output dimension
-            else:
-                self.projection = None  # No projection layer for ResNet18
-                self.encoder_out_dim = 128  # ResNet18 final output dimension
+            # Initialize the ResNet encoder based on configuration
+            self.encoder, out_dim = self.get_conv_patch_enc(conf.enc_type, conf.pretrained,
+                conf.n_chan_in, freeze_weights)
+            # Add a projection layer to reduce the output dimension to 128
+            self.projection = nn.Linear(out_dim, 128)
+            self.encoder_out_dim = 128
         else:
+            # If input is not image, use a projector
             self.encoder = self.get_projector(conf.n_chan_in, self.D)
             self.projection = None  # No projection layer for non-image data
 
@@ -135,10 +149,16 @@ class IPSNet(nn.Module):
 
     def do_shuffle(self, patches, pos_enc):
         """
-        Shuffles patches and pos_enc so that patches that have an equivalent score
-        are sampled uniformly
+        Shuffles patches and pos_enc so that patches that have an equivalent score are sampled uniformly.
+        
+        Parameters:
+        patches (Tensor): Tensor containing patches.
+        pos_enc (Tensor): Tensor containing positional encodings.
+        
+        Returns:
+        patches (Tensor): Shuffled patches.
+        pos_enc (Tensor): Shuffled positional encodings.
         """
-
         shuffle_style = self.shuffle_style
         if shuffle_style == 'batch':
             patches, shuffle_idx = shuffle_batch(patches)
@@ -152,6 +172,21 @@ class IPSNet(nn.Module):
         return patches, pos_enc
 
     def score_and_select(self, emb, emb_pos, M, idx, mask_K, mask_p):
+        """
+        Scores and selects top patches based on transformer attention scores.
+        
+        Parameters:
+        emb (Tensor): Embeddings of patches.
+        emb_pos (Tensor): Positional encodings of embeddings.
+        M (int): Number of patches to select.
+        idx (Tensor): Indices of patches.
+        mask_K (int): Number of top-K instances to consider for masking.
+        mask_p (float): Probability of masking.
+        
+        Returns:
+        mem_emb (Tensor): Selected embeddings.
+        mem_idx (Tensor): Selected indices.
+        """
         D = emb.shape[2]
     
         emb_to_score = emb_pos if torch.is_tensor(emb_pos) else emb
