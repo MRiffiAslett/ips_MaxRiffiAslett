@@ -31,14 +31,14 @@ is_image: True          # should a convolutional patch encoder be used?
 enc_type: 'resnet50'    # used backbone, set either to 'resnet18' or 'resnet50'
 pretrained: True       # should ImageNet weights be used?
 n_chan_in: 1            # number of input channels
-n_res_blocks: 4         # number of residual ResNet blocks, mnist only uses 2
+n_res_blocks: 2         # number of residual ResNet blocks, mnist only uses 2
 
 #ips
 shuffle: True               # should patches be shuffled?
 shuffle_style: 'batch'      # 'batch' or 'instance'. 'batch' shuffles each instance of the batch the same way
 n_token: 4                  # number of learnable query tokens, corresponds to number of tasks (mnist has 4 tasks)
 
-N: 900                     # number of total patches, needs to be consistent with patch size/stride
+N: 3600                     # number of total patches, needs to be consistent with patch size/stride
 M: 100                      # memory size
 I: 100                     # iteration size
 patch_size: [50, 50]        # dims of patch
