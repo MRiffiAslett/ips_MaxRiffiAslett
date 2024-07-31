@@ -26,6 +26,7 @@ class IPSNet(nn.Module):
         
         Returns:
         encoder (nn.Sequential): Sequential model with the chosen ResNet architecture up to the specified number of blocks.
+        out_dim (int): Output dimension of the encoder.
         """
         if enc_type == 'resnet18':
             res_net_fn = resnet18
@@ -39,7 +40,7 @@ class IPSNet(nn.Module):
         res_net = res_net_fn(weights=weights)
 
         if freeze_weights:
-            # If freeze_weights is True, freeze all parameters and add a new fully connected layer with 128 outputs
+            # If freeze_weights is True, freeze all parameters
             if pretrained:
                 for param in res_net.parameters():
                     param.requires_grad = False
@@ -52,11 +53,9 @@ class IPSNet(nn.Module):
             modules = list(res_net.children())[:-2]  # Exclude the final FC layer and adaptive avg pool
             encoder = nn.Sequential(*modules)  # Create a sequential model with the remaining layers
 
-            # Add a new fully connected layer to output 128 dimensions
-            num_ftrs = res_net.fc.in_features
-            res_net.fc = nn.Linear(num_ftrs, 128)
-            projection = res_net.fc
-
+            # Add a new projection layer to output 128 dimensions
+            projection = nn.Linear(out_dim, 128)
+            
             return encoder, projection, 128
 
         else:
@@ -82,9 +81,11 @@ class IPSNet(nn.Module):
             layer_ls.append(res_net.avgpool)
 
             encoder = nn.Sequential(*layer_ls)
-            projection = None  # No projection layer needed as we are using full architecture
+            
+            # Add a projection layer to ensure output dimension is 128
+            projection = nn.Linear(out_dim, 128)
 
-            return encoder, projection, out_dim
+            return encoder, projection, 128
 
     def get_projector(self, n_chan_in, D):
         """
@@ -295,7 +296,7 @@ class IPSNet(nn.Module):
         ## Embed
         mem_emb = self.encoder(init_patch.reshape(-1, *patch_shape[2:]))
         if self.projection:
-            mem_emb = self.projection(mem_emb.view(mem_emb.size(0), -1))  # Apply projection layer for ResNet50
+            mem_emb = self.projection(mem_emb.view(mem_emb.size(0), -1))  # Apply projection layer to ensure 128 dim
         mem_emb = mem_emb.view(B, M, -1)
         
         # Init memory indixes in order to select patches at the end of IPS.
@@ -315,7 +316,7 @@ class IPSNet(nn.Module):
             # Embed
             iter_emb = self.encoder(iter_patch.reshape(-1, *patch_shape[2:]))
             if self.projection:
-                iter_emb = self.projection(iter_emb.view(iter_emb.size(0), -1))  # Apply projection layer for ResNet50
+                iter_emb = self.projection(iter_emb.view(iter_emb.size(0), -1))  # Apply projection layer to ensure 128 dim
             iter_emb = iter_emb.view(B, -1, D)
             
             # Concatenate with memory buffer
@@ -363,7 +364,7 @@ class IPSNet(nn.Module):
 
         mem_emb = self.encoder(mem_patch.reshape(-1, *patch_shape[2:]))
         if self.projection:
-            mem_emb = self.projection(mem_emb.view(mem_emb.size(0), -1))  # Apply projection layer for ResNet50
+            mem_emb = self.projection(mem_emb.view(mem_emb.size(0), -1))  # Apply projection layer to ensure 128 dim
         mem_emb = mem_emb.view(B, M, -1)        
 
         if torch.is_tensor(mem_pos):
