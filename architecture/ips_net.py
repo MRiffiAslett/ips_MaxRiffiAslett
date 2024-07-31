@@ -320,7 +320,7 @@ class IPSNet(nn.Module):
             # Embed
             iter_emb = self.encoder(iter_patch.reshape(-1, *patch_shape[2:]))
             print("Shape of iter_emb after encoder:", iter_emb.shape)
-            iter_emb = iter_emb.view(B, -1, self.encoder_out_dim)  # Flatten spatial dimensions
+            iter_emb = iter_emb.view(B, iter_patch.size(1), -1)  # Flatten spatial dimensions
             print("Shape of iter_emb after flattening:", iter_emb.shape)
             
             if self.projection:
