@@ -13,7 +13,7 @@ class IPSNet(nn.Module):
     patch encoder, IPS, patch aggregator, and classification head
     """
 
-    def get_conv_patch_enc(self, enc_type, pretrained, n_chan_in, n_res_blocks):
+    def get_conv_patch_enc(self, enc_type, pretrained, n_chan_in, n_res_blocks, freeze_weights):
         # Get architecture for patch encoder
         if enc_type == 'resnet18': 
             res_net_fn = resnet18
@@ -25,6 +25,10 @@ class IPSNet(nn.Module):
             n_res_blocks = 4  # Appropriate setting for ResNet50
 
         res_net = res_net_fn(weights=weights)
+
+        if freeze_weights and pretrained:
+            for param in res_net.parameters():
+                param.requires_grad = False
 
         if n_chan_in == 1:
             # Standard resnet uses 3 input channels
@@ -100,15 +104,18 @@ class IPSNet(nn.Module):
         self.mask_p = conf.mask_p  # Probability of masking
         self.mask_K = conf.mask_K  # Number of top-K instances to consider for masking
 
+        # Define whether to freeze the weights of the pretrained model
+        freeze_weights = False
+
         if self.is_image:
             self.encoder = self.get_conv_patch_enc(conf.enc_type, conf.pretrained,
-                conf.n_chan_in, conf.n_res_blocks)
+                conf.n_chan_in, conf.n_res_blocks, freeze_weights)
             if conf.enc_type == 'resnet50':
                 self.projection = nn.Linear(2048, 128)  # Adding projection layer for ResNet50
                 self.encoder_out_dim = 128  # Update encoder output dimension
             else:
                 self.projection = None  # No projection layer for ResNet18
-                self.encoder_out_dim = 128  # ResNet18 final output dimension
+                self.encoder_out_dim = 512  # ResNet18 final output dimension
         else:
             self.encoder = self.get_projector(conf.n_chan_in, self.D)
             self.projection = None  # No projection layer for non-image data
