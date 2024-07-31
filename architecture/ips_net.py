@@ -149,8 +149,8 @@ class IPSNet(nn.Module):
         self.mask_p = conf.mask_p  # Probability of masking
         self.mask_K = conf.mask_K  # Number of top-K instances to consider for masking
 
-        # Define whether to freeze the weights of the pretrained model
-        freeze_weights = conf.freeze_weights
+        # Define whether to freeze the weights of the pretrained model, with a default value
+        freeze_weights = getattr(conf, 'freeze_weights', False)
 
         if self.is_image:
             # Initialize the ResNet encoder based on configuration
