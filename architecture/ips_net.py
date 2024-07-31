@@ -13,7 +13,7 @@ class IPSNet(nn.Module):
     patch encoder, IPS, patch aggregator, and classification head
     """
 
-    def get_conv_patch_enc(self, enc_type, pretrained, n_chan_in, freeze_weights):
+    def get_conv_patch_enc(self, enc_type, pretrained, n_chan_in, n_res_blocks, freeze_weights):
         """
         Initializes a ResNet-based patch encoder, with options for using pretrained weights and freezing layers.
         
@@ -21,41 +21,70 @@ class IPSNet(nn.Module):
         enc_type (str): Type of ResNet to use ('resnet18' or 'resnet50').
         pretrained (bool): Whether to initialize with pretrained weights.
         n_chan_in (int): Number of input channels.
+        n_res_blocks (int): Number of residual blocks to include in the encoder.
         freeze_weights (bool): Whether to freeze the weights of the encoder.
         
         Returns:
         encoder (nn.Sequential): Sequential model with the chosen ResNet architecture up to the specified number of blocks.
-        out_dim (int): Output dimension of the encoder.
         """
-        # Select the ResNet architecture based on enc_type
-        if enc_type == 'resnet18': 
-            res_net_fn = resnet18  # Use ResNet18 architecture
-            weights = ResNet18_Weights.IMAGENET1K_V1 if pretrained else None  # Load pretrained weights if specified
-            out_dim = 512  # Output dimension for ResNet18
+        if enc_type == 'resnet18':
+            res_net_fn = resnet18
+            weights = ResNet18_Weights.IMAGENET1K_V1 if pretrained else None
+            out_dim = 512
         elif enc_type == 'resnet50':
-            res_net_fn = resnet50  # Use ResNet50 architecture
-            weights = ResNet50_Weights.IMAGENET1K_V1 if pretrained else None  # Load pretrained weights if specified
-            out_dim = 2048  # Output dimension for ResNet50
+            res_net_fn = resnet50
+            weights = ResNet50_Weights.IMAGENET1K_V1 if pretrained else None
+            out_dim = 2048
 
-        # Initialize the ResNet model with the specified weights
         res_net = res_net_fn(weights=weights)
 
-        # Freeze weights if specified and pretrained weights are used
-        if freeze_weights and pretrained:
-            for param in res_net.parameters():
-                param.requires_grad = False  # Disable gradient computation for these parameters
+        if freeze_weights:
+            # If freeze_weights is True, freeze all parameters and add a new fully connected layer with 128 outputs
+            if pretrained:
+                for param in res_net.parameters():
+                    param.requires_grad = False
 
-        # Modify the first convolutional layer to accept different number of input channels if needed
-        if n_chan_in == 1:
-            # Standard ResNet uses 3 input channels (RGB), modify to use 1 channel (grayscale)
-            res_net.conv1 = nn.Conv2d(n_chan_in, 64, kernel_size=7, stride=2, padding=3, bias=False)
+            # Modify the first convolutional layer to accept different number of input channels if needed
+            if n_chan_in == 1:
+                res_net.conv1 = nn.Conv2d(n_chan_in, 64, kernel_size=7, stride=2, padding=3, bias=False)
 
-        # Remove the fully connected layer and subsequent layers
-        # Keep all layers up to and including the average pooling layer
-        modules = list(res_net.children())[:-2]  # Exclude the final FC layer and adaptive avg pool
-        encoder = nn.Sequential(*modules)  # Create a sequential model with the remaining layers
-        
-        return encoder, out_dim
+            # Remove the fully connected layer and subsequent layers
+            modules = list(res_net.children())[:-2]  # Exclude the final FC layer and adaptive avg pool
+            encoder = nn.Sequential(*modules)  # Create a sequential model with the remaining layers
+
+            # Add a new fully connected layer to output 128 dimensions
+            num_ftrs = res_net.fc.in_features
+            res_net.fc = nn.Linear(num_ftrs, 128)
+            projection = res_net.fc
+
+            return encoder, projection, 128
+
+        else:
+            # If freeze_weights is False, use the full ResNet architecture with potential modifications
+            if n_chan_in == 1:
+                res_net.conv1 = nn.Conv2d(n_chan_in, 64, kernel_size=7, stride=2, padding=3, bias=False)
+
+            layer_ls = [
+                res_net.conv1,
+                res_net.bn1,
+                res_net.relu,
+                res_net.maxpool,
+                res_net.layer1,
+                res_net.layer2
+            ]
+
+            if n_res_blocks == 4:
+                layer_ls.extend([
+                    res_net.layer3,
+                    res_net.layer4
+                ])
+
+            layer_ls.append(res_net.avgpool)
+
+            encoder = nn.Sequential(*layer_ls)
+            projection = None  # No projection layer needed as we are using full architecture
+
+            return encoder, projection, out_dim
 
     def get_projector(self, n_chan_in, D):
         """
@@ -120,15 +149,13 @@ class IPSNet(nn.Module):
         self.mask_K = conf.mask_K  # Number of top-K instances to consider for masking
 
         # Define whether to freeze the weights of the pretrained model
-        freeze_weights = True
+        freeze_weights = conf.freeze_weights
 
         if self.is_image:
             # Initialize the ResNet encoder based on configuration
-            self.encoder, out_dim = self.get_conv_patch_enc(conf.enc_type, conf.pretrained,
-                conf.n_chan_in, freeze_weights)
-            # Add a projection layer to reduce the output dimension to 128
-            self.projection = nn.Linear(out_dim, 128)
-            self.encoder_out_dim = 128
+            self.encoder, self.projection, self.encoder_out_dim = self.get_conv_patch_enc(
+                conf.enc_type, conf.pretrained, conf.n_chan_in, conf.n_res_blocks, freeze_weights
+            )
         else:
             # If input is not image, use a projector
             self.encoder = self.get_projector(conf.n_chan_in, self.D)
