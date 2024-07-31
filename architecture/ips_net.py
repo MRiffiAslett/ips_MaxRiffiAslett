@@ -295,10 +295,13 @@ class IPSNet(nn.Module):
         
         ## Embed
         mem_emb = self.encoder(init_patch.reshape(-1, *patch_shape[2:]))
+        print("Shape after encoder:", mem_emb.shape)
         mem_emb = mem_emb.view(B, M, -1)  # Flatten spatial dimensions
+        print("Shape after flattening:", mem_emb.shape)
         
         if self.projection:
             mem_emb = self.projection(mem_emb)  # Apply projection layer to ensure 128 dim
+            print("Shape after projection:", mem_emb.shape)
         
         # Init memory indices in order to select patches at the end of IPS.
         idx = torch.arange(N, dtype=torch.int64, device=device).unsqueeze(0).expand(B, -1)
@@ -316,14 +319,19 @@ class IPSNet(nn.Module):
 
             # Embed
             iter_emb = self.encoder(iter_patch.reshape(-1, *patch_shape[2:]))
+            print("Shape of iter_emb after encoder:", iter_emb.shape)
             iter_emb = iter_emb.view(B, -1, self.encoder_out_dim)  # Flatten spatial dimensions
+            print("Shape of iter_emb after flattening:", iter_emb.shape)
             
             if self.projection:
                 iter_emb = self.projection(iter_emb)  # Apply projection layer to ensure 128 dim
+                print("Shape of iter_emb after projection:", iter_emb.shape)
             
             # Concatenate with memory buffer
             all_emb = torch.cat((mem_emb, iter_emb), dim=1)
             all_idx = torch.cat((mem_idx, iter_idx), dim=1)
+            print("Shape of all_emb:", all_emb.shape)
+            print("Shape of all_idx:", all_idx.shape)
             # When using positional encoding, also apply it during patch selection
             if use_pos:
                 all_pos_enc = torch.gather(pos_enc, 1, all_idx.view(B, -1, 1).expand(-1, -1, D))
@@ -365,10 +373,13 @@ class IPSNet(nn.Module):
         B, M = patch_shape[:2]
 
         mem_emb = self.encoder(mem_patch.reshape(-1, *patch_shape[2:]))
+        print("Shape after encoder in forward:", mem_emb.shape)
         mem_emb = mem_emb.view(B, M, -1)  # Flatten spatial dimensions
+        print("Shape after flattening in forward:", mem_emb.shape)
         
         if self.projection:
             mem_emb = self.projection(mem_emb)  # Apply projection layer to ensure 128 dim
+            print("Shape after projection in forward:", mem_emb.shape)
 
         if torch.is_tensor(mem_pos):
             mem_emb = mem_emb + mem_pos
