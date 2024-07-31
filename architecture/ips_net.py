@@ -54,7 +54,7 @@ class IPSNet(nn.Module):
             encoder = nn.Sequential(*modules)  # Create a sequential model with the remaining layers
 
             # Add a new projection layer to output 128 dimensions
-            projection = nn.Linear(out_dim, 128)
+            projection = nn.Linear(out_dim * 2 * 2, 128)  # Note the change here
             
             return encoder, projection, 128
 
@@ -83,7 +83,7 @@ class IPSNet(nn.Module):
             encoder = nn.Sequential(*layer_ls)
             
             # Add a projection layer to ensure output dimension is 128
-            projection = nn.Linear(out_dim, 128)
+            projection = nn.Linear(out_dim * 2 * 2, 128)  # Note the change here
 
             return encoder, projection, 128
 
@@ -300,7 +300,7 @@ class IPSNet(nn.Module):
         print("Shape after flattening:", mem_emb.shape)
         
         if self.projection:
-            mem_emb = self.projection(mem_emb)  # Apply projection layer to ensure 128 dim
+            mem_emb = self.projection(mem_emb.view(B * M, -1)).view(B, M, -1)  # Apply projection layer to ensure 128 dim
             print("Shape after projection:", mem_emb.shape)
         
         # Init memory indices in order to select patches at the end of IPS.
@@ -324,7 +324,7 @@ class IPSNet(nn.Module):
             print("Shape of iter_emb after flattening:", iter_emb.shape)
             
             if self.projection:
-                iter_emb = self.projection(iter_emb)  # Apply projection layer to ensure 128 dim
+                iter_emb = self.projection(iter_emb.view(B * iter_emb.size(1), -1)).view(B, -1, 128)  # Apply projection layer to ensure 128 dim
                 print("Shape of iter_emb after projection:", iter_emb.shape)
             
             # Concatenate with memory buffer
@@ -378,7 +378,7 @@ class IPSNet(nn.Module):
         print("Shape after flattening in forward:", mem_emb.shape)
         
         if self.projection:
-            mem_emb = self.projection(mem_emb)  # Apply projection layer to ensure 128 dim
+            mem_emb = self.projection(mem_emb.view(B * M, -1)).view(B, M, -1)  # Apply projection layer to ensure 128 dim
             print("Shape after projection in forward:", mem_emb.shape)
 
         if torch.is_tensor(mem_pos):
