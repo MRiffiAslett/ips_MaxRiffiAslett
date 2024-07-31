@@ -28,10 +28,10 @@ mask_K: 0
 
 #enc
 is_image: True          # should a convolutional patch encoder be used?
-enc_type: 'resnet18'    # used backbone, set either to 'resnet18' or 'resnet50'
-pretrained: False       # should ImageNet weights be used?
+enc_type: 'resnet50'    # used backbone, set either to 'resnet18' or 'resnet50'
+pretrained: True       # should ImageNet weights be used?
 n_chan_in: 1            # number of input channels
-n_res_blocks: 2         # number of residual ResNet blocks, mnist only uses 2
+n_res_blocks: 4         # number of residual ResNet blocks, mnist only uses 2
 
 #ips
 shuffle: True               # should patches be shuffled?
