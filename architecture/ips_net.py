@@ -384,7 +384,7 @@ class IPSNet(nn.Module):
         if torch.is_tensor(mem_pos):
             mem_emb = mem_emb + mem_pos
 
-        # Separate main embeddings an image embeddings
+        # Separate main embeddings and image embeddings
         image_emb = self.transf(mem_emb)[0]
 
         branch_embeddings = self.transf(mem_emb)[1]
