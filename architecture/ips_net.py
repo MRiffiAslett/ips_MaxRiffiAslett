@@ -115,7 +115,7 @@ class IPSNet(nn.Module):
                 self.encoder_out_dim = 128  # Update encoder output dimension
             else:
                 self.projection = None  # No projection layer for ResNet18
-                self.encoder_out_dim = 512  # ResNet18 final output dimension
+                self.encoder_out_dim = 128  # ResNet18 final output dimension
         else:
             self.encoder = self.get_projector(conf.n_chan_in, self.D)
             self.projection = None  # No projection layer for non-image data
