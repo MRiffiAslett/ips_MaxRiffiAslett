@@ -172,15 +172,13 @@ class IPSNet(nn.Module):
         return mem_emb, mem_idx
 
     def get_preds(self, embeddings):
-        preds = {}
-        for task in self.tasks.values():
-            t_name, t_id = task['name'], task['id']
-            layer = self.output_layers[t_name]
-
-            emb = embeddings[:, t_id]
-            preds[t_name] = layer(emb)            
-
-        return preds
+      preds = {}
+      for task in self.tasks.values():
+          t_name, t_id = task['name'], task['id']
+          layer = self.output_layers[t_name]
+          emb = embeddings[:, t_id]
+          preds[t_name] = layer(emb)
+      return preds
 
     # IPS runs in no-gradient mode
     @torch.no_grad()
@@ -298,8 +296,18 @@ class IPSNet(nn.Module):
         if torch.is_tensor(mem_pos):
             mem_emb = mem_emb + mem_pos
 
+        # Ensure the transformer returns a single tensor or a tuple
         image_emb = self.transf(mem_emb)
 
-        preds = self.get_preds(image_emb)
-        
-        return preds
+        # If self.transf returns a tuple, unpack it
+        if isinstance(image_emb, tuple):
+            image_emb = image_emb[0]
+
+        # Get predictions for main output
+        main_output = self.get_preds(image_emb)
+
+        # Assuming branch_outputs are also needed, process accordingly
+        # Placeholder for branch outputs, assuming branch outputs come from some layers or calculations
+        branch_outputs = {}  # Adjust based on your actual implementation of branch outputs
+
+        return main_output, branch_outputs
