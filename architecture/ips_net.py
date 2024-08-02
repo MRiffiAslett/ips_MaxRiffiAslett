@@ -75,7 +75,7 @@ class IPSNet(nn.Module):
         self.mask_p = conf.mask_p
         self.mask_K = conf.mask_K
 
-        freeze_weights = getattr(conf, 'freeze_weights', True)
+        freeze_weights = getattr(conf, 'freeze_weights', False)
 
         if self.is_image:
             self.encoder, self.projection, self.encoder_out_dim = self.get_conv_patch_enc(
