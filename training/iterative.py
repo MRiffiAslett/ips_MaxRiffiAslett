@@ -213,7 +213,7 @@ def train_one_epoch(net, criterions, data_loader, optimizer, device, epoch, log_
                 end_event = torch.cuda.Event(enable_timing=True)
                 start_event.record()
         
-        mem_patch_iter, mem_pos_enc_iter = net.ips(image_patches)
+        mem_patch_iter, mem_pos_enc_iter, _, _ = net.ips(image_patches)
         
         batch_data = fill_batch(mem_patch, mem_pos_enc, labels, data, n_prep, n_prep_batch,
                                 mem_patch_iter, mem_pos_enc_iter, conf)
@@ -274,7 +274,7 @@ def evaluate(net, criterions, data_loader, device, log_writer, conf, epoch):
             mem_patch, mem_pos_enc, labels = init_batch(device, conf)
             start_new_batch = False
         
-        mem_patch_iter, mem_pos_enc_iter = net.ips(image_patches)
+        mem_patch_iter, mem_pos_enc_iter, _ , _  = net.ips(image_patches)
         
         batch_data = fill_batch(mem_patch, mem_pos_enc, labels, data, n_prep, n_prep_batch,
                                 mem_patch_iter, mem_pos_enc_iter, conf)
