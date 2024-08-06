@@ -97,6 +97,7 @@ class IPSNet(nn.Module):
         self.is_image = conf.is_image
         self.mask_p = conf.mask_p  # Probability of masking
         self.mask_K = conf.mask_K  # Number of top-K instances to consider for masking
+        self.attention_map = conf.attention_map 
 
         if self.is_image:
             self.encoder = self.get_conv_patch_enc(conf.enc_type, conf.pretrained,
@@ -196,6 +197,7 @@ class IPSNet(nn.Module):
         B, N = patch_shape[:2]
         mask_p = self.mask_p  # Probability of masking
         mask_K = self.mask_K  # Number of top-K instances to consider for masking
+        attention_map = self.attention_map 
 
         # Shortcut: IPS not required when memory is larger than total number of patches
         if M >= N:
@@ -277,7 +279,7 @@ class IPSNet(nn.Module):
         After M patches have been selected during IPS, encode and aggregate them.
         The aggregated embedding is input to a classification head.
         """
-
+        attention_map = self.attention_map 
         patch_shape = mem_patch.shape
         B, M = patch_shape[:2]
 
@@ -297,8 +299,11 @@ class IPSNet(nn.Module):
         for i in range(branch_embeddings.shape[1]):
             branch_preds.append(self.get_preds(branch_embeddings[:, i]))
 
-        # Use provided mem_idx and attn_top_M
-        return preds, branch_preds, mem_idx, attn_top_M
+        if attention_map is False:
+          return preds, branch_preds
+        
+        else:
+          return  preds, branch_preds, mem_idx, attn_top_M
     
         
     def compute_diversity_loss(self):
