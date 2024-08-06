@@ -79,7 +79,7 @@ for epoch in range(conf.n_epoch):
     
     log_writer_test.compute_metric()
     log_writer_test.print_stats(epoch, train=False)
-weights_path = 'model_weights.pth'
-torch.save(net.state_dict(), weights_path)
+    weights_path = 'model_weights.pth'
+    torch.save(net.state_dict(), weights_path)
 
 
