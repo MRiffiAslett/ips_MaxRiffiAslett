@@ -1,50 +1,62 @@
-<img src="images/ips.png" width="600" />
+# Summary
 
-# Iterative Patch Selection
+This repository contains the code for my dissertation, which adapts the IPS approach from [benbergner/ips](https://github.com/benbergner/ips.git). IPS is a simple patch-based method that decouples memory consumption from input size, enabling efficient processing of high-resolution images without running out of memory.
 
-Official implementation of "Iterative Patch Selection for High-Resolution Image Recognition" in PyTorch.
+We performed repeated experiments with the Megapixel MNIST dataset, sourced from [idiap/attention-sampling](https://github.com/idiap/attention-sampling.git). The experiments varied object-to-image ratio, training size, noise generation strategy, pretraining strategy, and different previously introduced masking strategies to robustify the patch-based image classifier in scenarios with low data and small object-to-image ratios.
 
-Iterative Patch Selection (IPS) is a simple patch-based approach that decouples the consumed memory from the input size and thus enables the efficient processing of high-resolution images without running out of memory. IPS works in two steps:  First, the most salient patches of an image are identified in no-gradient mode. Then, only selected patches are combined by a transformer-based patch aggregation module to train the network. 
+## Repository Structure
 
-**Accepted at ICLR 2023**
-
-arXiv: https://arxiv.org/abs/2210.13007    
-openreview: https://openreview.net/forum?id=QCrw0u9LQ7
-
-## Usage
-
-IPS is applied to 3 datasets: Traffic signs, Megapixel MNIST and CAMELYON16.
-The dataset can be set in `main.py`, by changing variable `dataset` to either traffic, mnist or camelyon.  
-All other settings can be specified in `config/{dataset}.yml`.
-
-To train a model, simply run: `python main.py`
-
-The repo covers different data loading options (eager, eager sequential, lazy), positional encoding, tracking of efficiency metrics, single and multi-task learning and different loss functions.
-
-## Notebook
-
-We provide a simple example prepared as a Jupyter notebook (`ips_example.ipynb`) that can be imported into Google Colab, for example.
-
-## Dataset specific considerations
-
-**Traffic signs**: No specific considerations. The dataset will be downloaded automatically when running the main script.
-
-**Megapixel MNIST**: Before training, the dataset needs to be created by running `data/megapixel_mnist/make_mnist.py`.  
-For example: `python make_mnist.py --width 1500 --height 1500 dsets/megapixel_mnist_1500`.
-
-**CAMELYON16**: Requires multiple preprocessing steps and significantly more resources (time, hardware). Before training, the following needs to be done:
-1. Download of the CAMELYON16 dataset (up-to-date links can be found on Grand Challenge)
-2. Computing Otsu thresholds by running `data/camelyon/otsu.py`
-3. Extracting foreground coordinates by running `data/camelyon/foreground.py`
-4. Pre-training with BYOL. We adapted the implementation of https://github.com/yaox12/BYOL-PyTorch
-5. Extracting of features from the pre-trained model by running `data/camelyon/extract_feat.py`
-
-## Citation
-```bibtex
-@inproceedings{bergner2022iterative,
-  title={Iterative patch selection for high-resolution image recognition},
-  author={Bergner, Benjamin and Lippert, Christoph and Mahendran, Aravindh},
-  booktitle={International Conference on Learning Representations},
-  year={2022}
-}
+## Repository Structure
 ```
+├── architecture/
+│ ├── ips_net.py # Script where iterative patch selection is performed, including the initial encoding stage
+│ └── transformer.py # Script defining the multi-head cross attention pooling operator, attention scorer, and multi-layer perceptron
+│
+├── config/
+│ ├── mnist_config.yml
+│ ├── camelyon_config.yml
+│ └── traffic_config.yml
+│
+├── data/
+│ ├── megapixel_mnist/
+│ │ ├── make_mnist.py # Original MegaMNIST generation script
+│ │ ├── PineneedleMegaMNIST.py # Our version of the data generation with new Bezier noise and O2I setup
+│ │ └── mnist_dataset.py # Script to preprocess and patchify the data
+│
+├── results_library/
+│ ├── 1) O2I_datasize
+│ ├── 2) Semantic_Diversity_Regularisation
+│ ├── 3) Attention_Masking
+│ ├── 4) Dataset_Size
+│ ├── 5) Noise_Size
+│ ├── 6) Digit_Thickness
+│ ├── 7) Backbones
+│ └── 8) Patch_Size
+│
+│ Note: The naming convention of the results is as follows:
+│ results_(digit_size_x)(digit_size_y)(canvas_size_x)(canvas_size_y)(number_of_noise)(number_of_training_data_points)(regularisation_and_special_feature)
+│
+│ Example: results_84_84_3000_3000_400n_1000d_PS_50
+│ This denotes 84x84 digit resolution on a 3000x3000 canvas with 400 noise points and 1000 training data points, with a patch size (PS) of 50.
+│
+├── utils/
+│ └── utils.py # Includes functions for logging memory, adjusting the learning rate, and printing stats
+│
+├── training/
+│ └── iterative.py # Defines the loss functions, initializes batches, and handles training for one epoch
+│
+└── main.py # Main script
+```
+## Contributions
+
+Our contributions that build upon the implementation by [benbergner/ips](https://github.com/benbergner/ips.git) are as follows:
+
+1. Adding a data generation script `PineneedleMegaMNIST.py` with updated noise and O2I varying strategy.
+2. Including semantic and diversity loss features in the `iterative.py` script.
+3. Adding stochastic attention masking features in `ips_net.py`.
+4. Introducing a new backbone strategy with ResNet-50, freezing all weights until the last layer in `ips_net.py`.
+
+**Note:** All features can be activated and deactivated via the config files.
+"""
+
+
