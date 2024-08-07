@@ -1,116 +1,296 @@
-import os
-import yaml
-import torch
-from torch.utils.data import DataLoader
+import sys
 import numpy as np
-import matplotlib.pyplot as plt
-from PIL import Image
-from architecture.ips_net import IPSNet
-from data.megapixel_mnist.mnist_dataset import MegapixelMNIST
-from utils.utils import Struct
+import torch
+import torch.nn.functional as F
 
-# Get the current directory of this script
-script_dir = os.path.dirname(os.path.abspath(__file__))
+from utils.utils import adjust_learning_rate
 
-# Load configuration from YAML file
-config_path = os.path.join(script_dir, 'config/mnist_config.yml')
-with open(config_path, 'r') as ymlfile:
-    c = yaml.load(ymlfile, Loader=yaml.FullLoader)
-    conf = Struct(**c)
+def init_batch(device, conf):
+    """
+    Initialize the memory buffer for the batch consisting of M patches
+    """
+    if conf.is_image:
+        mem_patch = torch.zeros((conf.B, conf.M, conf.n_chan_in, *conf.patch_size)).to(device)
+    else:
+        mem_patch = torch.zeros((conf.B, conf.M, conf.n_chan_in)).to(device)
 
-# Ensure image_size is added to the configuration
-conf.image_size = 1500
+    if conf.use_pos:
+        mem_pos_enc = torch.zeros((conf.B, conf.M, conf.D)).to(device)
+    else:
+        mem_pos_enc = None
 
-conf.data_dir = os.path.join(script_dir, 'data/megapixel_mnist/dsets/megapixel_mnist_1500')
-
-parameters_path = os.path.join(conf.data_dir, "parameters.json")
-
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
-net = IPSNet(device, conf).to(device)
-model_weights_path = os.path.join(script_dir, 'model_weights.pth')
-net.load_state_dict(torch.load(model_weights_path))
-net.eval()
-
-def get_attention_map(patches):
-    print(f"Inside get_attention_map, patches shape: {patches.shape}")
-    with torch.no_grad():
-        mem_patch_iter, mem_pos_enc_iter, mem_idx, attn  = net.ips(patches)
-        print(f'attention shape: {attn.shape}')
-        print(f'positions shape {mem_idx.shape}')
-        print(attn[0][0].item())
-        print(mem_idx[0][0].item())
-    return  mem_idx, attn
-
-def to_dense(patches, grid_size, patch_size):
-    dense_image = np.zeros((grid_size * patch_size, grid_size * patch_size), dtype=np.float32)
-    patch_idx = 0
-    for i in range(grid_size):
-        for j in range(grid_size):
-            dense_image[i*patch_size:(i+1)*patch_size, j*patch_size:(j+1)*patch_size] = patches[patch_idx, 0]
-            patch_idx += 1
-    return dense_image
-
-def visualize_attention(image_sparse, mem_idx, attn, conf, save_path):
-    patch_size = 50  # Assuming patches are 50x50
-    num_patches = 900  # Assuming the original image is divided into a 30x30 grid
-    grid_size = int(np.sqrt(num_patches))
+    # Init the labels for the batch (for multiple tasks in mnist)
+    labels = {}
+    for task in conf.tasks.values():
+        if task['metric'] == 'multilabel_accuracy':
+            labels[task['name']] = torch.zeros((conf.B, conf.n_class), dtype=torch.float32).to(device)
+        else:
+            labels[task['name']] = torch.zeros((conf.B,), dtype=torch.int64).to(device)
     
-    attention_grid = np.zeros((grid_size, grid_size))
-    first_image_attention = attn[0].cpu().numpy()
-    first_image_indices = mem_idx[0].cpu().numpy()
+    return mem_patch, mem_pos_enc, labels
+
+def fill_batch(mem_patch, mem_pos_enc, labels, data, n_prep, n_prep_batch,
+               mem_patch_iter, mem_pos_enc_iter, conf):
+    """
+    Fill the patch, pos enc and label buffers and update helper variables
+    """
+    n_seq, len_seq = mem_patch_iter.shape[:2]
+    mem_patch[n_prep:n_prep+n_seq, :len_seq] = mem_patch_iter
+    if conf.use_pos:
+        mem_pos_enc[n_prep:n_prep+n_seq, :len_seq] = mem_pos_enc_iter
     
-    for i, idx in enumerate(first_image_indices):
-        row = idx // grid_size
-        col = idx % grid_size
-        attention_grid[row, col] = first_image_attention[i]
+    for task in conf.tasks.values():
+        labels[task['name']][n_prep:n_prep+n_seq] = data[task['name']]
     
-    # Normalize the attention grid for better visualization
-    attention_grid = (attention_grid - np.min(attention_grid)) / (np.max(attention_grid) - np.min(attention_grid))
+    n_prep += n_seq
+    n_prep_batch += 1
 
-    # Convert sparse to dense image
-    dense_image = to_dense(image_sparse[0].cpu().numpy(), grid_size, patch_size)
+    batch_data = (mem_patch, mem_pos_enc, labels, n_prep, n_prep_batch)
 
-    # Invert the colors: black digits on white background
-    inverted_image = 1 - dense_image
+    return batch_data
 
-    # Resize attention grid to match the original image size
-    attention_image = np.kron(attention_grid, np.ones((patch_size, patch_size)))
+def shrink_batch(mem_patch, mem_pos_enc, labels, n_prep, conf):
+    """
+    Adjust batch by removing empty instances (may occur in last batch of an epoch)
+    """
+    mem_patch = mem_patch[:n_prep]
+    if conf.use_pos:
+        mem_pos_enc = mem_pos_enc[:n_prep]
+    
+    for task in conf.tasks.values():
+        labels[task['name']] = labels[task['name']][:n_prep]
+    
+    return mem_patch, mem_pos_enc, labels
 
-    # Create a colormap overlay of the attention
-    cmap = plt.get_cmap('viridis')
-    attention_colormap = cmap(attention_image)
-    attention_colormap = np.delete(attention_colormap, 3, 2)  # Remove the alpha channel
+def compute_diversity_loss(attn_maps):
+    if attn_maps is None:
+        raise ValueError("Attention maps not computed. Ensure forward pass is run before computing diversity loss.")
+    
+    # Assuming attn_maps has shape [batch_size, num_heads, seq_length, seq_length]
+    batch_size, num_heads, _, _ = attn_maps.shape
+    diversity_losses = []
+    
+    for i in range(num_heads):
+        for j in range(i + 1, num_heads):
+            # Compute cosine similarity between different heads
+            attn_map_i = attn_maps[:, i, :, :].view(batch_size, -1)
+            attn_map_j = attn_maps[:, j, :, :].view(batch_size, -1)
+            
+            # Compute cosine similarity along the last dimension and then mean over the batch
+            diversity_loss = F.cosine_similarity(attn_map_i, attn_map_j, dim=-1).mean()
+            diversity_losses.append(diversity_loss)
+    
+    # Convert list to tensor for statistical computation
+    diversity_losses_tensor = torch.stack(diversity_losses)
+    mean_diversity_loss = diversity_losses_tensor.mean()
+    median_diversity_loss = diversity_losses_tensor.median()
+    variance_diversity_loss = diversity_losses_tensor.var()
+    
+    # Print out the statistics
+    #print(f"Diversity Loss Statistics - Mean: {mean_diversity_loss:.4f}, Median: {median_diversity_loss:.4f}, Variance: {variance_diversity_loss:.4f}")
+    
+    # Calculate the average diversity loss as originally intended
+    overall_diversity_loss = (2 / (num_heads * (num_heads - 1))) * torch.sum(diversity_losses_tensor)
+    
+    return overall_diversity_loss, variance_diversity_loss
 
-    # Convert the original image to RGB for blending
-    original_image_rgb = np.stack([inverted_image] * 3, axis=-1)
+def compute_semantic_loss(branch_outputs, labels, criterions, conf):
+    """
+    Compute the semantic loss for each task using the branch outputs, and print mean, median, and variance of losses.
+    """
+    semantic_losses = []
+    
+    for branch_preds in branch_outputs:
+        branch_loss = 0
+        for task in conf.tasks.values():
+            t_name, t_act = task['name'], task['act_fn']
+            criterion = criterions[t_name]
+            label = labels[t_name]
+            
+            branch_pred = branch_preds[t_name].squeeze(-1)
+            if t_act == 'softmax':
+                pred_loss = torch.log(branch_pred + conf.eps)
+                label_loss = label
+            else:
+                pred_loss = branch_pred.view(-1)
+                label_loss = label.view(-1).type(torch.float32)
+            
+            branch_loss += criterion(pred_loss, label_loss)
+        
+        semantic_losses.append(branch_loss)
+    
+    # Stack the semantic losses into a tensor
+    semantic_losses_tensor = torch.stack(semantic_losses)
 
-    # Normalize original image for blending
-    original_image_rgb = (original_image_rgb - original_image_rgb.min()) / (original_image_rgb.max() - original_image_rgb.min())
+    # Get the number of tasks
+    num_tasks = len(conf.tasks.values())
 
-    # Blend the original image with the attention colormap
-    overlay_image = 0.6 * original_image_rgb + 0.4 * attention_colormap
+    # Divide each semantic loss in the tensor by the number of tasks
+    semantic_losses_tensor /= num_tasks
 
-    # Save the image
-    overlay_image_uint8 = (overlay_image * 255).astype(np.uint8)
-    overlay_image_pil = Image.fromarray(overlay_image_uint8)
-    overlay_image_pil.save(save_path)
+    # Compute the mean, median, and variance of the adjusted tensor
+    mean_semantic_loss = semantic_losses_tensor.mean()
+    median_semantic_loss = semantic_losses_tensor.median()
+    variance_semantic_loss = semantic_losses_tensor.var()
 
-    # Display the image
-    plt.figure(figsize=(15, 15))
-    plt.imshow(overlay_image)
-    plt.axis('off')
-    plt.title("Attention Map Overlay on Original Image")
-    plt.show()
+    # Print out the mean, median, and variance of semantic loss
+    #print(f"Semantic Loss - Mean: {mean_semantic_loss:.4f}, Median: {median_semantic_loss:.4f}, Variance: {variance_semantic_loss:.4f}\n\n")
 
-test_data = MegapixelMNIST(conf, train=False)
-test_loader = DataLoader(test_data, batch_size=16, shuffle=False)
+    return mean_semantic_loss, variance_semantic_loss
 
-for batch in test_loader:
-    image_sparse = batch['input']
-    print(f"Image sparse shape: {image_sparse.shape}")
 
-    mem_idx, attn = get_attention_map(image_sparse.to(device))
-    save_path = os.path.join(script_dir, 'attention_map_overlay.png')
-    visualize_attention(image_sparse, mem_idx, attn, conf, save_path)
-    break
+def compute_loss(net, mem_patch, mem_pos_enc, criterions, labels, conf):
+    """
+    Obtain predictions, compute losses for each task and get some logging stats.
+    """
+
+    # Obtain predictions
+    main_output, branch_outputs = net(mem_patch, mem_pos_enc)
+
+    # Compute losses for each task and sum them up
+    loss = 0
+    task_losses, task_preds, task_labels = {}, {}, {}
+    for task in conf.tasks.values():
+        t_name, t_act = task['name'], task['act_fn']
+
+        criterion = criterions[t_name]
+        label = labels[t_name]
+
+        # Main output loss
+        main_pred = main_output[t_name].squeeze(-1)
+        if t_act == 'softmax':
+            pred_loss = torch.log(main_pred + conf.eps)
+            label_loss = label
+        else:
+            pred_loss = main_pred.view(-1)
+            label_loss = label.view(-1).type(torch.float32)
+
+        main_task_loss = criterion(pred_loss, label_loss)
+        task_losses[t_name] = main_task_loss.item()
+
+        task_preds[t_name] = main_pred.detach().cpu().numpy()
+        task_labels[t_name] = label.detach().cpu().numpy()
+
+        loss += main_task_loss
+
+    # Average task losses        
+    loss /= len(conf.tasks.values())
+
+    diversity_loss, variance_diversity_loss = torch.tensor(0.0), torch.tensor(0.0)
+    semantic_loss, variance_semantic_loss = torch.tensor(0.0), torch.tensor(0.0)
+
+    if conf.semantic_diversity_loss:
+        # Compute diversity loss
+        diversity_loss, variance_diversity_loss = compute_diversity_loss(net.transf.attn_maps)
+
+        # Compute semantic loss
+        semantic_loss, variance_semantic_loss = compute_semantic_loss(branch_outputs, labels, criterions, conf)
+
+    # Total loss
+    total_loss = loss + (diversity_loss * 3) + semantic_loss
+
+    return total_loss, task_losses, task_preds, task_labels, diversity_loss, semantic_loss, variance_diversity_loss, variance_semantic_loss
+
+
+
+def train_one_epoch(net, criterions, data_loader, optimizer, device, epoch, log_writer, conf):
+    net.train()
+
+    n_prep, n_prep_batch = 0, 0 
+    mem_pos_enc = None
+    start_new_batch = True
+
+    times = []
+    for data_it, data in enumerate(data_loader, start=epoch * len(data_loader)):
+        image_patches = data['input'].to(device) if conf.eager else data['input']
+
+        if start_new_batch:
+            mem_patch, mem_pos_enc, labels = init_batch(device, conf)
+            start_new_batch = False
+
+            if conf.track_efficiency:
+                start_event = torch.cuda.Event(enable_timing=True)
+                end_event = torch.cuda.Event(enable_timing=True)
+                start_event.record()
+        
+        mem_patch_iter, mem_pos_enc_iter = net.ips(image_patches)
+        
+        batch_data = fill_batch(mem_patch, mem_pos_enc, labels, data, n_prep, n_prep_batch,
+                                mem_patch_iter, mem_pos_enc_iter, conf)
+        mem_patch, mem_pos_enc, labels, n_prep, n_prep_batch = batch_data
+
+        batch_full = (n_prep == conf.B)
+        is_last_batch = n_prep_batch == len(data_loader)
+
+        if batch_full or is_last_batch:
+
+            if not batch_full:
+                mem_patch, mem_pos_enc, labels = shrink_batch(mem_patch, mem_pos_enc, labels, n_prep, conf)
+            
+            adjust_learning_rate(conf.n_epoch_warmup, conf.n_epoch, conf.lr, optimizer, data_loader, data_it+1)
+            optimizer.zero_grad()
+
+            loss, task_losses, task_preds, task_labels, diversity_loss, semantic_loss, variance_diversity_loss, variance_semantic_loss = compute_loss(net, mem_patch, mem_pos_enc, criterions, labels, conf)
+
+            loss.backward()
+            optimizer.step()
+
+            if conf.track_efficiency:
+                end_event.record()
+                torch.cuda.synchronize()
+                if epoch == conf.track_epoch and data_it > 0 and not is_last_batch:
+                    times.append(start_event.elapsed_time(end_event))
+                    print("time: ", times[-1])
+
+            log_writer.update(task_losses, task_preds, task_labels, diversity_loss, semantic_loss, variance_diversity_loss, variance_semantic_loss)
+
+            n_prep = 0
+            start_new_batch = True
+    
+    if conf.track_efficiency:
+        if epoch == conf.track_epoch:
+            print("avg. time: ", np.mean(times))
+
+            stats = torch.cuda.memory_stats()
+            peak_bytes_requirement = stats["allocated_bytes.all.peak"]
+            print(f"Peak memory requirement: {peak_bytes_requirement / 1024 ** 3:.4f} GB")
+
+            print("TORCH.CUDA.MEMORY_SUMMARY: ", torch.cuda.memory_summary())
+            sys.exit()
+
+
+@torch.no_grad()
+def evaluate(net, criterions, data_loader, device, log_writer, conf, epoch):
+    net.eval()
+
+    n_prep, n_prep_batch = 0, 0
+    mem_pos_enc = None
+    start_new_batch = True
+
+    for data in data_loader:
+        image_patches = data['input'].to(device) if conf.eager else data['input']
+
+        if start_new_batch:
+            mem_patch, mem_pos_enc, labels = init_batch(device, conf)
+            start_new_batch = False
+        
+        mem_patch_iter, mem_pos_enc_iter = net.ips(image_patches)
+        
+        batch_data = fill_batch(mem_patch, mem_pos_enc, labels, data, n_prep, n_prep_batch,
+                                mem_patch_iter, mem_pos_enc_iter, conf)
+        mem_patch, mem_pos_enc, labels, n_prep, n_prep_batch = batch_data
+
+        batch_full = (n_prep == conf.B)
+        is_last_batch = n_prep_batch == len(data_loader)
+
+        if batch_full or is_last_batch:
+
+            if not batch_full:
+                mem_patch, mem_pos_enc, labels = shrink_batch(mem_patch, mem_pos_enc, labels, n_prep, conf)
+
+            loss, task_losses, task_preds, task_labels, diversity_loss, semantic_loss, variance_diversity_loss, variance_semantic_loss = compute_loss(net, mem_patch, mem_pos_enc, criterions, labels, conf)
+
+            log_writer.update(task_losses, task_preds, task_labels, diversity_loss, semantic_loss, variance_diversity_loss, variance_semantic_loss)
+
+            n_prep = 0
+            start_new_batch = True
