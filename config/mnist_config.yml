@@ -8,6 +8,7 @@ lr: 0.001             # learning rate
 wd: 0.1               # weight decay
 
 semantic_diversity_loss: False
+attention_map: False
 
 #dset
 n_class: 10                                                   # number of classes
