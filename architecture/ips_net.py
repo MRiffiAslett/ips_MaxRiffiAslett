@@ -271,7 +271,10 @@ class IPSNet(nn.Module):
             self.transf.train()
 
         # Return selected patch, positional embeddings, indices, and attention scores
-        return mem_patch, mem_pos, mem_idx, attn_top_M
+        if attention_map is False:
+          return mem_patch, mem_pos
+        else:
+          return  mem_patch, mem_pos, mem_idx, attn_top_M
 
 
     def forward(self, mem_patch, mem_pos=None):
