@@ -85,12 +85,12 @@ The results are organized into the following categories:
 #### Attention Maps
 
 <div align="center">
-    <img src="plots/attention_map_1.jpg" alt="Attention Map 1" width="1000"/>
+    <img src="plots/attention_map_1_black.jpg" alt="Attention Map 1" width="1000"/>
 </div>
 <p><strong>Figure 3:</strong> Attention maps for different object-to-image ratios: 0.008% (left) and 0.034% (right) on a 1500 × 1500 canvas, with 800 noise digits on the left and 600 on the right. The maps display the top M (100) most informative patches at the end of a full forward pass with IPS. The digit and noise size on the left is 28 × 28 and on the right 56 × 56.</p>
 
 <div align="center">
-    <img src="plots/attention_map_2.jpg" alt="Attention Map 2" width="1000"/>
+    <img src="plots/attention_map_2_black.jpg" alt="Attention Map 2" width="1000"/>
 </div>
 <p><strong>Figure 4:</strong> Attention maps for different object-to-image ratios: 0.078% (left) and 0.13% (right) on a 1500 × 1500 canvas, with 400 noise digits on the left and 200 on the right. The maps display the top M (100) most informative patches at the end of a full forward pass with IPS. The digit and noise size on the left is 84 × 84 and on the right 112 × 112.</p>
 
