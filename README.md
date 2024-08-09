@@ -21,22 +21,32 @@ Our contributions that build upon the implementation by [benbergner/ips](https:/
 
 ## 📁 Repository Structure
 
-### 1. 🏗 Architecture
+### 1.  Architecture
 - **`ips_net.py`**: Script where iterative patch selection is performed, including the initial encoding stage.
 - **`transformer.py`**: Script defining the multi-head cross-attention pooling operator, attention scorer, and multi-layer perceptron.
 
-### 2. ⚙️ Configuration Files
+### 2. Training
+- **`iterative.py`**: Defines the loss functions, initializes batches, and handles training for one epoch.
+
+### 3. Main Script
+**`main.py`**: The main script that orchestrates the entire process.
+
+### 4.  Configuration Files
 - **`mnist_config.yml`**: Configuration file for the MNIST dataset.
 - **`camelyon_config.yml`**: Configuration file for the Camelyon dataset.
 - **`traffic_config.yml`**: Configuration file for the Traffic dataset.
 
-### 3. 🧩 Data Processing
+### 5.  Data Processing
 **Megapixel MNIST**
 - **`make_mnist.py`**: Original MegaMNIST generation script.
 - **`PineneedleMegaMNIST.py`**: Custom data generation script with new Bezier noise and Object-to-Image (O2I) setup.
 - **`mnist_dataset.py`**: Script to preprocess and patchify the data.
 
-### 4. 📊 Results Library
+### 6. Utilities
+- **`utils.py`**: Contains functions for logging memory, adjusting the learning rate, and printing statistics.
+
+
+### 7. Results Library
 The results are organized into the following categories:
 - **`O2I_datasize`**: Results related to Object-to-Image (O2I) ratio and dataset size.
 - **`Semantic_Diversity_Regularisation`**: Results related to semantic diversity regularization.
@@ -55,17 +65,6 @@ The results are organized into the following categories:
 
 **Example:** `results_84_84_3000_3000_400n_1000d_PS_50`
 - This denotes 84x84 digit resolution on a 3000x3000 canvas with 400 noise points and 1000 training data points, with a patch size (PS) of 50.
-
-### 5. 🛠 Utilities
-- **`utils.py`**: Contains functions for logging memory, adjusting the learning rate, and printing statistics.
-
-### 6. 🏋️ Training
-- **`iterative.py`**: Defines the loss functions, initializes batches, and handles training for one epoch.
-
-### 7. 🚀 Main Script
-- **`main.py`**: The main script that orchestrates the entire process.
-
-
 
 # Noise Generation
 
