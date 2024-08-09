@@ -229,8 +229,6 @@ class IPSNet(nn.Module):
         if shuffle:
             patches, pos_enc = self.do_shuffle(patches, pos_enc)
 
-        init_patch = patches[:,:M].to(device) 
-        
         # Embed
         mem_emb = self.encoder(init_patch.reshape(-1, *patch_shape[2:]))
         mem_emb = mem_emb.view(B, M, -1)
@@ -334,4 +332,3 @@ class IPSNet(nn.Module):
         Compute the diversity loss using the attention maps from the transformer.
         """
         return self.transf.compute_diversity_loss()
-
