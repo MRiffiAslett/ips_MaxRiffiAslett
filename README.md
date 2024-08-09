@@ -3,7 +3,7 @@
 <h1 align="left">
     On the Generalizability <br>
     of High-Resolution Image Classification <br>
-    with Memory-Efficient Transformers 🧠
+    with Memory-Efficient Transformers 
 </h1>
 
 
