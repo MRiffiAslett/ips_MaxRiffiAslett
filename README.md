@@ -71,13 +71,6 @@ The results are organized into the following categories:
 **Example:** `results_84_84_3000_3000_400n_1000d_PS_50`
 - This denotes 84x84 digit resolution on a 3000x3000 canvas with 400 noise points and 1000 training data points, with a patch size (PS) of 50.
 
-# Noise Generation
-
-<div align="center">
-    <img src="plots/Tasksvstasks.jpg" alt="Task vs Tasks" width="500"/>
-</div>
-<p><strong>Figure 1:</strong> Visual representation of the Needle MNIST task (left) and the Megapixel MNIST dataset (225 × 225) with five noise digits using Bezier curves (right) (source: \parencite{pawlowski_needles_2020}).</p>
-
 ## Findings
 
 ### Object-to-Image Ratio
