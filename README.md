@@ -1,3 +1,5 @@
+![My Logo](plots/header.jpg)
+
 # Summary
 
 This repository contains the code for my dissertation, which adapts the IPS approach from [benbergner/ips](https://github.com/benbergner/ips.git). IPS is a simple patch-based method that decouples memory consumption from input size, enabling efficient processing of high-resolution images without running out of memory.
