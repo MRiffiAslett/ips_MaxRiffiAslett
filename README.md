@@ -2,7 +2,7 @@
 
 <h1 align="center">On the Generalizability of High-Resolution Image Classification with Memory-Efficient Transformers</h1>
 
-
+## Summary
 This repository contains the code for my dissertation, which adapts the IPS approach from [benbergner/ips](https://github.com/benbergner/ips.git). IPS is a simple patch-based method that decouples memory consumption from input size, enabling efficient processing of high-resolution images without running out of memory.
 
 We performed repeated experiments with the Megapixel MNIST dataset, sourced from [idiap/attention-sampling](https://github.com/idiap/attention-sampling.git). The experiments varied object-to-image ratio, training size, noise generation strategy, pretraining strategy, and different previously introduced masking strategies to robustify the patch-based image classifier in scenarios with low data and small object-to-image ratios.
