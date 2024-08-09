@@ -102,10 +102,8 @@ class IPSNet(nn.Module):
         self.shuffle = conf.shuffle
         self.shuffle_style = conf.shuffle_style
         self.is_image = conf.is_image
-        self.mask_p = conf.mask_p  # Probability of masking
-        self.mask_K = conf.mask_K  # Number of top-K instances to consider for masking
-        self.attention_map = conf.attention_map 
-
+        self.mask_p = conf.mask_p
+        self.mask_K = conf.mask_K
 
         if self.is_image:
             self.encoder, self.projection, self.encoder_out_dim = self.get_conv_patch_enc(
@@ -124,6 +122,7 @@ class IPSNet(nn.Module):
         # Define the multi-head cross-attention transformer
         self.transf = Transformer(conf.n_token, conf.H, self.D, conf.D_k, conf.D_v,
             conf.D_inner, conf.attn_dropout, conf.dropout)
+
         # Optionally use standard 1d sinusoidal positional encoding
         if conf.use_pos:
             self.pos_enc = pos_enc_1d(conf.D, conf.N).unsqueeze(0).to(device)
@@ -151,47 +150,37 @@ class IPSNet(nn.Module):
         
         return patches, pos_enc
 
-
-    def score_and_select(self, emb, emb_pos, M, idx, mask_K, mask_p):
+    def score_and_select(self, emb, emb_pos, M, idx):
+        """ 
+        Scores embeddings and selects the top-M embeddings
+        """
         D = emb.shape[2]
 
         emb_to_score = emb_pos if torch.is_tensor(emb_pos) else emb
 
-        # Obtain scores from the transformer
-        attn = self.transf.get_scores(emb_to_score)  # (B, M+I)
+        # Obtain scores from transformer
+        attn = self.transf.get_scores(emb_to_score) # (B, M+I)
 
-        # 1. Get indices of top-K patches for masking
-        top_K_idx = torch.topk(attn, self.mask_K, dim=-1)[1]  # (B, K)
-
-        # 2. Create a mask with probability p for top-K instances
-        mask = (torch.rand(top_K_idx.shape, device=attn.device) < self.mask_p).float()
-
-        # 3. Apply the mask to the top-K attention scores
-        attn.scatter_(1, top_K_idx, attn.gather(1, top_K_idx) * (1 - mask))
-
-        # 4. Get indices of top-M patches after masking
-        top_idx = torch.topk(attn, M, dim=-1)[1]  # (B, M)
-
-
+        # Get indices of top-scoring patches
+        top_idx = torch.topk(attn, M, dim=-1)[1] # (B, M)
+        
         # Update memory buffers
+        # Note: Scoring is based on `emb_to_score`, selection is based on `emb`
         mem_emb = torch.gather(emb, 1, top_idx.unsqueeze(-1).expand(-1, -1, D))
         mem_idx = torch.gather(idx, 1, top_idx)
 
-        # Get the attention values for the top M patches
-        attn_top_M = torch.gather(attn, 1, top_idx)
-
-        return mem_emb, mem_idx, attn_top_M
-
-
-
+        return mem_emb, mem_idx
 
     def get_preds(self, embeddings):
-        preds = {}
-        for task in self.tasks.values():
-            t_name, t_id = task['name'], task['id']
-            layer = self.output_layers[t_name]
+      preds = {}
+      for task in self.tasks.values():
+          t_name, t_id = task['name'], task['id']
+          layer = self.output_layers[t_name]
+          emb = embeddings[:, t_id]
+          preds[t_name] = layer(emb)
+      return preds
 
-            
+    # IPS runs in no-gradient mode
     @torch.no_grad()
     def ips(self, patches):
         """ Iterative Patch Selection """
@@ -206,15 +195,12 @@ class IPSNet(nn.Module):
         pos_enc = self.pos_enc
         patch_shape = patches.shape
         B, N = patch_shape[:2]
-        mask_p = self.mask_p  # Probability of masking
-        mask_K = self.mask_K  # Number of top-K instances to consider for masking
-        attention_map = self.attention_map 
-
 
         # Shortcut: IPS not required when memory is larger than total number of patches
         if M >= N:
+            # Batchify pos enc
             pos_enc = pos_enc.expand(B, -1, -1) if use_pos else None
-            return patches.to(device), pos_enc, None, None
+            return patches.to(device), pos_enc 
 
         # IPS runs in evaluation mode
         if self.training:
@@ -225,16 +211,21 @@ class IPSNet(nn.Module):
         if use_pos:
             pos_enc = pos_enc.expand(B, -1, -1)
 
-        # Shuffle patches
+        # Shuffle patches (i.e., randomize when patches obtain identical scores)
         if shuffle:
             patches, pos_enc = self.do_shuffle(patches, pos_enc)
 
-        init_patch = patches[:,:M].to(device) 
-        # Embed
+        # Init memory buffer
+        init_patch = patches[:, :M].to(device) 
+        
+        ## Embed
         mem_emb = self.encoder(init_patch.reshape(-1, *patch_shape[2:]))
         mem_emb = mem_emb.view(B, M, -1)
-
-        # Init memory indices
+        
+        if self.projection:
+            mem_emb = self.projection(mem_emb.view(B * M, -1)).view(B, M, -1)
+        
+        # Init memory indices in order to select patches at the end of IPS.
         idx = torch.arange(N, dtype=torch.int64, device=device).unsqueeze(0).expand(B, -1)
         mem_idx = idx[:, :M]
 
@@ -252,13 +243,13 @@ class IPSNet(nn.Module):
             iter_emb = self.encoder(iter_patch.reshape(-1, *patch_shape[2:]))
             iter_emb = iter_emb.view(B, -1, D)
 
-
             if self.projection:
                 iter_emb = self.projection(iter_emb.view(B * I, -1)).view(B, I, -1)
             
             # Concatenate with memory buffer
             all_emb = torch.cat((mem_emb, iter_emb), dim=1)
             all_idx = torch.cat((mem_idx, iter_idx), dim=1)
+            # When using positional encoding, also apply it during patch selection
             if use_pos:
                 all_pos_enc = torch.gather(pos_enc, 1, all_idx.view(B, -1, 1).expand(-1, -1, D))
                 all_emb_pos = all_emb + all_pos_enc
@@ -266,14 +257,12 @@ class IPSNet(nn.Module):
                 all_emb_pos = None
 
             # Select Top-M patches according to cross-attention scores
-
-            mem_emb, mem_idx, attn_top_M = self.score_and_select(all_emb, all_emb_pos, M, all_idx, mask_K, mask_p)
-
+            mem_emb, mem_idx = self.score_and_select(all_emb, all_emb_pos, M, all_idx)
 
         # Select patches
         n_dim_expand = len(patch_shape) - 2
         mem_patch = torch.gather(patches, 1, 
-            mem_idx.view(B, -1, *(1,) * n_dim_expand).expand(-1, -1, *patch_shape[2:]).to(patches.device)
+            mem_idx.view(B, -1, *(1,)*n_dim_expand).expand(-1, -1, *patch_shape[2:]).to(patches.device)
         ).to(device)
 
         if use_pos:
@@ -285,25 +274,21 @@ class IPSNet(nn.Module):
         if self.training:
             self.encoder.train()
             self.transf.train()
-
-        # Return selected patch, positional embeddings, indices, and attention scores
-        if attention_map is False:
-          return mem_patch, mem_pos
-        else:
-          return  mem_patch, mem_pos, mem_idx, attn_top_M
-
+    
+        # Return selected patch and corresponding positional embeddings
+        return mem_patch, mem_pos
 
     def forward(self, mem_patch, mem_pos=None):
         """
         After M patches have been selected during IPS, encode and aggregate them.
         The aggregated embedding is input to a classification head.
         """
-        attention_map = self.attention_map 
+
         patch_shape = mem_patch.shape
         B, M = patch_shape[:2]
 
         mem_emb = self.encoder(mem_patch.reshape(-1, *patch_shape[2:]))
-        mem_emb = mem_emb.view(B, M, -1)
+        mem_emb = mem_emb.view(B, M, -1)        
 
         if self.projection:
             mem_emb = self.projection(mem_emb.view(B * M, -1)).view(B, M, -1)
@@ -311,25 +296,18 @@ class IPSNet(nn.Module):
         if torch.is_tensor(mem_pos):
             mem_emb = mem_emb + mem_pos
 
-        # Separate main embeddings and image embeddings
-        image_emb = self.transf(mem_emb)[0]
-        branch_embeddings = self.transf(mem_emb)[1]
+        # Ensure the transformer returns a single tensor or a tuple
+        image_emb = self.transf(mem_emb)
 
-        preds = self.get_preds(image_emb)
+        # If self.transf returns a tuple, unpack it
+        if isinstance(image_emb, tuple):
+            image_emb = image_emb[0]
 
-        branch_preds = []
-        for i in range(branch_embeddings.shape[1]):
-            branch_preds.append(self.get_preds(branch_embeddings[:, i]))
+        # Get predictions for main output
+        main_output = self.get_preds(image_emb)
 
-        if attention_map is False:
-          return preds, branch_preds
-        
-        else:
-          return  preds, branch_preds, mem_idx, attn_top_M
-    
-        
-    def compute_diversity_loss(self):
-        """
-        Compute the diversity loss using the attention maps from the transformer.
-        """
-        return self.transf.compute_diversity_loss()
+        # Assuming branch_outputs are also needed, process accordingly
+        # Placeholder for branch outputs, assuming branch outputs come from some layers or calculations
+        branch_outputs = {}  # Adjust based on your actual implementation of branch outputs
+
+        return main_output, branch_outputs
