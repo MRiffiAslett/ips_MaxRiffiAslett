@@ -1,6 +1,11 @@
 ![My Logo](plots/header.jpg)
 
-<h1 align="center">On the Generalizability of High-Resolution Image Classification with Memory-Efficient Transformers 🧠</h1>
+<h1 align="center">
+    On the Generalizability <br>
+    of High-Resolution Image Classification <br>
+    with Memory-Efficient Transformers 🧠
+</h1>
+
 
 ## 📚 Summary
 This repository contains the code for my dissertation, which adapts the IPS approach from [benbergner/ips](https://github.com/benbergner/ips.git). IPS is a simple patch-based method that decouples memory consumption from input size, enabling efficient processing of high-resolution images without running out of memory.
