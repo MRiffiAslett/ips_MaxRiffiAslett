@@ -56,7 +56,17 @@ Our contributions that build upon the implementation by [benbergner/ips](https:/
 3. Adding stochastic attention masking features in `ips_net.py`.
 4. Introducing a new backbone strategy with ResNet-50, freezing all weights until the last layer in `ips_net.py`.
 5. Contributed a script to inference producing attention maps
+## Noise generation
+![My Logo](plots/Tasksvstasks.jpg)
 
+
+## Findings
+# Object-to-Image ratio
+![My Logo](plots/task_plot.png)
+
+![My Logo](plots/attention_map_1.jpg)
+
+![My Logo](plots/attention_map_2.jpg)
 **Note:** All features can be activated and deactivated via the config files.
 """
 
