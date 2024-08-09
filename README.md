@@ -1,10 +1,8 @@
 ![My Logo](plots/header.jpg)
 
-<h1 align="center">
-    On the Generalizability <br>
-    of High-Resolution Image Classification <br>
-    with Memory-Efficient Transformers 🧠
-</h1>
+# On the Generalizability  
+of High-Resolution Image Classification  
+with Memory-Efficient Transformers 🧠
 
 
 ## 📚 Summary
