@@ -1,6 +1,7 @@
 ![My Logo](plots/header.jpg)
 
-# Summary
+# On the Generalizability of High-Resolution Image Classification
+with Memory-Efficient Transformers
 
 This repository contains the code for my dissertation, which adapts the IPS approach from [benbergner/ips](https://github.com/benbergner/ips.git). IPS is a simple patch-based method that decouples memory consumption from input size, enabling efficient processing of high-resolution images without running out of memory.
 
@@ -58,11 +59,12 @@ Our contributions that build upon the implementation by [benbergner/ips](https:/
 5. Contributed a script to inference producing attention maps
  **Note:** All features can be activated and deactivated via the config files.
 
-## Noise Generation
+# Noise Generation
 
 <div align="center">
     <img src="plots/Tasksvstasks.jpg" alt="Task vs Tasks" width="500"/>
 </div>
+<p align="center"><strong>Figure 1:</strong> Visual representation of the Needle MNIST task (left) and the Megapixel MNIST dataset (225 × 225) with five noise digits using Bezier curves (right) (source: \parencite{pawlowski_needles_2020}).</p>
 
 ## Findings
 
@@ -71,15 +73,19 @@ Our contributions that build upon the implementation by [benbergner/ips](https:/
 <div align="center">
     <img src="plots/task_plot.png" alt="Task Plot" width="1000"/>
 </div>
+<p align="center"><strong>Figure 2:</strong> Results of the experiments on MegaPixel_MNIST with a novel noise generation component. Four object-to-image ratios were tested: {0.008%, 0.034%, 0.078%, 0.13%} across four training dataset sizes {800, 1000, 2000, 4000}. Canvas size and patch size remain fixed at 3000 × 3000 and 50 × 50, respectively, and the O2I changes by varying the digit resolutions to 28 × 28, 56 × 56, 84 × 84, and 112 × 112 pixels. The noise digit thickness is set at 1.925. The model was trained for 100 epochs following the setup of IPS \parencite{bergner_iterative_2023}.</p>
 
 #### Attention Maps
+
 <div align="center">
     <img src="plots/attention_map_1.jpg" alt="Attention Map 1" width="1000"/>
 </div>
+<p align="center"><strong>Figure 3:</strong> Attention maps for different object-to-image ratios: 0.008% (left) and 0.034% (right) on a 1500 × 1500 canvas, with 800 noise digits on the left and 600 on the right. The maps display the top M (100) most informative patches at the end of a full forward pass with IPS. The digit and noise size on the left is 28 × 28 and on the right 56 × 56.</p>
 
 <div align="center">
     <img src="plots/attention_map_2.jpg" alt="Attention Map 2" width="1000"/>
 </div>
+<p align="center"><strong>Figure 4:</strong> Attention maps for different object-to-image ratios: 0.078% (left) and 0.13% (right) on a 1500 × 1500 canvas, with 400 noise digits on the left and 200 on the right. The maps display the top M (100) most informative patches at the end of a full forward pass with IPS. The digit and noise size on the left is 84 × 84 and on the right 112 × 112.</p>
 
 
 
