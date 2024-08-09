@@ -58,7 +58,7 @@ Our contributions that build upon the implementation by [benbergner/ips](https:/
 5. Contributed a script to inference producing attention maps
 
 ## Noise Generation
-<img src="plots/Tasksvstasks.jpg" alt="Task vs Tasks" width="250"/>
+<img src="plots/Tasksvstasks.jpg" alt="Task vs Tasks" width="500"/>
 
 ## Findings
 
@@ -70,5 +70,3 @@ Our contributions that build upon the implementation by [benbergner/ips](https:/
 <img src="plots/attention_map_2.jpg" alt="Attention Map 2" width="500"/>
 
 **Note:** All features can be activated and deactivated via the config files.
-
-
