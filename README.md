@@ -5,8 +5,6 @@ This repository contains the code for my dissertation, which adapts the IPS appr
 We performed repeated experiments with the Megapixel MNIST dataset, sourced from [idiap/attention-sampling](https://github.com/idiap/attention-sampling.git). The experiments varied object-to-image ratio, training size, noise generation strategy, pretraining strategy, and different previously introduced masking strategies to robustify the patch-based image classifier in scenarios with low data and small object-to-image ratios.
 
 ## Repository Structure
-
-## Repository Structure
 ```
 ├── architecture/
 │ ├── ips_net.py # Script where iterative patch selection is performed, including the initial encoding stage

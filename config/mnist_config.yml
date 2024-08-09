@@ -9,7 +9,7 @@ wd: 0.1               # weight decay
 
 semantic_diversity_loss: False
 
-attention_map: True
+attention_map: False
 
 #dset
 n_class: 10                                                   # number of classes
@@ -30,8 +30,10 @@ mask_K: 0
 
 #enc
 is_image: True          # should a convolutional patch encoder be used?
+
 enc_type: 'resnet18'    # used backbone, set either to 'resnet18' or 'resnet50'
 pretrained: False       # should ImageNet weights be used?
+
 n_chan_in: 1            # number of input channels
 n_res_blocks: 2         # number of residual ResNet blocks, mnist only uses 2
 
