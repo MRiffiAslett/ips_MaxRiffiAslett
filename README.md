@@ -59,26 +59,25 @@ Our contributions that build upon the implementation by [benbergner/ips](https:/
 
 ## Noise Generation
 
-<center>
+<div align="center">
     <img src="plots/Tasksvstasks.jpg" alt="Task vs Tasks" width="500"/>
-</center>
+</div>
 
 ## Findings
 
 ### Object-to-Image Ratio
 
-<center>
+<div align="center">
     <img src="plots/task_plot.png" alt="Task Plot" width="500"/>
-</center>
+</div>
 
-<center>
+<div align="center">
     <img src="plots/attention_map_1.jpg" alt="Attention Map 1" width="500"/>
-</center>
+</div>
 
-<center>
+<div align="center">
     <img src="plots/attention_map_2.jpg" alt="Attention Map 2" width="500"/>
-</center>
+</div>
 
 **Note:** All features can be activated and deactivated via the config files.
-
 
