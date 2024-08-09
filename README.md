@@ -34,7 +34,7 @@ Our contributions that build upon the implementation by [benbergner/ips](https:/
 - **`iterative.py`**: Defines the loss functions, initializes batches, and handles training for one epoch.
 
 ### 3. Main Script
-**`main.py`**: The main script that orchestrates the entire process.
+- **`main.py`**: The main script that orchestrates the entire process.
 
 ### 4.  Configuration Files
 - **`mnist_config.yml`**: Configuration file for the MNIST dataset.
