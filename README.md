@@ -68,15 +68,16 @@ Our contributions that build upon the implementation by [benbergner/ips](https:/
 ### Object-to-Image Ratio
 
 <div align="center">
-    <img src="plots/task_plot.png" alt="Task Plot" width="500"/>
+    <img src="plots/task_plot.png" alt="Task Plot" width="1000"/>
+</div>
+
+#### Attention Maps
+<div align="center">
+    <img src="plots/attention_map_1.jpg" alt="Attention Map 1" width="1000"/>
 </div>
 
 <div align="center">
-    <img src="plots/attention_map_1.jpg" alt="Attention Map 1" width="500"/>
-</div>
-
-<div align="center">
-    <img src="plots/attention_map_2.jpg" alt="Attention Map 2" width="500"/>
+    <img src="plots/attention_map_2.jpg" alt="Attention Map 2" width="1000"/>
 </div>
 
 **Note:** All features can be activated and deactivated via the config files.
