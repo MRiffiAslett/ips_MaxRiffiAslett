@@ -7,6 +7,14 @@ n_epoch_warmup: 10    # number of warm-up epochs
 lr: 0.0003            # learning rate
 wd: 0.1               # weight decay
 
+semantic_diversity_loss: False
+
+attention_map: False
+
+# masking
+mask_p: 0
+mask_K: 0
+
 #dset
 n_class: 4                      # number of classes
 data_dir: 'data/traffic/dsets'  # directory of dataset
