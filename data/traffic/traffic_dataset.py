@@ -7,6 +7,10 @@ from collections import namedtuple
 import urllib.request
 import zipfile
 from PIL import Image
+import random
+import random
+
+import numpy as np
 
 from torch.utils.data import Dataset
 from torchvision import transforms
@@ -195,6 +199,7 @@ class STS:
         self._directory = directory
         self._inner = "Set{}".format(1 + ((seed + 1 + int(train)) % 2))
         self._data = self._load_signs(self._directory, self._inner)
+        print(f"Original dataset size: {len(self._data)}")
 
     def _load_files(self, directory, inner):
 
@@ -269,6 +274,7 @@ class TrafficSigns(Dataset):
         self.patch_size = conf.patch_size
         self.patch_stride = conf.patch_stride
         self.tasks = conf.tasks
+        self.stratification_rate = 1
         
         self._data = self._filter(STS(conf.data_dir, train, conf.seed))
         
@@ -289,17 +295,46 @@ class TrafficSigns(Dataset):
            
         self.transform = transforms.Compose(transform_list)
 
-    def _filter(self, data):
 
+
+    def _filter(self, data):
+        # Calculate initial counts of each category to determine how many to accept
+        initial_counts = {i: 0 for i in range(len(self.CLASSES))}
+        for _, signs in data:
+            signs, acceptable = self._acceptable(signs)
+            if acceptable:
+                if not signs:
+                    initial_counts[0] += 1  # 'EMPTY'
+                else:
+                    category = self.CLASSES.index(signs[0].name)
+                    initial_counts[category] += 1
+
+        # Calculate target counts
+        target_counts = {category: int(count * 0.5) for category, count in initial_counts.items()}
+
+        # Sample based on the target counts
         filtered = []
+        actual_counts = {i: 0 for i in range(len(self.CLASSES))}
+
         for image, signs in data:
             signs, acceptable = self._acceptable(signs)
             if acceptable:
                 if not signs:
-                    filtered.append((image, 0))
+                    category = 0
                 else:
-                    filtered.append((image, self.CLASSES.index(signs[0].name)))
+                    category = self.CLASSES.index(signs[0].name)
+
+                if actual_counts[category] < target_counts[category]:
+                    filtered.append((image, category))
+                    actual_counts[category] += 1
+
+        print(f"Target counts: {target_counts}")
+        print(f"Actual counts after filtering: {actual_counts}")
+        print(f"Filtered dataset size after stratification: {len(filtered)}")
         return filtered
+
+
+
 
     def _acceptable(self, signs):
 
