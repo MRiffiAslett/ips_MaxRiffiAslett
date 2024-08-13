@@ -310,7 +310,7 @@ class TrafficSigns(Dataset):
                     initial_counts[category] += 1
 
         # Calculate target counts
-        target_counts = {category: int(count * 1) for category, count in initial_counts.items()}
+        target_counts = {category: int(count * 0.25) for category, count in initial_counts.items()}
 
         # Sample based on the target counts
         filtered = []
