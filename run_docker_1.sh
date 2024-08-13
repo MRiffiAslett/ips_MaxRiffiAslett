@@ -31,9 +31,8 @@ REPO_DIR="$(pwd)"
 RESULTS_DIR="$REPO_DIR/results"
 SCRIPT_DIR="/home/mra23/ips_MaxRiffiAslett"  # Changed to a writable directory
 MAIN_SCRIPT_PATH="$SCRIPT_DIR/main.py"
-DATA_SCRIPT_PATH="$SCRIPT_DIR/data/megapixel_mnist/PineneedleMegaMNIST.py"
 DATA_DIR="$SCRIPT_DIR/data/megapixel_mnist/dsets/megapixel_mnist_1500"
-OUTPUT_FILE="$RESULTS_DIR/results_56_56_3000_3000_600n_1000d_Res_18.txt"
+OUTPUT_FILE="$RESULTS_DIR/results_traffic_sign_025.txt"
 DOCKERFILE_PATH="$REPO_DIR/Dockerfile.txt"
 
 # Ensure the repository and results directories exist
@@ -61,24 +60,7 @@ fi
 docker run --gpus all --shm-size=16g --rm -v "$REPO_DIR:/home/mra23/ips_MaxRiffiAslett" -v "$RESULTS_DIR:/home/mra23/ips_MaxRiffiAslett/results" $IMAGE_NAME bash -c "
   cd /home/mra23/ips_MaxRiffiAslett
   
-  # Ensure data directory exists
-  mkdir -p $DATA_DIR
-  
-  # Generate the dataset and log the output
-  echo 'Generating dataset...'
-  DATA_GEN_LOG='/home/mra23/ips_MaxRiffiAslett/results/data_generation_$(date +%s).log'
 
-  python3 $DATA_SCRIPT_PATH 56 56  --width 3000 --height 3000 --n_noise 600  --n_train 1000 --n_test 1000 $DATA_DIR > \$DATA_GEN_LOG 2>&1
-
-  
-  # Check if data generation succeeded
-  if grep -q 'Error' \$DATA_GEN_LOG; then
-    echo 'Data generation failed. Check the log for details: \$DATA_GEN_LOG'
-    exit 1
-  fi
-
-
-  echo 'Data generation successful. Proceeding with training.'
 
   # Run the main script and capture the output
   unbuffer python3 $MAIN_SCRIPT_PATH | tee $OUTPUT_FILE
