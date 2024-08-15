@@ -1,0 +1,1559 @@
+Used config:
+{'B': 16,
+ 'B_seq': 16,
+ 'D': 512,
+ 'D_inner': 2048,
+ 'D_k': 64,
+ 'D_v': 64,
+ 'H': 8,
+ 'I': 32,
+ 'M': 10,
+ 'N': 192,
+ 'attention_map': False,
+ 'attn_dropout': 0.1,
+ 'data_dir': 'data/traffic/dsets',
+ 'dropout': 0.1,
+ 'eager': True,
+ 'enc_type': 'resnet18',
+ 'eps': 1e-06,
+ 'is_image': True,
+ 'lr': 0.0003,
+ 'mask_K': 0,
+ 'mask_p': 0,
+ 'n_chan_in': 3,
+ 'n_class': 4,
+ 'n_epoch': 150,
+ 'n_epoch_warmup': 10,
+ 'n_res_blocks': 4,
+ 'n_token': 1,
+ 'n_worker': 8,
+ 'patch_size': [100, 100],
+ 'patch_stride': [100, 100],
+ 'pin_memory': True,
+ 'pretrained': True,
+ 'seed': 0,
+ 'semantic_diversity_loss': False,
+ 'shuffle': True,
+ 'shuffle_style': 'batch',
+ 'tasks': {'task0': {'act_fn': 'softmax',
+                     'id': 0,
+                     'metric': 'accuracy',
+                     'name': 'sign'}},
+ 'track_efficiency': False,
+ 'track_epoch': 0,
+ 'use_pos': False,
+ 'wd': 0.1}
+Original dataset size: 1970
+Target counts: {0: 243, 1: 39, 2: 61, 3: 29}
+Actual counts after filtering: {0: 243, 1: 39, 2: 61, 3: 29}
+Filtered dataset size after stratification: 372
+Original dataset size: 1807
+Target counts: {0: 225, 1: 43, 2: 41, 3: 32}
+Actual counts after filtering: {0: 225, 1: 43, 2: 41, 3: 32}
+Filtered dataset size after stratification: 341
+/usr/local/lib/python3.8/dist-packages/torch/utils/data/dataloader.py:554: UserWarning: This DataLoader will create 8 worker processes in total. Our suggested max number of worker in current system is 4, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+Downloading: "https://download.pytorch.org/models/resnet18-f37072fd.pth" to /root/.cache/torch/hub/checkpoints/resnet18-f37072fd.pth
+100.0%
+Train Epoch: 1 
+task: sign, mean loss: 1.06592, accuracy: 0.63441, avg. loss over tasks: 1.06592, lr: 3e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+/usr/local/lib/python3.8/dist-packages/torch/utils/data/dataloader.py:554: UserWarning: This DataLoader will create 8 worker processes in total. Our suggested max number of worker in current system is 4, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+Test Epoch: 1 
+task: sign, mean loss: 1.12240, accuracy: 0.65982, avg. loss over tasks: 1.12240
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 2 
+task: sign, mean loss: 0.93799, accuracy: 0.66129, avg. loss over tasks: 0.93799, lr: 6e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 2 
+task: sign, mean loss: 1.23219, accuracy: 0.63636, avg. loss over tasks: 1.23219
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 3 
+task: sign, mean loss: 0.87428, accuracy: 0.69624, avg. loss over tasks: 0.87428, lr: 8.999999999999999e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 3 
+task: sign, mean loss: 1.50092, accuracy: 0.48680, avg. loss over tasks: 1.50092
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 4 
+task: sign, mean loss: 0.75644, accuracy: 0.70968, avg. loss over tasks: 0.75644, lr: 0.00012
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 4 
+task: sign, mean loss: 1.87311, accuracy: 0.43988, avg. loss over tasks: 1.87311
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 5 
+task: sign, mean loss: 0.51109, accuracy: 0.79301, avg. loss over tasks: 0.51109, lr: 0.00015
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 5 
+task: sign, mean loss: 1.03648, accuracy: 0.52199, avg. loss over tasks: 1.03648
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 6 
+task: sign, mean loss: 0.40046, accuracy: 0.86828, avg. loss over tasks: 0.40046, lr: 0.00017999999999999998
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 6 
+task: sign, mean loss: 0.83445, accuracy: 0.75953, avg. loss over tasks: 0.83445
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 7 
+task: sign, mean loss: 0.34504, accuracy: 0.85215, avg. loss over tasks: 0.34504, lr: 0.00020999999999999998
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 7 
+task: sign, mean loss: 0.63191, accuracy: 0.82991, avg. loss over tasks: 0.63191
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 8 
+task: sign, mean loss: 0.34213, accuracy: 0.88172, avg. loss over tasks: 0.34213, lr: 0.00024
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 8 
+task: sign, mean loss: 0.50984, accuracy: 0.84457, avg. loss over tasks: 0.50984
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 9 
+task: sign, mean loss: 0.14489, accuracy: 0.96505, avg. loss over tasks: 0.14489, lr: 0.00027
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 9 
+task: sign, mean loss: 0.65070, accuracy: 0.87390, avg. loss over tasks: 0.65070
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 10 
+task: sign, mean loss: 0.39314, accuracy: 0.86559, avg. loss over tasks: 0.39314, lr: 0.0003
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 10 
+task: sign, mean loss: 0.75065, accuracy: 0.75660, avg. loss over tasks: 0.75065
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 11 
+task: sign, mean loss: 0.33100, accuracy: 0.87097, avg. loss over tasks: 0.33100, lr: 0.0002999622730061346
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 11 
+task: sign, mean loss: 1.30681, accuracy: 0.65689, avg. loss over tasks: 1.30681
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 12 
+task: sign, mean loss: 0.14831, accuracy: 0.95161, avg. loss over tasks: 0.14831, lr: 0.000299849111021216
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 12 
+task: sign, mean loss: 0.64065, accuracy: 0.86217, avg. loss over tasks: 0.64065
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 13 
+task: sign, mean loss: 0.14522, accuracy: 0.93280, avg. loss over tasks: 0.14522, lr: 0.0002996605710257114
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 13 
+task: sign, mean loss: 0.89748, accuracy: 0.73021, avg. loss over tasks: 0.89748
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 14 
+task: sign, mean loss: 0.17216, accuracy: 0.94086, avg. loss over tasks: 0.17216, lr: 0.00029939674795518656
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 14 
+task: sign, mean loss: 1.08978, accuracy: 0.75073, avg. loss over tasks: 1.08978
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 15 
+task: sign, mean loss: 0.23156, accuracy: 0.90860, avg. loss over tasks: 0.23156, lr: 0.0002990577746525024
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 15 
+task: sign, mean loss: 0.52200, accuracy: 0.86510, avg. loss over tasks: 0.52200
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 16 
+task: sign, mean loss: 0.08953, accuracy: 0.96774, avg. loss over tasks: 0.08953, lr: 0.000298643821800925
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 16 
+task: sign, mean loss: 0.95946, accuracy: 0.78592, avg. loss over tasks: 0.95946
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 17 
+task: sign, mean loss: 0.20714, accuracy: 0.94624, avg. loss over tasks: 0.20714, lr: 0.0002981550978381814
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 17 
+task: sign, mean loss: 0.30543, accuracy: 0.90909, avg. loss over tasks: 0.30543
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 18 
+task: sign, mean loss: 0.11260, accuracy: 0.96774, avg. loss over tasks: 0.11260, lr: 0.00029759184885150465
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 18 
+task: sign, mean loss: 0.42219, accuracy: 0.91789, avg. loss over tasks: 0.42219
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 19 
+task: sign, mean loss: 0.26441, accuracy: 0.91935, avg. loss over tasks: 0.26441, lr: 0.0002969543584537218
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 19 
+task: sign, mean loss: 0.99432, accuracy: 0.77713, avg. loss over tasks: 0.99432
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 20 
+task: sign, mean loss: 0.17350, accuracy: 0.94355, avg. loss over tasks: 0.17350, lr: 0.0002962429476404462
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 20 
+task: sign, mean loss: 0.24826, accuracy: 0.94135, avg. loss over tasks: 0.24826
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 21 
+task: sign, mean loss: 0.16137, accuracy: 0.95968, avg. loss over tasks: 0.16137, lr: 0.00029545797462844647
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 21 
+task: sign, mean loss: 0.85168, accuracy: 0.78006, avg. loss over tasks: 0.85168
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 22 
+task: sign, mean loss: 0.36213, accuracy: 0.88172, avg. loss over tasks: 0.36213, lr: 0.0002945998346752736
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 22 
+task: sign, mean loss: 0.56059, accuracy: 0.82991, avg. loss over tasks: 0.56059
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 23 
+task: sign, mean loss: 0.16484, accuracy: 0.94892, avg. loss over tasks: 0.16484, lr: 0.0002936689598802368
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 23 
+task: sign, mean loss: 0.25738, accuracy: 0.92962, avg. loss over tasks: 0.25738
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 24 
+task: sign, mean loss: 0.06375, accuracy: 0.97849, avg. loss over tasks: 0.06375, lr: 0.00029266581896682876
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 24 
+task: sign, mean loss: 0.31080, accuracy: 0.90616, avg. loss over tasks: 0.31080
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 25 
+task: sign, mean loss: 0.09128, accuracy: 0.96774, avg. loss over tasks: 0.09128, lr: 0.00029159091704670885
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 25 
+task: sign, mean loss: 0.36765, accuracy: 0.95015, avg. loss over tasks: 0.36765
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 26 
+task: sign, mean loss: 0.12055, accuracy: 0.96505, avg. loss over tasks: 0.12055, lr: 0.00029044479536536455
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 26 
+task: sign, mean loss: 0.23156, accuracy: 0.89150, avg. loss over tasks: 0.23156
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 27 
+task: sign, mean loss: 0.08633, accuracy: 0.97043, avg. loss over tasks: 0.08633, lr: 0.000289228031029578
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 27 
+task: sign, mean loss: 0.52103, accuracy: 0.90616, avg. loss over tasks: 0.52103
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 28 
+task: sign, mean loss: 0.10557, accuracy: 0.96237, avg. loss over tasks: 0.10557, lr: 0.0002879412367168349
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 28 
+task: sign, mean loss: 0.31985, accuracy: 0.93842, avg. loss over tasks: 0.31985
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 29 
+task: sign, mean loss: 0.04744, accuracy: 0.98387, avg. loss over tasks: 0.04744, lr: 0.00028658506036682353
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 29 
+task: sign, mean loss: 0.61276, accuracy: 0.91202, avg. loss over tasks: 0.61276
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 30 
+task: sign, mean loss: 0.13637, accuracy: 0.95699, avg. loss over tasks: 0.13637, lr: 0.00028516018485517746
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 30 
+task: sign, mean loss: 0.38765, accuracy: 0.88856, avg. loss over tasks: 0.38765
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 31 
+task: sign, mean loss: 0.08920, accuracy: 0.97581, avg. loss over tasks: 0.08920, lr: 0.00028366732764962686
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 31 
+task: sign, mean loss: 0.13938, accuracy: 0.95601, avg. loss over tasks: 0.13938
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 32 
+task: sign, mean loss: 0.04865, accuracy: 0.98656, avg. loss over tasks: 0.04865, lr: 0.00028210724044873213
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 32 
+task: sign, mean loss: 0.24465, accuracy: 0.93842, avg. loss over tasks: 0.24465
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 33 
+task: sign, mean loss: 0.04492, accuracy: 0.99194, avg. loss over tasks: 0.04492, lr: 0.00028048070880338095
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 33 
+task: sign, mean loss: 0.31412, accuracy: 0.94428, avg. loss over tasks: 0.31412
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 34 
+task: sign, mean loss: 0.02389, accuracy: 0.99194, avg. loss over tasks: 0.02389, lr: 0.00027878855172123963
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 34 
+task: sign, mean loss: 0.22065, accuracy: 0.93548, avg. loss over tasks: 0.22065
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 35 
+task: sign, mean loss: 0.19422, accuracy: 0.96505, avg. loss over tasks: 0.19422, lr: 0.00027703162125435835
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 35 
+task: sign, mean loss: 0.55561, accuracy: 0.91202, avg. loss over tasks: 0.55561
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 36 
+task: sign, mean loss: 0.10734, accuracy: 0.97581, avg. loss over tasks: 0.10734, lr: 0.00027521080207013716
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 36 
+task: sign, mean loss: 0.22418, accuracy: 0.90029, avg. loss over tasks: 0.22418
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 37 
+task: sign, mean loss: 0.06256, accuracy: 0.97581, avg. loss over tasks: 0.06256, lr: 0.0002733270110058693
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 37 
+task: sign, mean loss: 0.18340, accuracy: 0.94428, avg. loss over tasks: 0.18340
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 38 
+task: sign, mean loss: 0.08816, accuracy: 0.97849, avg. loss over tasks: 0.08816, lr: 0.00027138119660708587
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 38 
+task: sign, mean loss: 0.37057, accuracy: 0.93548, avg. loss over tasks: 0.37057
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 39 
+task: sign, mean loss: 0.07445, accuracy: 0.97849, avg. loss over tasks: 0.07445, lr: 0.0002693743386499349
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 39 
+task: sign, mean loss: 0.13406, accuracy: 0.95308, avg. loss over tasks: 0.13406
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 40 
+task: sign, mean loss: 0.07799, accuracy: 0.98656, avg. loss over tasks: 0.07799, lr: 0.00026730744764783427
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 40 
+task: sign, mean loss: 0.21890, accuracy: 0.94428, avg. loss over tasks: 0.21890
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 41 
+task: sign, mean loss: 0.10472, accuracy: 0.97312, avg. loss over tasks: 0.10472, lr: 0.00026518156434264794
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 41 
+task: sign, mean loss: 0.12617, accuracy: 0.96774, avg. loss over tasks: 0.12617
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 42 
+task: sign, mean loss: 0.07298, accuracy: 0.97581, avg. loss over tasks: 0.07298, lr: 0.0002629977591806411
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 42 
+task: sign, mean loss: 0.30843, accuracy: 0.95308, avg. loss over tasks: 0.30843
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 43 
+task: sign, mean loss: 0.11434, accuracy: 0.96237, avg. loss over tasks: 0.11434, lr: 0.000260757131773478
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 43 
+task: sign, mean loss: 0.45529, accuracy: 0.92375, avg. loss over tasks: 0.45529
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 44 
+task: sign, mean loss: 0.02862, accuracy: 0.99731, avg. loss over tasks: 0.02862, lr: 0.0002584608103445346
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 44 
+task: sign, mean loss: 0.20783, accuracy: 0.95308, avg. loss over tasks: 0.20783
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 45 
+task: sign, mean loss: 0.12219, accuracy: 0.96774, avg. loss over tasks: 0.12219, lr: 0.0002561099511608041
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 45 
+task: sign, mean loss: 0.28438, accuracy: 0.91789, avg. loss over tasks: 0.28438
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 46 
+task: sign, mean loss: 0.10771, accuracy: 0.96505, avg. loss over tasks: 0.10771, lr: 0.00025370573795068164
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 46 
+task: sign, mean loss: 0.15165, accuracy: 0.94135, avg. loss over tasks: 0.15165
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 47 
+task: sign, mean loss: 0.07034, accuracy: 0.97849, avg. loss over tasks: 0.07034, lr: 0.0002512493813079214
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 47 
+task: sign, mean loss: 0.33075, accuracy: 0.92962, avg. loss over tasks: 0.33075
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 48 
+task: sign, mean loss: 0.05926, accuracy: 0.98387, avg. loss over tasks: 0.05926, lr: 0.0002487421180820659
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 48 
+task: sign, mean loss: 0.13363, accuracy: 0.96774, avg. loss over tasks: 0.13363
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 49 
+task: sign, mean loss: 0.05262, accuracy: 0.98925, avg. loss over tasks: 0.05262, lr: 0.0002461852107556558
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 49 
+task: sign, mean loss: 0.24571, accuracy: 0.92375, avg. loss over tasks: 0.24571
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 50 
+task: sign, mean loss: 0.19703, accuracy: 0.93011, avg. loss over tasks: 0.19703, lr: 0.00024357994680853121
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 50 
+task: sign, mean loss: 0.59324, accuracy: 0.80938, avg. loss over tasks: 0.59324
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 51 
+task: sign, mean loss: 0.13658, accuracy: 0.95161, avg. loss over tasks: 0.13658, lr: 0.00024092763806954684
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 51 
+task: sign, mean loss: 0.26293, accuracy: 0.92669, avg. loss over tasks: 0.26293
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 52 
+task: sign, mean loss: 0.07043, accuracy: 0.98387, avg. loss over tasks: 0.07043, lr: 0.00023822962005602707
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 52 
+task: sign, mean loss: 0.22502, accuracy: 0.93548, avg. loss over tasks: 0.22502
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 53 
+task: sign, mean loss: 0.06811, accuracy: 0.98387, avg. loss over tasks: 0.06811, lr: 0.00023548725130129248
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 53 
+task: sign, mean loss: 0.45946, accuracy: 0.85044, avg. loss over tasks: 0.45946
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 54 
+task: sign, mean loss: 0.11687, accuracy: 0.98925, avg. loss over tasks: 0.11687, lr: 0.00023270191267059755
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 54 
+task: sign, mean loss: 0.20762, accuracy: 0.95308, avg. loss over tasks: 0.20762
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+
+Train Epoch: 55 
+task: sign, mean loss: 0.04561, accuracy: 0.98387, avg. loss over tasks: 0.04561, lr: 0.00022987500666582316
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 55 
+task: sign, mean loss: 0.33100, accuracy: 0.92375, avg. loss over tasks: 0.33100
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 56 
+task: sign, mean loss: 0.06659, accuracy: 0.97849, avg. loss over tasks: 0.06659, lr: 0.00022700795671927503
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 56 
+task: sign, mean loss: 0.11537, accuracy: 0.97361, avg. loss over tasks: 0.11537
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 57 
+task: sign, mean loss: 0.03584, accuracy: 0.99462, avg. loss over tasks: 0.03584, lr: 0.00022410220647694235
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 57 
+task: sign, mean loss: 0.17841, accuracy: 0.95601, avg. loss over tasks: 0.17841
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 58 
+task: sign, mean loss: 0.07276, accuracy: 0.98656, avg. loss over tasks: 0.07276, lr: 0.00022115921907157884
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 58 
+task: sign, mean loss: 0.23738, accuracy: 0.93548, avg. loss over tasks: 0.23738
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 59 
+task: sign, mean loss: 0.32459, accuracy: 0.91129, avg. loss over tasks: 0.32459, lr: 0.00021818047638597106
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 59 
+task: sign, mean loss: 0.80887, accuracy: 0.67155, avg. loss over tasks: 0.80887
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 60 
+task: sign, mean loss: 0.21375, accuracy: 0.94355, avg. loss over tasks: 0.21375, lr: 0.00021516747830676604
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 60 
+task: sign, mean loss: 0.12712, accuracy: 0.96481, avg. loss over tasks: 0.12712
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 61 
+task: sign, mean loss: 0.04255, accuracy: 0.98656, avg. loss over tasks: 0.04255, lr: 0.0002121217419692331
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 61 
+task: sign, mean loss: 0.12975, accuracy: 0.97361, avg. loss over tasks: 0.12975
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 62 
+task: sign, mean loss: 0.11742, accuracy: 0.97312, avg. loss over tasks: 0.11742, lr: 0.00020904480099334042
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 62 
+task: sign, mean loss: 0.11992, accuracy: 0.96188, avg. loss over tasks: 0.11992
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 63 
+task: sign, mean loss: 0.07241, accuracy: 0.98118, avg. loss over tasks: 0.07241, lr: 0.00020593820471153146
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 63 
+task: sign, mean loss: 0.17424, accuracy: 0.97067, avg. loss over tasks: 0.17424
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 64 
+task: sign, mean loss: 0.07709, accuracy: 0.98118, avg. loss over tasks: 0.07709, lr: 0.0002028035173885892
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 64 
+task: sign, mean loss: 0.35573, accuracy: 0.92375, avg. loss over tasks: 0.35573
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 65 
+task: sign, mean loss: 0.04977, accuracy: 0.98387, avg. loss over tasks: 0.04977, lr: 0.00019964231743398178
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 65 
+task: sign, mean loss: 0.13064, accuracy: 0.96774, avg. loss over tasks: 0.13064
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 66 
+task: sign, mean loss: 0.05264, accuracy: 0.98656, avg. loss over tasks: 0.05264, lr: 0.00019645619660708585
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 66 
+task: sign, mean loss: 0.19510, accuracy: 0.94428, avg. loss over tasks: 0.19510
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 67 
+task: sign, mean loss: 0.03283, accuracy: 0.99462, avg. loss over tasks: 0.03283, lr: 0.00019324675921568777
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 67 
+task: sign, mean loss: 0.15224, accuracy: 0.95601, avg. loss over tasks: 0.15224
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 68 
+task: sign, mean loss: 0.02033, accuracy: 0.99462, avg. loss over tasks: 0.02033, lr: 0.00019001562130816624
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 68 
+task: sign, mean loss: 0.31240, accuracy: 0.93842, avg. loss over tasks: 0.31240
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 69 
+task: sign, mean loss: 0.02052, accuracy: 0.99194, avg. loss over tasks: 0.02052, lr: 0.0001867644098597634
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 69 
+task: sign, mean loss: 0.19589, accuracy: 0.95894, avg. loss over tasks: 0.19589
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 70 
+task: sign, mean loss: 0.01638, accuracy: 0.99731, avg. loss over tasks: 0.01638, lr: 0.00018349476195335369
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 70 
+task: sign, mean loss: 0.12751, accuracy: 0.97067, avg. loss over tasks: 0.12751
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 71 
+task: sign, mean loss: 0.00542, accuracy: 1.00000, avg. loss over tasks: 0.00542, lr: 0.00018020832395512342
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 71 
+task: sign, mean loss: 0.10068, accuracy: 0.97947, avg. loss over tasks: 0.10068
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 72 
+task: sign, mean loss: 0.00643, accuracy: 0.99731, avg. loss over tasks: 0.00643, lr: 0.00017690675068557572
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 72 
+task: sign, mean loss: 0.11290, accuracy: 0.97361, avg. loss over tasks: 0.11290
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 73 
+task: sign, mean loss: 0.04233, accuracy: 0.99462, avg. loss over tasks: 0.04233, lr: 0.00017359170458627858
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 73 
+task: sign, mean loss: 0.09357, accuracy: 0.97947, avg. loss over tasks: 0.09357
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 74 
+task: sign, mean loss: 0.00360, accuracy: 1.00000, avg. loss over tasks: 0.00360, lr: 0.00017026485488277568
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 74 
+task: sign, mean loss: 0.10816, accuracy: 0.97654, avg. loss over tasks: 0.10816
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 75 
+task: sign, mean loss: 0.00666, accuracy: 0.99731, avg. loss over tasks: 0.00666, lr: 0.00016692787674408067
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 75 
+task: sign, mean loss: 0.16116, accuracy: 0.96188, avg. loss over tasks: 0.16116
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 76 
+task: sign, mean loss: 0.00677, accuracy: 0.99731, avg. loss over tasks: 0.00677, lr: 0.00016358245043917945
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 76 
+task: sign, mean loss: 0.15360, accuracy: 0.96188, avg. loss over tasks: 0.15360
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 77 
+task: sign, mean loss: 0.00182, accuracy: 1.00000, avg. loss over tasks: 0.00182, lr: 0.00016023026049096414
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 77 
+task: sign, mean loss: 0.07723, accuracy: 0.98534, avg. loss over tasks: 0.07723
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 78 
+task: sign, mean loss: 0.01407, accuracy: 0.99731, avg. loss over tasks: 0.01407, lr: 0.00015687299482802466
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 78 
+task: sign, mean loss: 0.09063, accuracy: 0.98534, avg. loss over tasks: 0.09063
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 79 
+task: sign, mean loss: 0.00110, accuracy: 1.00000, avg. loss over tasks: 0.00110, lr: 0.0001535123439347264
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 79 
+task: sign, mean loss: 0.08486, accuracy: 0.98240, avg. loss over tasks: 0.08486
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 80 
+task: sign, mean loss: 0.00331, accuracy: 1.00000, avg. loss over tasks: 0.00331, lr: 0.00015015
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 80 
+task: sign, mean loss: 0.08418, accuracy: 0.98240, avg. loss over tasks: 0.08418
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 81 
+task: sign, mean loss: 0.02370, accuracy: 0.99462, avg. loss over tasks: 0.02370, lr: 0.00014678765606527362
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 81 
+task: sign, mean loss: 0.09260, accuracy: 0.98240, avg. loss over tasks: 0.09260
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 82 
+task: sign, mean loss: 0.00400, accuracy: 0.99731, avg. loss over tasks: 0.00400, lr: 0.00014342700517197535
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 82 
+task: sign, mean loss: 0.18715, accuracy: 0.93548, avg. loss over tasks: 0.18715
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 83 
+task: sign, mean loss: 0.02352, accuracy: 0.99731, avg. loss over tasks: 0.02352, lr: 0.0001400697395090358
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 83 
+task: sign, mean loss: 0.26357, accuracy: 0.94135, avg. loss over tasks: 0.26357
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 84 
+task: sign, mean loss: 0.00350, accuracy: 1.00000, avg. loss over tasks: 0.00350, lr: 0.0001367175495608205
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 84 
+task: sign, mean loss: 0.25457, accuracy: 0.95015, avg. loss over tasks: 0.25457
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 85 
+task: sign, mean loss: 0.00341, accuracy: 0.99731, avg. loss over tasks: 0.00341, lr: 0.0001333721232559193
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 85 
+task: sign, mean loss: 0.17410, accuracy: 0.96481, avg. loss over tasks: 0.17410
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 86 
+task: sign, mean loss: 0.01295, accuracy: 0.99731, avg. loss over tasks: 0.01295, lr: 0.00013003514511722433
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 86 
+task: sign, mean loss: 0.34518, accuracy: 0.92962, avg. loss over tasks: 0.34518
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 87 
+task: sign, mean loss: 0.01098, accuracy: 0.99194, avg. loss over tasks: 0.01098, lr: 0.00012670829541372138
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 87 
+task: sign, mean loss: 0.11061, accuracy: 0.98240, avg. loss over tasks: 0.11061
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 88 
+task: sign, mean loss: 0.00136, accuracy: 1.00000, avg. loss over tasks: 0.00136, lr: 0.0001233932493144243
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 88 
+task: sign, mean loss: 0.07982, accuracy: 0.99120, avg. loss over tasks: 0.07982
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 89 
+task: sign, mean loss: 0.02499, accuracy: 0.99194, avg. loss over tasks: 0.02499, lr: 0.00012009167604487657
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 89 
+task: sign, mean loss: 0.14247, accuracy: 0.97067, avg. loss over tasks: 0.14247
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 90 
+task: sign, mean loss: 0.02747, accuracy: 0.99462, avg. loss over tasks: 0.02747, lr: 0.00011680523804664632
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 90 
+task: sign, mean loss: 0.24472, accuracy: 0.95015, avg. loss over tasks: 0.24472
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 91 
+task: sign, mean loss: 0.05190, accuracy: 0.98925, avg. loss over tasks: 0.05190, lr: 0.00011353559014023658
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 91 
+task: sign, mean loss: 0.31228, accuracy: 0.93255, avg. loss over tasks: 0.31228
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 92 
+task: sign, mean loss: 0.01724, accuracy: 0.99194, avg. loss over tasks: 0.01724, lr: 0.00011028437869183373
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 92 
+task: sign, mean loss: 0.08492, accuracy: 0.97947, avg. loss over tasks: 0.08492
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 93 
+task: sign, mean loss: 0.00571, accuracy: 0.99731, avg. loss over tasks: 0.00571, lr: 0.0001070532407843122
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 93 
+task: sign, mean loss: 0.09325, accuracy: 0.97654, avg. loss over tasks: 0.09325
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 94 
+task: sign, mean loss: 0.00204, accuracy: 1.00000, avg. loss over tasks: 0.00204, lr: 0.00010384380339291414
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 94 
+task: sign, mean loss: 0.13967, accuracy: 0.96481, avg. loss over tasks: 0.13967
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 95 
+task: sign, mean loss: 0.00095, accuracy: 1.00000, avg. loss over tasks: 0.00095, lr: 0.00010065768256601821
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 95 
+task: sign, mean loss: 0.17501, accuracy: 0.95894, avg. loss over tasks: 0.17501
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 96 
+task: sign, mean loss: 0.00225, accuracy: 1.00000, avg. loss over tasks: 0.00225, lr: 9.749648261141081e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 96 
+task: sign, mean loss: 0.13298, accuracy: 0.96774, avg. loss over tasks: 0.13298
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 97 
+task: sign, mean loss: 0.00126, accuracy: 1.00000, avg. loss over tasks: 0.00126, lr: 9.436179528846854e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 97 
+task: sign, mean loss: 0.09810, accuracy: 0.97067, avg. loss over tasks: 0.09810
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 98 
+task: sign, mean loss: 0.00639, accuracy: 0.99731, avg. loss over tasks: 0.00639, lr: 9.125519900665955e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 98 
+task: sign, mean loss: 0.15896, accuracy: 0.95894, avg. loss over tasks: 0.15896
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 99 
+task: sign, mean loss: 0.01628, accuracy: 0.99462, avg. loss over tasks: 0.01628, lr: 8.817825803076689e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 99 
+task: sign, mean loss: 0.09039, accuracy: 0.97947, avg. loss over tasks: 0.09039
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 100 
+task: sign, mean loss: 0.00195, accuracy: 1.00000, avg. loss over tasks: 0.00195, lr: 8.513252169323391e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 100 
+task: sign, mean loss: 0.10766, accuracy: 0.97067, avg. loss over tasks: 0.10766
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 101 
+task: sign, mean loss: 0.00244, accuracy: 0.99731, avg. loss over tasks: 0.00244, lr: 8.21195236140289e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 101 
+task: sign, mean loss: 0.08498, accuracy: 0.97947, avg. loss over tasks: 0.08498
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 102 
+task: sign, mean loss: 0.00148, accuracy: 1.00000, avg. loss over tasks: 0.00148, lr: 7.914078092842115e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 102 
+task: sign, mean loss: 0.07811, accuracy: 0.98534, avg. loss over tasks: 0.07811
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 103 
+task: sign, mean loss: 0.00175, accuracy: 1.00000, avg. loss over tasks: 0.00175, lr: 7.619779352305762e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 103 
+task: sign, mean loss: 0.07372, accuracy: 0.98240, avg. loss over tasks: 0.07372
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 104 
+task: sign, mean loss: 0.00381, accuracy: 0.99731, avg. loss over tasks: 0.00381, lr: 7.329204328072498e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 104 
+task: sign, mean loss: 0.08511, accuracy: 0.98240, avg. loss over tasks: 0.08511
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 105 
+task: sign, mean loss: 0.00195, accuracy: 1.00000, avg. loss over tasks: 0.00195, lr: 7.042499333417682e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 105 
+task: sign, mean loss: 0.09397, accuracy: 0.98240, avg. loss over tasks: 0.09397
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 106 
+task: sign, mean loss: 0.00066, accuracy: 1.00000, avg. loss over tasks: 0.00066, lr: 6.759808732940244e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 106 
+task: sign, mean loss: 0.09464, accuracy: 0.97947, avg. loss over tasks: 0.09464
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 107 
+task: sign, mean loss: 0.00801, accuracy: 0.99462, avg. loss over tasks: 0.00801, lr: 6.481274869870747e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 107 
+task: sign, mean loss: 0.17412, accuracy: 0.95308, avg. loss over tasks: 0.17412
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 108 
+task: sign, mean loss: 0.00079, accuracy: 1.00000, avg. loss over tasks: 0.00079, lr: 6.207037994397291e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 108 
+task: sign, mean loss: 0.19427, accuracy: 0.95601, avg. loss over tasks: 0.19427
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 109 
+task: sign, mean loss: 0.00069, accuracy: 1.00000, avg. loss over tasks: 0.00069, lr: 5.937236193045315e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 109 
+task: sign, mean loss: 0.20901, accuracy: 0.95308, avg. loss over tasks: 0.20901
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 110 
+task: sign, mean loss: 0.00085, accuracy: 1.00000, avg. loss over tasks: 0.00085, lr: 5.6720053191468786e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 110 
+task: sign, mean loss: 0.18798, accuracy: 0.95601, avg. loss over tasks: 0.18798
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 111 
+task: sign, mean loss: 0.00083, accuracy: 1.00000, avg. loss over tasks: 0.00083, lr: 5.4114789244344125e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 111 
+task: sign, mean loss: 0.17012, accuracy: 0.96774, avg. loss over tasks: 0.17012
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 112 
+task: sign, mean loss: 0.00034, accuracy: 1.00000, avg. loss over tasks: 0.00034, lr: 5.155788191793406e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 112 
+task: sign, mean loss: 0.15963, accuracy: 0.96774, avg. loss over tasks: 0.15963
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 113 
+task: sign, mean loss: 0.01218, accuracy: 0.99731, avg. loss over tasks: 0.01218, lr: 4.905061869207866e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 113 
+task: sign, mean loss: 0.17081, accuracy: 0.96188, avg. loss over tasks: 0.17081
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 114 
+task: sign, mean loss: 0.00083, accuracy: 1.00000, avg. loss over tasks: 0.00083, lr: 4.659426204931833e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 114 
+task: sign, mean loss: 0.16220, accuracy: 0.96481, avg. loss over tasks: 0.16220
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 115 
+task: sign, mean loss: 0.00440, accuracy: 0.99731, avg. loss over tasks: 0.00440, lr: 4.419004883919586e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 115 
+task: sign, mean loss: 0.15775, accuracy: 0.96481, avg. loss over tasks: 0.15775
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 116 
+task: sign, mean loss: 0.00103, accuracy: 1.00000, avg. loss over tasks: 0.00103, lr: 4.183918965546539e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 116 
+task: sign, mean loss: 0.13425, accuracy: 0.97067, avg. loss over tasks: 0.13425
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 117 
+task: sign, mean loss: 0.00053, accuracy: 1.00000, avg. loss over tasks: 0.00053, lr: 3.954286822652202e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 117 
+task: sign, mean loss: 0.14614, accuracy: 0.97361, avg. loss over tasks: 0.14614
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 118 
+task: sign, mean loss: 0.00175, accuracy: 1.00000, avg. loss over tasks: 0.00175, lr: 3.730224081935891e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 118 
+task: sign, mean loss: 0.13579, accuracy: 0.97361, avg. loss over tasks: 0.13579
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 119 
+task: sign, mean loss: 0.00197, accuracy: 1.00000, avg. loss over tasks: 0.00197, lr: 3.5118435657352036e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 119 
+task: sign, mean loss: 0.15194, accuracy: 0.96481, avg. loss over tasks: 0.15194
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 120 
+task: sign, mean loss: 0.00041, accuracy: 1.00000, avg. loss over tasks: 0.00041, lr: 3.299255235216578e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 120 
+task: sign, mean loss: 0.14853, accuracy: 0.96774, avg. loss over tasks: 0.14853
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 121 
+task: sign, mean loss: 0.00164, accuracy: 1.00000, avg. loss over tasks: 0.00164, lr: 3.092566135006513e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 121 
+task: sign, mean loss: 0.13768, accuracy: 0.96774, avg. loss over tasks: 0.13768
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 122 
+task: sign, mean loss: 0.00386, accuracy: 1.00000, avg. loss over tasks: 0.00386, lr: 2.891880339291414e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 122 
+task: sign, mean loss: 0.11896, accuracy: 0.97654, avg. loss over tasks: 0.11896
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 123 
+task: sign, mean loss: 0.00061, accuracy: 1.00000, avg. loss over tasks: 0.00061, lr: 2.6972988994130713e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 123 
+task: sign, mean loss: 0.11499, accuracy: 0.97361, avg. loss over tasks: 0.11499
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 124 
+task: sign, mean loss: 0.00956, accuracy: 0.99731, avg. loss over tasks: 0.00956, lr: 2.5089197929862797e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 124 
+task: sign, mean loss: 0.28924, accuracy: 0.94721, avg. loss over tasks: 0.28924
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 125 
+task: sign, mean loss: 0.00048, accuracy: 1.00000, avg. loss over tasks: 0.00048, lr: 2.326837874564162e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 125 
+task: sign, mean loss: 0.37526, accuracy: 0.94135, avg. loss over tasks: 0.37526
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 126 
+task: sign, mean loss: 0.00176, accuracy: 1.00000, avg. loss over tasks: 0.00176, lr: 2.1511448278760362e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 126 
+task: sign, mean loss: 0.27660, accuracy: 0.94721, avg. loss over tasks: 0.27660
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 127 
+task: sign, mean loss: 0.00168, accuracy: 1.00000, avg. loss over tasks: 0.00168, lr: 1.981929119661905e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 127 
+task: sign, mean loss: 0.25785, accuracy: 0.95308, avg. loss over tasks: 0.25785
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 128 
+task: sign, mean loss: 0.00215, accuracy: 1.00000, avg. loss over tasks: 0.00215, lr: 1.819275955126781e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 128 
+task: sign, mean loss: 0.23378, accuracy: 0.95894, avg. loss over tasks: 0.23378
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 129 
+task: sign, mean loss: 0.00522, accuracy: 0.99731, avg. loss over tasks: 0.00522, lr: 1.6632672350373086e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 129 
+task: sign, mean loss: 0.23746, accuracy: 0.95601, avg. loss over tasks: 0.23746
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 130 
+task: sign, mean loss: 0.01707, accuracy: 0.99731, avg. loss over tasks: 0.01707, lr: 1.5139815144822505e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 130 
+task: sign, mean loss: 0.22570, accuracy: 0.95601, avg. loss over tasks: 0.22570
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 131 
+task: sign, mean loss: 0.00091, accuracy: 1.00000, avg. loss over tasks: 0.00091, lr: 1.371493963317641e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 131 
+task: sign, mean loss: 0.23590, accuracy: 0.95601, avg. loss over tasks: 0.23590
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 132 
+task: sign, mean loss: 0.00437, accuracy: 0.99731, avg. loss over tasks: 0.00437, lr: 1.235876328316513e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 132 
+task: sign, mean loss: 0.20043, accuracy: 0.95601, avg. loss over tasks: 0.20043
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 133 
+task: sign, mean loss: 0.00158, accuracy: 1.00000, avg. loss over tasks: 0.00158, lr: 1.1071968970422028e-05
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 133 
+task: sign, mean loss: 0.19557, accuracy: 0.95601, avg. loss over tasks: 0.19557
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 134 
+task: sign, mean loss: 0.00077, accuracy: 1.00000, avg. loss over tasks: 0.00077, lr: 9.855204634635412e-06
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 134 
+task: sign, mean loss: 0.19006, accuracy: 0.96188, avg. loss over tasks: 0.19006
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 135 
+task: sign, mean loss: 0.01268, accuracy: 0.99731, avg. loss over tasks: 0.01268, lr: 8.70908295329112e-06
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 135 
+task: sign, mean loss: 0.20212, accuracy: 0.95601, avg. loss over tasks: 0.20212
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 136 
+task: sign, mean loss: 0.00042, accuracy: 1.00000, avg. loss over tasks: 0.00042, lr: 7.634181033171244e-06
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 136 
+task: sign, mean loss: 0.20815, accuracy: 0.95601, avg. loss over tasks: 0.20815
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 137 
+task: sign, mean loss: 0.01108, accuracy: 0.99731, avg. loss over tasks: 0.01108, lr: 6.631040119763172e-06
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 137 
+task: sign, mean loss: 0.22323, accuracy: 0.95308, avg. loss over tasks: 0.22323
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 138 
+task: sign, mean loss: 0.00156, accuracy: 1.00000, avg. loss over tasks: 0.00156, lr: 5.700165324726391e-06
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 138 
+task: sign, mean loss: 0.20221, accuracy: 0.95601, avg. loss over tasks: 0.20221
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 139 
+task: sign, mean loss: 0.00170, accuracy: 1.00000, avg. loss over tasks: 0.00170, lr: 4.842025371553471e-06
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 139 
+task: sign, mean loss: 0.20270, accuracy: 0.95601, avg. loss over tasks: 0.20270
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 140 
+task: sign, mean loss: 0.00053, accuracy: 1.00000, avg. loss over tasks: 0.00053, lr: 4.05705235955373e-06
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 140 
+task: sign, mean loss: 0.19655, accuracy: 0.95601, avg. loss over tasks: 0.19655
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 141 
+task: sign, mean loss: 0.00061, accuracy: 1.00000, avg. loss over tasks: 0.00061, lr: 3.3456415462781634e-06
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 141 
+task: sign, mean loss: 0.19689, accuracy: 0.95894, avg. loss over tasks: 0.19689
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 142 
+task: sign, mean loss: 0.00042, accuracy: 1.00000, avg. loss over tasks: 0.00042, lr: 2.708151148495344e-06
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 142 
+task: sign, mean loss: 0.18703, accuracy: 0.95894, avg. loss over tasks: 0.18703
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 143 
+task: sign, mean loss: 0.00033, accuracy: 1.00000, avg. loss over tasks: 0.00033, lr: 2.1449021618186215e-06
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 143 
+task: sign, mean loss: 0.19222, accuracy: 0.95894, avg. loss over tasks: 0.19222
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 144 
+task: sign, mean loss: 0.00046, accuracy: 1.00000, avg. loss over tasks: 0.00046, lr: 1.656178199074985e-06
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 144 
+task: sign, mean loss: 0.21664, accuracy: 0.95308, avg. loss over tasks: 0.21664
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 145 
+task: sign, mean loss: 0.00239, accuracy: 1.00000, avg. loss over tasks: 0.00239, lr: 1.2422253474976123e-06
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 145 
+task: sign, mean loss: 0.18317, accuracy: 0.95601, avg. loss over tasks: 0.18317
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 146 
+task: sign, mean loss: 0.00169, accuracy: 1.00000, avg. loss over tasks: 0.00169, lr: 9.032520448134255e-07
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 146 
+task: sign, mean loss: 0.19071, accuracy: 0.95894, avg. loss over tasks: 0.19071
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 147 
+task: sign, mean loss: 0.00635, accuracy: 0.99731, avg. loss over tasks: 0.00635, lr: 6.39428974288556e-07
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 147 
+task: sign, mean loss: 0.19131, accuracy: 0.95601, avg. loss over tasks: 0.19131
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 148 
+task: sign, mean loss: 0.00039, accuracy: 1.00000, avg. loss over tasks: 0.00039, lr: 4.5088897878400875e-07
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 148 
+task: sign, mean loss: 0.20709, accuracy: 0.95601, avg. loss over tasks: 0.20709
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 149 
+task: sign, mean loss: 0.00048, accuracy: 1.00000, avg. loss over tasks: 0.00048, lr: 3.3772699386539635e-07
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 149 
+task: sign, mean loss: 0.19685, accuracy: 0.95894, avg. loss over tasks: 0.19685
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Train Epoch: 150 
+task: sign, mean loss: 0.02374, accuracy: 0.99731, avg. loss over tasks: 0.02374, lr: 3e-07
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
+
+Test Epoch: 150 
+task: sign, mean loss: 0.19828, accuracy: 0.95601, avg. loss over tasks: 0.19828
+Diversity Loss - Mean: 0.00000, Variance: 0.00000
+Semantic Loss - Mean: 0.00000, Variance: 0.00000
