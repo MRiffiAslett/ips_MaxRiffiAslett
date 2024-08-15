@@ -1,0 +1,6 @@
+usage: PineneedleMegaMNIST.py [-h] [--n_train N_TRAIN] [--n_test N_TEST]
+                              [--width WIDTH] [--height HEIGHT] [--no_noise]
+                              [--n_noise N_NOISE]
+                              [--dataset_seed DATASET_SEED]
+                              digit_size noise_size output_directory
+PineneedleMegaMNIST.py: error: argument noise_size: invalid int value: '/home/mra23/ips_MaxRiffiAslett/data/megapixel_mnist/dsets/make_mnist.py'
