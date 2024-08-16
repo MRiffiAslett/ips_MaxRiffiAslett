@@ -10,9 +10,9 @@
 
 
 ## 📚 Summary
-This repository contains the code for my dissertation, which adapts the IPS approach from [benbergner/ips](https://github.com/benbergner/ips.git). IPS is a simple patch-based method that decouples memory consumption from input size, enabling efficient processing of high-resolution images without running out of memory.
+This repository contains the code for my dissertation, which adds 3 different features from IPS [benbergner/ips](https://github.com/benbergner/ips.git). IPS is a simple patch-based method that decouples memory consumption, enabling efficient processing of high-resolution images.
 
-We performed repeated experiments with the Megapixel MNIST dataset, sourced from [idiap/attention-sampling](https://github.com/idiap/attention-sampling.git). The experiments varied object-to-image ratio, training size, noise generation strategy, pretraining strategy, and different previously introduced masking strategies to robustify the patch-based image classifier in scenarios with low data and small object-to-image ratios.
+We performed repeated experiments with the Megapixel MNIST dataset and Swedish traffic sign datasets, sourced from [idiap/attention-sampling](https://github.com/idiap/attention-sampling.git). The experiments varied object-to-image ratio, training size, noise generation strategy, pretraining strategy, and different previously introduced masking strategies to robustify the patch-based image classifier in scenarios with low data and small object-to-image ratios.
 
 ## 🏆 Contributions
 
@@ -22,7 +22,7 @@ Our contributions that build upon the implementation by [benbergner/ips](https:/
 2. Including semantic and diversity loss features in the `iterative.py` script.
 3. Adding stochastic attention masking features in `ips_net.py`.
 4. Introducing a new backbone strategy with ResNet-50, freezing all weights until the last layer in `ips_net.py`.
-5. Contributed a script for inference producing attention maps.
+5. Added 2 scripts for inference-producing attention maps (1 script per dataset).
 
 **Note:** All features can be activated and deactivated via the config files.
 
