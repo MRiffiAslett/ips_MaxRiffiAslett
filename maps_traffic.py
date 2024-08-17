@@ -25,7 +25,7 @@ parameters_path = os.path.join(conf.data_dir, "parameters.json")
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 net = IPSNet(device, conf).to(device)
-model_weights_path = os.path.join(script_dir, 'model_weights_epoch_100.pth')
+model_weights_path = os.path.join(script_dir, 'model_weights_epoch_140_patch_size_25_25.pth')
 net.load_state_dict(torch.load(model_weights_path))
 net.eval()
 
@@ -60,12 +60,10 @@ def to_dense(patches, grid_size_x, grid_size_y, patch_size):
                 
     return dense_image
 
-
 def visualize_attention(image_sparse, mem_idx, attn, conf, save_path):
-    patch_size = 100
-    
-    grid_size_x = 16  # Set to 15 patches along the width
-    grid_size_y = 12  # Assuming the image has 12 patches along the height
+    patch_size = 25
+    grid_size_x = 64  # Number of patches along the width
+    grid_size_y = 48  # Number of patches along the height
     
     attention_grid = np.zeros((grid_size_y, grid_size_x))
     
@@ -78,58 +76,70 @@ def visualize_attention(image_sparse, mem_idx, attn, conf, save_path):
         if row < grid_size_y and col < grid_size_x:
             attention_grid[row, col] = first_image_attention[i]
 
+    # Normalize attention values to range [0, 1]
     attention_grid = (attention_grid - np.min(attention_grid)) / (np.max(attention_grid) - np.min(attention_grid))
 
     dense_image = to_dense(image_sparse[0].cpu().numpy(), grid_size_x, grid_size_y, patch_size)
-    attention_image = np.kron(attention_grid, np.ones((patch_size, patch_size)))
 
-    cmap = plt.get_cmap('viridis')
-    attention_colormap = cmap(attention_image)
-    attention_colormap = np.delete(attention_colormap, 3, 2)
+    # Updated color map transitioning: blue -> green -> yellow
+    def attention_to_color(value):
+        if value < 0.3:
+            return (1, 0.4, 0.6)  # Darker Pink
 
+
+        elif value < 0.5:
+            return (0, 0, 1)  # Blue
+        else:
+            return (1, 1, 0)  # Yellow
+
+    # Control the transparency of the colors
+    alpha_value = 0.4  # Adjust this value to increase or decrease transparency (0.0 is fully transparent, 1.0 is fully opaque)
+    
+    attention_colormap = np.zeros((grid_size_y * patch_size, grid_size_x * patch_size, 4), dtype=np.float32)
+    
+    for i in range(grid_size_y):
+        for j in range(grid_size_x):
+            if attention_grid[i, j] > 0:
+                x_start = j * patch_size
+                y_start = i * patch_size
+                x_end = x_start + patch_size
+                y_end = y_start + patch_size
+                
+                color = attention_to_color(attention_grid[i, j])
+                
+                # Fill color with adjustable transparency
+                attention_colormap[y_start:y_end, x_start:x_end, :3] = color
+                attention_colormap[y_start:y_end, x_start:x_end, 3] = alpha_value  # Apply transparency
+
+    # Convert to PIL Image and apply overlay
+    attention_colormap_image = Image.fromarray((attention_colormap * 255).astype(np.uint8), 'RGBA')
     original_image_rgb = (dense_image - dense_image.min()) / (dense_image.max() - dense_image.min())
+    original_image_pil = Image.fromarray((original_image_rgb * 255).astype(np.uint8)).convert('RGBA')
 
-    unselected_color = [1, 0, 0]
-    selected_mask = np.zeros_like(original_image_rgb)
+    # Combine original image with attention overlay
+    combined_image = Image.alpha_composite(original_image_pil, attention_colormap_image)
+
+    # Draw red borders around patches with attention > 0
+    draw = ImageDraw.Draw(combined_image)
     for i in range(grid_size_y):
         for j in range(grid_size_x):
-            x_end = min((i + 1) * patch_size, original_image_rgb.shape[0])
-            y_end = min((j + 1) * patch_size, original_image_rgb.shape[1])
-            
-            patch_height = x_end - i * patch_size
-            patch_width = y_end - j * patch_size
-            
-            # Ensure there's space to place the patch
-            if patch_height > 0 and patch_width > 0:
-                if (i * grid_size_x + j) not in first_image_indices:
-                    attention_colormap[i * patch_size:x_end, j * patch_size:y_end] = unselected_color
-                else:
-                    selected_mask[i * patch_size:x_end, j * patch_size:y_end] = attention_colormap[i * patch_size:x_end, j * patch_size:y_end]
+            if attention_grid[i, j] > 0:
+                x_start = j * patch_size
+                y_start = i * patch_size
+                x_end = x_start + patch_size
+                y_end = y_start + patch_size
+                draw.rectangle([x_start, y_start, x_end, y_end], outline="red", width=2)
 
-    overlay_image = 0.6 * original_image_rgb + 0.4 * selected_mask
-    overlay_image_uint8 = (overlay_image * 255).astype(np.uint8)
-    overlay_image_pil = Image.fromarray(overlay_image_uint8)
-
-    # Add patch numbers
-    draw = ImageDraw.Draw(overlay_image_pil)
-    font = ImageFont.load_default()
-
-    for i in range(grid_size_y):
-        for j in range(grid_size_x):
-            patch_number = i * grid_size_x + j
-            text_position = (j * patch_size + 10, i * patch_size + 10)
-            draw.text(text_position, str(patch_number), fill=(255, 255, 255), font=font)
-
-    overlay_image_pil.save(save_path)
+    # Save and show the result
+    combined_image.save(save_path)
 
     plt.figure(figsize=(15, 15))
-    plt.imshow(overlay_image_pil)
+    plt.imshow(combined_image)
     plt.axis('off')
-    plt.title("Attention Map Overlay with Patch Numbers on Original Image")
+    plt.title("Attention Map Overlay with Gradient Colors, Red Outlines, and Adjustable Transparency")
     plt.show()
 
-
-
+# Load test data
 test_data = TrafficSigns(conf, train=False)
 test_loader = DataLoader(test_data, batch_size=1, shuffle=False)
 
