@@ -15,7 +15,7 @@ This repository contains the code for my dissertation, which adds 3 different fe
 We performed repeated experiments with the Megapixel MNIST dataset and Swedish traffic sign datasets, sourced from [idiap/attention-sampling](https://github.com/idiap/attention-sampling.git). The experiments varied object-to-image ratio, training size, noise generation strategy, pretraining strategy, and different previously introduced masking strategies to robustify the patch-based image classifier in scenarios with low data and small object-to-image ratios.
 
 <div align="center">
-    <img src="plots/attention_maps_traffic_Github.jpg" alt="Attention Map 1" width="950"/>
+    <img src="plots/attention_maps_traffic_Github.jpg" alt="Attention Map 1" width="1000"/>
 </div>
 <p><strong>Figure 3:</strong> Attention maps for image 86 (validation set) of the Swedish Traffic Sign data set. IPS was run for 140 epochs with a patch size and stride of 100.</p>
 
