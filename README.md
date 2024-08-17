@@ -17,7 +17,7 @@ We performed repeated experiments with the Megapixel MNIST dataset and Swedish t
 <div align="center">
     <img src="plots/attention_maps_traffic_Github.jpg" alt="Attention Map 1" width="1000"/>
 </div>
-<p><strong>Figure 3:</strong> Attention maps for image 86 (validation set) of the Swedish Traffic Sign data set. IPS was run for 140 epochs with a patch size and stride of 100.</p>
+<p><strong>Figure 3:</strong> Attention maps for image 63 (validation set) of the Swedish Traffic Sign data set. IPS was run for 140 epochs with a patch size and stride of 25</p>
 
 ## 🏆 Contributions
 
