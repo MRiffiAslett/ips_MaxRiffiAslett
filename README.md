@@ -2,11 +2,9 @@
 
 <h1 align="left">
     On the Generalizability <br>
-    of High-Resolution Image Classification <br>
-    with Memory-Efficient Transformers 
+    of Iterative Patch Selection <br>
+    for High-Resolution Image Classification
 </h1>
-
-
 
 
 ## 📚 Summary
