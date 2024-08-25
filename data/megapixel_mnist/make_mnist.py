@@ -1,4 +1,4 @@
-# Adapted from https://github.com/idiap/attention-sampling
+# 100% from https://github.com/benbergner/ips.git, adaptation of https://github.com/idiap/attention-sampling
 
 import os
 import argparse
