@@ -1,7 +1,0 @@
-DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
-            Install the buildx component to build images with BuildKit:
-            https://docs.docker.com/go/buildx/
-
-Sending build context to Docker daemon  8.413GB
-Step 1/13 : FROM nvcr.io/nvidia/cuda:11.6.2-base-ubuntu20.04
-Get "https://nvcr.io/v2/nvidia/cuda/manifests/sha256:a0dd581afdbf82ea9887dd077aebf9723aba58b51ae89acb4c58b8705b74179b": net/http: TLS handshake timeout
