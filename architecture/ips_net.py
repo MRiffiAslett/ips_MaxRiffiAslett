@@ -28,10 +28,15 @@ class IPSNet(nn.Module):
         elif enc_type == 'resnet50':
             res_net_fn = resnet50
             # The The V2 weights were implemented by changing "V1" to V2
-            weights=ResNet50_Weights.IMAGENET1K_V1 if pretrained else None        
+            weights=ResNet50_Weights.IMAGENET1K_V1 if pretrained else None 
         
-        # Assign weights
         res_net = res_net_fn(weights=weights)
+        
+        if enc_type = 'resnet50'
+            # Freez the weights when resnet50 is chosen
+            for param in res_net.parameters():
+                param.requires_grad = False
+
 
         if n_chan_in == 1:
             # Standard resnet uses 3 input channels, Setup in the Megapixel MNIST
