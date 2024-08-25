@@ -52,7 +52,7 @@ class MegapixelMNIST:
                 self._img = img
             return self._img
 
-    def __init__(self, N = 5000, W = 1500, H = 1500, train=True, noise= True, n_noise = 50, seed = 0, digit_size =2 8, noise_size=28):
+    def __init__(self, N = 5000, W = 1500, H = 1500, train=True, noise= True, n_noise = 50, seed = 0, digit_size =2 , noise_size=28):
         # Load the images
         (x_train, y_train) , (x_test, y_test)  =  mnist.load_data()
         x = x_train if train else x_test
