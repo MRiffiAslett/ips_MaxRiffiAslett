@@ -77,7 +77,6 @@ The results are organized into the following categories:
     <img src="plots/attention_maps_traffic_Github.jpg" alt="Attention Map 1" width="1000"/>
 </div>
 <p><strong>Figure 3:</strong> Attention maps for image 63 (validation set) of the Swedish traffic Signs data set. IPS was run for 140 epochs with a patch size and stride of 25</p>
-#### Attention Maps
 
 ## Megapixel MNSIT
 <div align="center">
