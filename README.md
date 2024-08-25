@@ -12,10 +12,6 @@ This repository contains the code for my dissertation, which adds 3 different fe
 
 We performed repeated experiments with the Megapixel MNIST dataset and Swedish traffic sign datasets, sourced from [idiap/attention-sampling](https://github.com/idiap/attention-sampling.git). The experiments varied object-to-image ratio, training size, noise generation strategy, pretraining strategy, and different previously introduced masking strategies to robustify the patch-based image classifier in scenarios with low data and small object-to-image ratios.
 
-<div align="center">
-    <img src="plots/attention_maps_traffic_Github.jpg" alt="Attention Map 1" width="1000"/>
-</div>
-<p><strong>Figure 3:</strong> Attention maps for image 63 (validation set) of the Swedish Traffic Sign data set. IPS was run for 140 epochs with a patch size and stride of 25</p>
 
 ## 🏆 Contributions
 
@@ -76,17 +72,15 @@ The results are organized into the following categories:
 **Example:** `results_84_84_3000_3000_400n_1000d_PS_50`
 - This denotes 84x84 digit resolution on a 3000x3000 canvas with 400 noise points and 1000 training data points, with a patch size (PS) of 50.
 
-## Findings
-
-### Object-to-Image Ratio
+## Swedish traffic Signs data set
 
 <div align="center">
-    <img src="plots/task_plot.png" alt="Task Plot" width="1000"/>
+    <img src="plots/attention_maps_traffic_Github.jpg" alt="Attention Map 1" width="1000"/>
 </div>
-<p><strong>Figure 2:</strong> Results of the experiments on MegaPixel_MNIST with a novel noise generation component. Four object-to-image ratios were tested: {0.008%, 0.034%, 0.078%, 0.13%} across four training dataset sizes {800, 1000, 2000, 4000}. Canvas size and patch size remain fixed at 3000 × 3000 and 50 × 50, respectively, and the O2I changes by varying the digit resolutions to 28 × 28, 56 × 56, 84 × 84, and 112 × 112 pixels. The noise digit thickness is set at 1.925. The model was trained for 100 epochs following the setup of IPS \parencite{bergner_iterative_2023}.</p>
-
+<p><strong>Figure 3:</strong> Attention maps for image 63 (validation set) of the Swedish traffic Signs data set. IPS was run for 140 epochs with a patch size and stride of 25</p>
 #### Attention Maps
 
+## Megapixel MNSIT
 <div align="center">
     <img src="plots/attention_map_1_black.jpg" alt="Attention Map 1" width="1000"/>
 </div>
