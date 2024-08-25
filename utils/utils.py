@@ -1,4 +1,5 @@
 # 100% from https://github.com/benbergner/ips.git
+# The only small addition that we made was adding in the mean and variance of the semantic and diversity loss in the training statistics
 import sys
 import math
 import numpy as np
@@ -73,8 +74,8 @@ class Logger(nn.Module):
 
         # Add containers for diversity and semantic losses
         self.diversity_losses = []
-        self.semantic_losses = []
-        self.diversity_losses_var = []
+        self.semantic_losses =[]
+        self.diversity_losses_var= []
         self.semantic_losses_var = []
 
     def update(self, next_loss, next_y_pred, next_y_true, diversity_loss, semantic_loss, variance_diversity_loss, variance_semantic_loss):
@@ -91,10 +92,10 @@ class Logger(nn.Module):
             self.y_trues[t].extend(next_y_true[t])
 
         # Update diversity and semantic losses
-        self.diversity_losses.append(diversity_loss.item())
+        self.diversity_losses.append( diversity_loss.item())
         self.semantic_losses.append(semantic_loss.item())
         self.diversity_losses_var.append(variance_diversity_loss.item())
-        self.semantic_losses_var.append(variance_semantic_loss.item())
+        self.semantic_losses_var.append( variance_semantic_loss.item())
 
     def compute_metric(self):
         for task in self.task_dict.values():
@@ -134,15 +135,15 @@ class Logger(nn.Module):
             self.y_trues[t] = []
 
         # Compute epoch averages for diversity and semantic losses
-        self.mean_diversity_loss = np.mean(self.diversity_losses) if self.diversity_losses else float('nan')
-        self.variance_diversity_loss = np.mean(self.diversity_losses_var) if self.diversity_losses else float('nan')
+        self.mean_diversity_loss =np.mean( self.diversity_losses)  if self.diversity_losses else   float('nan')
+        self.variance_diversity_loss =np.mean(self.diversity_losses_var) if self.diversity_losses else float('nan')
         
-        self.mean_semantic_loss = np.mean(self.semantic_losses) if self.semantic_losses else float('nan')
-        self.variance_semantic_loss = np.mean(self.semantic_losses_var) if self.semantic_losses else float('nan')
+        self.mean_semantic_loss= np.mean(self.semantic_losses) if self.semantic_losses else float('nan')
+        self.variance_semantic_loss = np.mean(self.semantic_losses_var)  if  self.semantic_losses else float('nan')
 
         # Reset for the next epoch
-        self.diversity_losses = []
-        self.semantic_losses = []
+        self.diversity_losses =  []
+        self.semantic_losses =  []
 
     def print_stats(self, epoch, train, **kwargs):
         print_str = 'Train' if train else 'Test'
@@ -166,8 +167,8 @@ class Logger(nn.Module):
             print_str += ", {}: {}".format(k, v)
         
         # Add diversity and semantic loss stats
-        print_str += "\nDiversity Loss - Mean: {:.5f}, Variance: {:.5f}".format(self.mean_diversity_loss, self.variance_diversity_loss)
-        print_str += "\nSemantic Loss - Mean: {:.5f}, Variance: {:.5f}".format(self.mean_semantic_loss, self.variance_semantic_loss)
+        print_str += "\nDiversity Loss - Mean: {:.5f}, Variance: {:.5f}".format(self.mean_diversity_loss,  self.variance_diversity_loss )
+        print_str += "\nSemantic Loss - Mean: {:.5f}, Variance: {:.5f}".format(self.mean_semantic_loss,  self.variance_semantic_loss)
         print_str += "\n"
 
         print(print_str)
