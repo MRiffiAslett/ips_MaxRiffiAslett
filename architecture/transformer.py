@@ -1,6 +1,12 @@
 # Adapted from https://github.com/benbergner/ips.git
-import math
+# Here lies the heart of the transformer!!
+# In this script you will find the three things 
+# - The calculation of the attention values via the normalized project of the Queries and keys 
+# - The aggregation of the top-M patches weighted by there attention values.
+# - No features of ours are in this script.
+# For debugging purposes we printed out the shapes of the embeddings at each stage and decided to keep them as comments as they are useful for visualizing how the images in each batch are processed together.
 
+import math
 import torch
 from torch import nn
 import torch.nn.functional as F
@@ -24,9 +30,11 @@ class ScaledDotProductAttention(nn.Module):
     def __init__(self, temperature, attn_dropout=0.1):
         super().__init__()
         self.temperature = temperature
+        # Attention masking which set at 0.1
         self.dropout = nn.Dropout(attn_dropout)
 
     def compute_attn(self, q, k):
+        # Compute attention
         attn = torch.matmul(q / self.temperature, k.transpose(2, 3))
         attn = self.dropout(torch.softmax(attn, dim=-1))
         return attn
@@ -48,12 +56,16 @@ class MultiHeadCrossAttention(nn.Module):
         q_init_val = math.sqrt(1 / D_k)
         nn.init.uniform_(self.q, a=-q_init_val, b=q_init_val)
 
+        # Here we define the learning weight Matrices for each Keys, Queries, and value of the 8 (H) attention heads.
         self.q_w = nn.Linear(D, H * D_k, bias=False)
         self.k_w = nn.Linear(D, H * D_k, bias=False)
         self.v_w = nn.Linear(D, H * D_v, bias=False)
+        # The fc layer is W^0 in which down projects the concatenated heads to the same dimensionality as a single head.
         self.fc = nn.Linear(H * D_v, D, bias=False)
+        # The fb layer is used to project each head to the same dimensionality in the application of Diversity loss where each head gets an MLP placed after it to make an individual prediction for each head.
         self.fb = nn.Linear(D_v, D, bias=False)
 
+        # As per the original transformer, the dot product of the keys and Keries is standardized by the square root of the embedding size
         self.attention = ScaledDotProductAttention(temperature=D_k ** 0.5, attn_dropout=attn_dropout)
         self.dropout = nn.Dropout(dropout)
         self.layer_norm = nn.LayerNorm(D, eps=1e-6)
@@ -62,9 +74,13 @@ class MultiHeadCrossAttention(nn.Module):
         D_k, H, n_token = self.D_k, self.H, self.n_token
         B, len_seq = x.shape[:2]
 
+        # Reshape the learnable query embeddings have dimensions 1, number of learnable query tokens, number of heads H (8), and dimensional (113 or 512 depending on the task)
         q = self.q_w(self.q).view(1, n_token, H, D_k)
+
+        # Reshape the learnable key embeddings to have dimensions number of instances in the batch (16), number of heads H (8), and dimensional (113 or 512 depending on the task)
         k = self.k_w(x).view(B, len_seq, H, D_k)
 
+        # Transpose before conducting the matrix operation
         q, k = q.transpose(1, 2), k.transpose(1, 2)
 
         attn = self.attention.compute_attn(q, k)
@@ -74,27 +90,23 @@ class MultiHeadCrossAttention(nn.Module):
     def forward(self, x):
         D_k, D_v, H, n_token = self.D_k, self.D_v, self.H, self.n_token
         B, len_seq = x.shape[:2]
-
+        # rearrange the dimensions of the query keys and values where 16 is the number of batches, 4 the number of query tokens, 8 is the number of attention heads, and 100 is the top M informative patches i IPS.
         q = self.q_w(self.q).view(1, n_token, H, D_k) # (1, 4, 8, 16)
         k = self.k_w(x).view(B, len_seq, H, D_k) # (16, 100, 8, 16)
         v = self.v_w(x).view(B, len_seq, H, D_v) # (16, 100, 8, 16)
 
         q, k, v = q.transpose(1, 2), k.transpose(1, 2), v.transpose(1, 2)
-        # q: (1, 8, 4, 16)
+        # q: (1, 8, 4, 16), as there are 
         # k: (16, 8, 100, 16)
         # v: (16, 8, 100, 16)
         # print(f"q shape: {q.shape}, k shape: {k.shape}, v shape: {v.shape}")
 
         x = self.attention(q, k, v)
-        # x: (16, 8, 4, 16)
-        # print(f"Output of attention mechanism: {x.shape}")
 
         # Store attention maps for diversity loss
         self.attn_maps = x
 
         x_br = x.transpose(1, 2).contiguous().view(B, n_token, -1)
-        # x_br: (16, 4, 128)
-        # print(f"Transposed attention output: {x_br.shape}")
 
         # Apply fc layer (aggregates heads)
         x = self.dropout(self.fc(x_br))
@@ -114,8 +126,6 @@ class MultiHeadCrossAttention(nn.Module):
             attention_branches.append(branch_output)
 
         attention_branches = torch.stack(attention_branches, dim=1)
-        # attention_branches: (16, 8, 4, 128)
-        # print(f"Attention branches output: {attention_branches.shape}")
 
         return x, attention_branches
 
