@@ -21,42 +21,42 @@ class IPSNet(nn.Module):
     """
 
     def get_conv_patch_enc(self,enc_type, pretrained , n_chan_in, n_res_blocks):
-    # Get architecture for patch encoder
-    if enc_type == 'resnet18': 
-        res_net_fn = resnet18
-        weights = ResNet18_Weights.IMAGENET1K_V1 if  pretrained else None
-    elif enc_type == 'resnet50':
-        res_net_fn = resnet50
-        # The The V2 weights were implemented by changing "V1" to V2
-        weights=ResNet50_Weights.IMAGENET1K_V1 if pretrained else None 
+        # Get architecture for patch encoder
+        if enc_type == 'resnet18': 
+            res_net_fn = resnet18
+            weights = ResNet18_Weights.IMAGENET1K_V1 if  pretrained else None
+        elif enc_type == 'resnet50':
+            res_net_fn = resnet50
+            # The The V2 weights were implemented by changing "V1" to V2
+            weights=ResNet50_Weights.IMAGENET1K_V1 if pretrained else None 
+        
+        res_net = res_net_fn(weights=weights)
+        
+        if enc_type =='resnet50':
+            # Freeze the weights when resnet50 is chosen
+            for param in res_net.parameters():
+                param.requires_grad = False
     
-    res_net = res_net_fn(weights=weights)
+        if n_chan_in == 1:
+            # Standard resnet uses 3 input channels, Setup in the Megapixel MNIST
+            res_net.conv1 = nn.Conv2d( n_chan_in, 64 , kernel_size = 7, stride=2, padding=3, bias=False )
+        
+        # Define the block which follows the original implementation of IPS
+        layer_ls = []
+        layer_ls.extend([res_net.conv1, res_net.bn1, res_net.relu,res_net.maxpool, res_net.layer1, res_net.layer2])
+        
+        # For the Traffic signs data set there are 4 blocks used for both the ResNet-18 and ResNet-50 implementation which results in 512 embeddings
+        if n_res_blocks == 4:
+            layer_ls.extend([res_net.layer3, res_net.layer4])
+        
+        layer_ls.append(res_net.avgpool)
     
-    if enc_type =='resnet50':
-        # Freeze the weights when resnet50 is chosen
-        for param in res_net.parameters():
-            param.requires_grad = False
-
-    if n_chan_in == 1:
-        # Standard resnet uses 3 input channels, Setup in the Megapixel MNIST
-        res_net.conv1 = nn.Conv2d( n_chan_in, 64 , kernel_size = 7, stride=2, padding=3, bias=False )
+        # Project the output down to self.D if ResNet-50 is used
+        if enc_type =='resnet50':
+            layer_ls.append( nn.Flatten())  # Flatten the output before projection
+            layer_ls.append(nn.Linear(2048, self.D) )  #  2048 is the output dimension of ResNet-50 and D is either 128 (for Megapixel MNIST) or 512 for Swedish Traffic Signs
     
-    # Define the block which follows the original implementation of IPS
-    layer_ls = []
-    layer_ls.extend([res_net.conv1, res_net.bn1, res_net.relu,res_net.maxpool, res_net.layer1, res_net.layer2])
-    
-    # For the Traffic signs data set there are 4 blocks used for both the ResNet-18 and ResNet-50 implementation which results in 512 embeddings
-    if n_res_blocks == 4:
-        layer_ls.extend([res_net.layer3, res_net.layer4])
-    
-    layer_ls.append(res_net.avgpool)
-
-    # Project the output down to self.D if ResNet-50 is used
-    if enc_type =='resnet50':
-        layer_ls.append( nn.Flatten())  # Flatten the output before projection
-        layer_ls.append(nn.Linear(2048, self.D) )  #  2048 is the output dimension of ResNet-50 and D is either 128 (for Megapixel MNIST) or 512 for Swedish Traffic Signs
-
-    return nn.Sequential(*layer_ls)
+        return nn.Sequential(*layer_ls)
 
     # This is a projector  function used in the original implementation of IPS which is used when no patch encoder is selected which is not the case in any of our experiments.
     def get_projector(self, n_chan_in, D):
