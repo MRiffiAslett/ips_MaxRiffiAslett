@@ -1,4 +1,4 @@
-# transformer.py
+# Adapted from https://github.com/benbergner/ips.git
 import math
 
 import torch
