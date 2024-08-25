@@ -54,7 +54,7 @@ def to_dense(patches, grid_size_x, grid_size_y, patch_size):
                 x_end = (i + 1) * patch_size
                 y_end = (j + 1) * patch_size
                 
-                patch_height = x_end - i * patch_size
+                patch_height = x_end - i *  patch_size
                 patch_width = y_end - j * patch_size
             
                 if patch_height > 0 and patch_width > 0:
@@ -76,28 +76,28 @@ def visualize_attention(image_sparse, mem_idx, attn, conf, save_path):
     # Create attention grid
     attention_grid = np.zeros((grid_size_y, grid_size_x))
 
-    # Extract the attention from tensors to numpy
+    # Extract the attention fom tensors to numpy
     first_image_attention = attn[0].cpu().numpy()
-    first_image_indices = mem_idx[0].cpu().numpy()
+    first_image_indices =  mem_idx[0].cpu().numpy()
 
     # Simple grid logic for placing values on a grid based on the indices and the grid height and width
     for i, idx in enumerate(first_image_indices):
         row = idx // grid_size_x
-        col = idx % grid_size_x
+        col = idx %grid_size_x
         if row < grid_size_y and col < grid_size_x:
             attention_grid[row, col] = first_image_attention[i]
 
     # Normalize attention values to range [0, 1]
-    attention_grid = (attention_grid - np.min(attention_grid)) / (np.max(attention_grid) - np.min(attention_grid))
+    attention_grid =  (attention_grid- np.min(attention_grid)) / (np.max(attention_grid) - np.min(attention_grid))
 
-    dense_image = to_dense(image_sparse[0].cpu().numpy(), grid_size_x, grid_size_y, patch_size)
+    dense_image  = to_dense(image_sparse[0].cpu().numpy(), grid_size_x, grid_size_y, patch_size)
 
     # custom colouring
     def attention_to_color(value):
         if value < 0.3:
-            return (1, 0.4, 0.6)  #  Pink
-        elif value < 0.5:
-            return (0, 0, 1)  # Blue
+            return (1, 0.4,  0.6)  #  Pink
+        elif value  < 0.5:
+            return (0 , 0, 1)  # Blue
         else:
             return (1, 1, 0)  # Yellow
 
@@ -105,7 +105,7 @@ def visualize_attention(image_sparse, mem_idx, attn, conf, save_path):
     alpha_value = 0.4  
 
     # Create the colour map to be overlayed on top of the original image
-    attention_colormap = np.zeros((grid_size_y * patch_size, grid_size_x * patch_size, 4), dtype=np.float32)
+    attention_colormap = np.zeros((grid_size_y  * patch_size, grid_size_x* patch_size, 4), dtype=np.float32)
 
     # For loop to assign colours to each value if their attention values are superior to 0.
     for i in range(grid_size_y):
@@ -113,19 +113,19 @@ def visualize_attention(image_sparse, mem_idx, attn, conf, save_path):
             if attention_grid[i, j] > 0:
                 x_start = j * patch_size
                 y_start = i * patch_size
-                x_end = x_start + patch_size
+                x_end = x_start +patch_size
                 y_end = y_start + patch_size
                 
-                color = attention_to_color(attention_grid[i, j])
+                color =  attention_to_color(attention_grid[i, j])
                 
                 # Fill color with adjustable transparency
                 attention_colormap[y_start:y_end, x_start:x_end, :3] = color
-                attention_colormap[y_start:y_end, x_start:x_end, 3] = alpha_value  # Apply transparency
+                attention_colormap[y_start:y_end, x_start:x_end, 3] = alpha_value  # Apply  transparency
 
     # Overlay the images
-    attention_colormap_image = Image.fromarray((attention_colormap * 255).astype(np.uint8), 'RGBA')
+    attention_colormap_image= Image.fromarray((attention_colormap * 255).astype(np.uint8), 'RGBA')
     original_image_rgb = (dense_image - dense_image.min()) / (dense_image.max() - dense_image.min())
-    original_image_pil = Image.fromarray((original_image_rgb * 255).astype(np.uint8)).convert('RGBA')
+    original_image_pil = Image.fromarray((original_image_rgb *255).astype(np.uint8)).convert( 'RGBA' )
 
     # Combine original image with attention overlay
     combined_image = Image.alpha_composite(original_image_pil, attention_colormap_image)
@@ -133,13 +133,13 @@ def visualize_attention(image_sparse, mem_idx, attn, conf, save_path):
     # Create red borders for each tile that has an attention value superior to 0
     draw = ImageDraw.Draw(combined_image)
     for i in range(grid_size_y):
-        for j in range(grid_size_x):
+        for j in  range(grid_size_x):
             if attention_grid[i, j] > 0:
                 x_start = j * patch_size
                 y_start = i * patch_size
                 x_end = x_start + patch_size
                 y_end = y_start + patch_size
-                draw.rectangle([x_start, y_start, x_end, y_end], outline="red", width=2)
+                draw.rectangle([x_start, y_start , x_end, y_end], outline="red", width=2)
 
     # Save and show the result
     combined_image.save(save_path)
@@ -147,17 +147,17 @@ def visualize_attention(image_sparse, mem_idx, attn, conf, save_path):
     plt.figure(figsize=(15, 15))
     plt.imshow(combined_image)
     plt.axis('off')
-    plt.title("Attention Map Overlay with Gradient Colors, Red Outlines, and Adjustable Transparency")
+    plt.title("Attention Map  Overlay with Gradient Colors, Red Outlines, and Adjustable Transparency")
     plt.show()
 
 # Load test data
 test_data = TrafficSigns(conf, train=False)
 test_loader = DataLoader(test_data, batch_size=1, shuffle=False)
 # Call the functions
-for batch_idx, batch in enumerate(test_loader):
+for batch_idx, batch in  enumerate(test_loader):
     image_sparse = batch['input']
 
     mem_idx, attn = get_attention_map(image_sparse.to(device))
-    save_path = os.path.join(script_dir, f'attention_map_overlay_{batch_idx}.png')
+    save_path = os.path.join(script_dir , f'attention_map_overlay_{batch_idx}.png')
     visualize_attention(image_sparse[0:1], mem_idx[0:1], attn[0:1], conf, save_path)
     
