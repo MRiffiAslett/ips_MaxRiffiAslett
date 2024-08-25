@@ -16,7 +16,7 @@ class MegapixelMNIST:
     """
 
     class Sample(object):
-        def __init__(self, dataset, idxs, positions, n oise_positions, noise_patterns):
+        def __init__(self, dataset, idxs, positions, noise_positions, noise_patterns):
             self._dataset = dataset
             self._idxs = idxs
             self._positions=positions
