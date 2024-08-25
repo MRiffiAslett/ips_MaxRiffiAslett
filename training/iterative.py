@@ -1,4 +1,7 @@
 # Adapted from https://github.com/benbergner/ips.git
+# This script defines a single epoch of training and calls in ips.py and transformer.py for the entire forward pass
+# The loss function and backward pass are defined in this script
+# Importantly for us, this is where we define the Diversity and Semantic loss implementation inspired by (https://github.com/dazhangyu123/ACMIL.git)
 import sys
 import numpy as np
 import torch
@@ -67,10 +70,11 @@ def compute_diversity_loss(attn_maps):
     if attn_maps is None:
         raise ValueError("Attention maps not computed. Ensure forward pass is run before computing diversity loss.")
     
-    # Assuming attn_maps has shape [batch_size, num_heads, seq_length, seq_length]
+    # attn_maps has shape [batch_size, num_heads, seq_length]
     batch_size, num_heads, _, _ = attn_maps.shape
     diversity_losses = []
-    
+
+    # Here we compute the cosine similarity between each pair of attention heads
     for i in range(num_heads):
         for j in range(i + 1, num_heads):
             # Compute cosine similarity between different heads
@@ -81,16 +85,13 @@ def compute_diversity_loss(attn_maps):
             diversity_loss = F.cosine_similarity(attn_map_i, attn_map_j, dim=-1).mean()
             diversity_losses.append(diversity_loss)
     
-    # Convert list to tensor for statistical computation
+    # Convert the list to tensors for computing the mean and std deviation to be plotted during training.
     diversity_losses_tensor = torch.stack(diversity_losses)
     mean_diversity_loss = diversity_losses_tensor.mean()
     median_diversity_loss = diversity_losses_tensor.median()
     variance_diversity_loss = diversity_losses_tensor.var()
-    
-    # Print out the statistics
-    #print(f"Diversity Loss Statistics - Mean: {mean_diversity_loss:.4f}, Median: {median_diversity_loss:.4f}, Variance: {variance_diversity_loss:.4f}")
-    
-    # Calculate the average diversity loss as originally intended
+        
+    # Calculate the average diversity loss
     overall_diversity_loss = (2 / (num_heads * (num_heads - 1))) * torch.sum(diversity_losses_tensor)
     
     return overall_diversity_loss, variance_diversity_loss
