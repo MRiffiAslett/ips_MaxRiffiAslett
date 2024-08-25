@@ -8,10 +8,9 @@
 
 
 ## 📚 Summary
-This repository contains the code for my dissertation, which adds 3 different features from IPS [benbergner/ips](https://github.com/benbergner/ips.git). IPS is a simple patch-based method that decouples memory consumption, enabling efficient processing of high-resolution images.
+This repository contains the code for my dissertation, which builds upon and experiments with IPS [benbergner/ips](https://github.com/benbergner/ips.git). IPS is a state-of-the-art memory-efficient and weakly supervised patch-based classifier. It saves memory consumption by iterating through each patch and keeping only the most M most salient in memory. The implementation of [benbergner/ips](https://github.com/benbergner/ips.git) employs a Multi-head cross-attention mechanism as a pooling operator to aggregate the M  most salient patches into a bag-level representation.
 
-We performed repeated experiments with the Megapixel MNIST dataset and Swedish traffic sign datasets, sourced from [idiap/attention-sampling](https://github.com/idiap/attention-sampling.git). The experiments varied object-to-image ratio, training size, noise generation strategy, pretraining strategy, and different previously introduced masking strategies to robustify the patch-based image classifier in scenarios with low data and small object-to-image ratios.
-
+We performed repeated experiments with the Megapixel MNIST dataset and Swedish traffic sign datasets [idiap/attention-sampling](https://github.com/idiap/attention-sampling.git), in which we found that in low data scenarios, generalizability suffers as the object-to-image (O2I) ratio decreases. To robustify these scenarios, we perform repeated experiments  tuning the patch size and pretraining strategy as well as implementing two previously introduced regularisation strategies. Specifically, we implement Stochastic top-K Instance Masking and Diversity regularisation as presented by [dazhangyu123/ACMIL](https://github.com/dazhangyu123/ACMIL.git). Our work identifies that as the object-to-image ratio decreases, performance suffers in low data settings for IPS (Bergner, Lippert, and Mahendran 2023). We find that this vulnerability can be marginally mitigated by tuning the patch size and using Diversity loss for the Swedish traffic signs dataset (refer to the report in the repo).
 
 ## 🏆 Contributions
 
