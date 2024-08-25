@@ -121,7 +121,7 @@ class MegapixelMNIST:
             num_points =  np.random.choice([ 4, 6, 8], p=[ 3/9 , 5/9,1/9])
             noise_patterns.append(generate_curved_line(28, num_points))
 
-        convert to noise to numpy
+        #convert to noise to numpy
         noise_patterns =np.array( noise_patterns )
         noise_patterns = self.resize_images(noise_patterns, self._noise_size)
 
