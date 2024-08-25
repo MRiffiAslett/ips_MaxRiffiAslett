@@ -172,6 +172,7 @@ class Transformer(nn.Module):
         # print(f'main attention output shape: {main_output.shape}')
         # Pass attention branches through the same MLP
         branch_outputs =  []
+        # Place an MLP after each head in order to make an individual prediction for each head
         for i in range(self.n_branches):
             branch_output = self.mlp(attention_branches[:, i])
             # print(f'Branch nb {i} shape: {branch_output.shape}')
