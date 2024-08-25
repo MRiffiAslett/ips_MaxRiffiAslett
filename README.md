@@ -66,7 +66,7 @@ The results are organized into the following categories:
 
 
 **Example:** `results_84_84_3000_3000_400n_1000d_PS_50`
-- This denotes 84x84 digit resolution on a 3000x3000 canvas with 400 noise points and 1000 training data points, with a patch size (PS) of 50.
+- This denotes 84x84 digit resolution on a 3000x3000 canvas with 400 noise points and 1000 training data points, with a patch size of 50.
 
 ## Swedish traffic Signs data set
 
