@@ -65,9 +65,6 @@ The results are organized into the following categories:
 **Note:** The naming convention for results is as follows:
 
 
-- **Pattern:** `results_`[`digit_size_x`]_`[`digit_size_y`]_`[`canvas_size_x`]_`[`canvas_size_y`]_`[`number_of_noise`]_`[`number_of_training_data_points`]_`[`regularization_and_special_feature`]`
-
-
 **Example:** `results_84_84_3000_3000_400n_1000d_PS_50`
 - This denotes 84x84 digit resolution on a 3000x3000 canvas with 400 noise points and 1000 training data points, with a patch size (PS) of 50.
 
