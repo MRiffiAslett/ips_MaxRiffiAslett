@@ -27,16 +27,17 @@ class IPSNet(nn.Module):
             weights=ResNet18_Weights.IMAGENET1K_V1 if pretrained else None
         elif enc_type == 'resnet50':
             res_net_fn = resnet50
-            # Resnet50 pretrained weights not used in experiments
+            # The The V2 weights were implemented by changing "V1" to V2
             weights=ResNet50_Weights.IMAGENET1K_V1 if pretrained else None        
-
+        
+        # Assign weights
         res_net = res_net_fn(weights=weights)
 
         if n_chan_in == 1:
-            # Standard resnet uses 3 input channels
+            # Standard resnet uses 3 input channels, Setup in the Megapixel MNIST
             res_net.conv1 = nn.Conv2d(n_chan_in, 64, kernel_size=7, stride=2, padding=3, bias=False)
         
-        # Compose patch encoder
+        # Define the block which follows the original implementation of IPS
         layer_ls = []
         layer_ls.extend([
             res_net.conv1,
@@ -44,30 +45,27 @@ class IPSNet(nn.Module):
             res_net.relu,
             res_net.maxpool,
             res_net.layer1,
-            res_net.layer2
-        ])
-
+            res_net.layer2])
+        # For the Traffic signs data set there are 4 blocks used for both the ResNet-18 and ResNet-50 implementation which results in 512 embeddings
         if n_res_blocks == 4:
             layer_ls.extend([
                 res_net.layer3,
-                res_net.layer4
-            ])
+                res_net.layer4])
         
         layer_ls.append(res_net.avgpool)
-
+        # Note the Weight freezing for ResNet-50 is conducted in the 
         return nn.Sequential(*layer_ls)
-
+    # This is a projector function used in the original implementation of IPS which is used when no patch encoder is selected which is not the case in any of our experiments.
     def get_projector(self, n_chan_in, D):
         return nn.Sequential(
             nn.LayerNorm(n_chan_in, eps=1e-05, elementwise_affine=False),
             nn.Linear(n_chan_in, D),
             nn.BatchNorm1d(D),
-            nn.ReLU()
-        )   
+            nn.ReLU() )   
 
     def get_output_layers(self, tasks):
         """
-        Create an output layer for each task according to task definition
+        Create an output layer for each task in the case of the Megapixel MNIST
         """
 
         D = self.D
