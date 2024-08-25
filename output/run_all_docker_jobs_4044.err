@@ -1,2 +1,0 @@
-mkdir: cannot create directory ‘/app’: Permission denied
-time="2024-07-15T23:34:31+01:00" level=error msg="error waiting for container: "
