@@ -107,8 +107,10 @@ class MegapixelMNIST:
 
             # Now we draw the curve by drawing 100 points from 0 to 1
             for i  in range(len(curve)- 1):
-                start_point =tuple(curve[i].astype(int))
+                # define start and end points based obezier function
+                start_point =tuple(curve[i].astype( int ))
                 end_point = tuple(curve[ i + 1 ].astype(int ))
+                # Draw the corresponding line using cv2
                 cv2.line(img,start_point, end_point, 1 , thickness)
 
             return img
@@ -119,6 +121,7 @@ class MegapixelMNIST:
             num_points =  np.random.choice([ 4, 6, 8], p=[ 3/9 , 5/9,1/9])
             noise_patterns.append(generate_curved_line(28, num_points))
 
+        convert to noise to numpy
         noise_patterns =np.array( noise_patterns )
         noise_patterns = self.resize_images(noise_patterns, self._noise_size)
 
