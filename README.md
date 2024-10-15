@@ -42,12 +42,9 @@ Classifying large images with small or tiny regions of interest (ROI) in compute
 ### 7. Results Library
 The results are organized into the following categories:
 - **`O2I_datasize`**: Results related to Object-to-Image (O2I) ratio and dataset size.
-- **`Semantic_Diversity_Regularisation`**: Results related to semantic diversity regularization.
-- **`Attention_Masking`**: Results related to attention masking.
 - **`Dataset_Size`**: Results focusing on different dataset sizes.
 - **`Noise_Size`**: Results focusing on the size and impact of noise.
 - **`Digit_Thickness`**: Results related to the thickness of digits.
-- **`Backbones`**: Results related to different backbone architectures.
 - **`Patch_Size`**: Results focusing on the size of patches used in training.
 
 **Note:** The naming convention for results is as follows:
