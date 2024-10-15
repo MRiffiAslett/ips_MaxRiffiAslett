@@ -1,7 +1,6 @@
 # Adapted from https://github.com/benbergner/ips.git
 # This script defines a single epoch of training and calls in ips.py and transformer.py for the entire forward pass
 # The loss function and backward pass are defined in this script
-# Importantly for us, this is where we define the Diversity and Semantic loss implementation inspired by (https://github.com/dazhangyu123/ACMIL.git)
 import sys
 import numpy as np
 import torch
