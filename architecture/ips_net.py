@@ -1,9 +1,5 @@
 # Adapted from https://github.com/benbergner/ips.git
 # This script defines IPS which includes the patch encoding, the iterative process of loading a set M of patches at a time, encoding them, scoring them with the cross-attention transformer
-# The features added to this script are the following:
-# 1 -  Changed the patch encoder where the weights for ResNet-50 are frozen and down projected.
-# 2 - Added the logic for Stochastic top-k instance masking
-# 3 - Additionally, we had to modify the script to implement the diversity and Semantic regularization however, the loss function is defined in the script training\iterative.py
 import sys
 import math
 
