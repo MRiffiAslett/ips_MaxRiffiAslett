@@ -10,17 +10,7 @@
 ## 📚 Summary
 This repository contains the code for my dissertation, which builds upon and experiments with IPS [benbergner/ips](https://github.com/benbergner/ips.git). IPS is a state-of-the-art memory-efficient and weakly supervised patch-based classifier. It saves memory consumption by iterating through each patch and keeping only the most M most salient in memory. The implementation of [benbergner/ips](https://github.com/benbergner/ips.git) employs a Multi-head cross-attention mechanism as a pooling operator to aggregate the M  most salient patches into a bag-level representation.
 
-We performed repeated experiments with the Megapixel MNIST dataset and Swedish traffic sign datasets [idiap/attention-sampling](https://github.com/idiap/attention-sampling.git), in which we found that in low data scenarios, generalizability suffers as the object-to-image (O2I) ratio decreases. To robustify these scenarios, we perform repeated experiments  tuning the patch size and pretraining strategy as well as implementing two previously introduced regularisation strategies. Specifically, we implement Stochastic top-K Instance Masking and Diversity regularisation as presented by [dazhangyu123/ACMIL](https://github.com/dazhangyu123/ACMIL.git). Our work identifies that as the object-to-image ratio decreases, performance suffers in low data settings for IPS (Bergner, Lippert, and Mahendran 2023). We find that this vulnerability can be marginally mitigated by tuning the patch size and using Diversity loss for the Swedish traffic signs dataset (refer to the report in the repo).
-
-## 🏆 Contributions
-
-Our contributions that build upon the implementation by [benbergner/ips](https://github.com/benbergner/ips.git) are as follows:
-
-1. Adding a data generation script `PineneedleMegaMNIST.py` with updated noise and O2I varying strategy.
-2. Including semantic and diversity loss features in the `iterative.py` script.
-3. Adding stochastic attention masking features in `ips_net.py`.
-4. Introducing a new backbone strategy with ResNet-50, freezing all weights until the last layer in `ips_net.py`.
-5. Added 2 scripts for inference-producing attention maps (1 script per dataset).
+We performed repeated experiments with the Megapixel MNIST dataset and Swedish traffic sign datasets [idiap/attention-sampling](https://github.com/idiap/attention-sampling.git), in which we found that in low data scenarios, generalizability suffers as the object-to-image (O2I) ratio decreases. To robustify these scenarios, we perform repeated experiments  tuning the patch size and pretraining strategy. Our work identifies that as the object-to-image ratio decreases, performance suffers in low data settings for IPS (Bergner, Lippert, and Mahendran 2023). We find that this vulnerability can be mitigated by tuning the patch size.
 
 **Note:** All features can be activated and deactivated via the config files.
 
