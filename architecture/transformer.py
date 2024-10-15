@@ -1,10 +1,5 @@
 # Adapted from https://github.com/benbergner/ips.git
 # Here lies the heart of the transformer!!
-# In this script you will find the three things 
-# - The calculation of the attention values via the normalized project of the Queries and keys 
-# - The aggregation of the top-M patches weighted by their attention values.
-# - Importantly for our implementation of the Semantic loss where we attach an MLP to each head to make an individual prediction based on each head, we changed the script to return each attention head individually to compute the semantic loss in the script "training\iterative.py"
-# For debugging purposes we printed out the shapes of the embeddings at each stage and decided to keep them as comments as they are useful for visualizing how the images in each batch are processed together.
 
 import math
 import torch
